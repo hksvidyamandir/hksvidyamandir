@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, Compass, HeartPulse, Leaf, ShieldCheck, Sparkles, Trophy, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Bus, Cctv, Compass, HeartPulse, Leaf, ShieldCheck, Sparkles, Trophy, Users } from "lucide-react";
 import { img } from "@/assets/site";
 import gree from "@/assets/recognitions/gree.asset.json";
 import cbse from "@/assets/recognitions/cbse.asset.json";
 import microsoft from "@/assets/recognitions/microsoft.asset.json";
 import fit from "@/assets/recognitions/fit-india.asset.json";
 import { seo } from "@/lib/seo";
-import { CardGrid, CheckList, CtaBand, PageHero, PillList, Section, SectionHead, Split } from "@/components/site/blocks";
+import { CardGrid, CtaBand, PageHero, Section, SectionHead, Split } from "@/components/site/blocks";
 
 export const Route = createFileRoute("/about")({
   head: () => seo("About Us - Our Story, Vision & Values", "Learn about HKS Vidyamandir: our story since 2010, vision, mission, philosophy, learning model, leadership, wellbeing, recognitions and school life in Kenchattahalli.", "/about"),
@@ -56,13 +56,15 @@ function About() {
         </div>
       </Section>
 
-      {/* Philosophy */}
+      {/* Growth pathway */}
       <Section id="philosophy">
-        <Split image={img.campus2} alt="Students learning at HKS" reverse>
-          <SectionHead eyebrow="Our philosophy" title="Children learn best when they do, explore and reflect" />
-          <p className="mt-5 text-muted-foreground">We blend the CBSE framework with activity-based, concept-driven and application-oriented learning.</p>
-          <CheckList items={["Practical understanding over rote memorisation", "Continuous formative assessment and feedback", "Multi-disciplinary and skill-based modules", "Equal emphasis on mental and physical wellbeing", "Creativity encouraged from the nursery level"]} />
-        </Split>
+        <SectionHead center eyebrow="From understanding to confident action" title="The Proposed HKS Growth Pathway" intro="Meaningful learning takes a child from first understanding to confident application. The proposed HKS Growth Pathway brings together teaching, exploration, expression and reflection." />
+        <ol className="mt-10 grid gap-5 md:grid-cols-5">
+          {[["Know the Learner", "Understand each child's starting point, interests, strengths and support needs."], ["Build the Foundations", "Make concepts clear through teaching, modelling, practice, reading, numeracy and feedback."], ["Explore Ideas", "Ask questions, investigate, discuss and connect ideas through age-appropriate inquiry."], ["Apply and Express", "Use learning through projects, demonstrations, presentations, performance and problem-solving."], ["Reflect and Grow", "Recognise progress, use feedback, set next steps and seek support when needed."]].map(([t, d], i) => (
+            <li key={t} className="rounded-3xl bg-muted p-6"><span className="font-display text-3xl font-semibold text-flame">0{i + 1}</span><h3 className="mt-2 text-lg font-semibold text-navy">{t}</h3><p className="mt-2 text-sm text-muted-foreground">{d}</p></li>
+          ))}
+        </ol>
+        <p className="mt-8 text-center font-display text-xl text-navy">Know the child. Build the foundations. Open up the world. Help the child reflect and grow.</p>
       </Section>
 
       {/* Learning model */}
@@ -76,17 +78,20 @@ function About() {
         ]} /></div>
       </Section>
 
-      {/* Core values */}
+      {/* HKS advantage */}
       <Section id="values">
-        <SectionHead center eyebrow="What guides us" title="Our core values" />
-        <div className="mt-10"><CardGrid cols={3} items={[
-          { title: "Integrity", text: "Honesty and responsibility in every action, inside and outside the classroom." },
-          { title: "Excellence", text: "High standards in academics, sport and the arts - always our personal best." },
-          { title: "Respect", text: "Valuing every culture, opinion and individual in our community." },
-          { title: "Curiosity", text: "Asking questions, exploring ideas and loving the journey of learning." },
-          { title: "Compassion", text: "Kindness towards people and care for the environment we share." },
-          { title: "Discipline", text: "Structured routines that build focus, resilience and self-reliance." },
-        ]} /></div>
+        <SectionHead center eyebrow="The HKS advantage" title="Right choice for your child's education" />
+        <div className="mt-10"><CardGrid cols={4} items={([["Personalized Attention", "Small Class Sizes"], ["Practical Skills", "Real-World Application"], ["Innovative Learning", "Modern Teaching Methods"], ["Global Exposure", "International Programs"], ["Holistic Development", "Beyond Academics"], ["Hands-On Learning", "Practical Experience"], ["Individual Support", "Tailored Guidance"], ["Modern Facilities", "State-of-the-Art Infrastructure"]] as const).map(([title, text]) => ({ title, text }))} /></div>
+      </Section>
+
+      {/* Beyond academics */}
+      <Section tone="muted" id="activities">
+        <Split image={img.welcome} alt="Students together at HKS Vidyamandir">
+          <SectionHead eyebrow="One school. A world of possibility." title="A childhood full of wonder" />
+          <div className="mt-6 space-y-5">
+            {[[Trophy, "Sports and Fitness", "Cricket, football, basketball, badminton, athletics, table tennis, Yoga and More."], [Sparkles, "Arts and Culture", "Music, dance, visual arts, performances and cultural celebrations."], [Users, "Clubs and Leadership", "Public speaking, student clubs, house activities and competitions."]].map(([Icon, t, d]) => { const I = Icon as typeof Trophy; return <div key={t as string} className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-primary"><I className="h-5 w-5" /></span><div><h3 className="font-semibold text-navy">{t as string}</h3><p className="text-sm text-muted-foreground">{d as string}</p></div></div>; })}
+          </div>
+        </Split>
       </Section>
 
       {/* Journey */}
@@ -110,15 +115,12 @@ function About() {
         <div className="mt-8 text-center"><Link to="/leadership" className="site-cta inline-flex items-center gap-2 rounded-full px-6 py-3 font-bold">Read leadership messages <ArrowRight className="h-4 w-4" /></Link></div>
       </Section>
 
-      {/* Wellbeing */}
+      {/* Our offers */}
       <Section tone="muted" id="wellbeing">
         <Split image={img.campus4} alt="Students at HKS campus">
-          <SectionHead eyebrow="Wellbeing" title="Safe, healthy and happy children" />
+          <SectionHead eyebrow="Care beyond the classroom" title="Our Offers" />
           <div className="mt-6 space-y-5">
-            {[[HeartPulse, "Support & counselling", "Caring adults who listen, guide and help students through challenges."], [ShieldCheck, "Safety & care", "CCTV, security staff, safe transport and medical and first-aid support."], [Leaf, "Healthy lifestyle", "Daily sport, yoga, balanced routines and nutritious meals for residents."]].map(([Icon, t, d]) => {
-              const I = Icon as typeof HeartPulse;
-              return <div key={t as string} className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-primary"><I className="h-5 w-5" /></span><div><h3 className="font-semibold text-navy">{t as string}</h3><p className="text-sm text-muted-foreground">{d as string}</p></div></div>;
-            })}
+            {[[Bus, "Transportation", "School buses connect the city and nearby areas, making the daily journey to and from HKS convenient for students and families."], [Cctv, "CCTV", "CCTV monitoring supports campus safety, helping maintain a secure environment where students can learn, play and grow."], [ShieldCheck, "Security", "A secure campus perimeter and safety measures help create a protected environment for students throughout the school day."], [HeartPulse, "Medical & First Aid", "Medical and first-aid support helps address minor injuries and everyday health concerns, keeping student wellbeing at the heart of school life."]].map(([Icon, t, d]) => { const I = Icon as typeof HeartPulse; return <div key={t as string} className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-primary"><I className="h-5 w-5" /></span><div><h3 className="font-semibold text-navy">{t as string}</h3><p className="text-sm text-muted-foreground">{d as string}</p></div></div>; })}
           </div>
         </Split>
       </Section>
@@ -131,10 +133,14 @@ function About() {
         </ul>
       </Section>
 
-      {/* Policies */}
-      <Section tone="cream" id="policies">
-        <SectionHead center eyebrow="School policies" title="Clear policies, shared expectations" intro="Ask our office for a copy of any policy below." />
-        <div className="mt-8 flex justify-center"><PillList items={["Child protection & safeguarding", "Anti-bullying", "Admissions", "Fee & refund", "Transport", "Health & medical", "Code of conduct", "Residential life"]} /></div>
+      {/* Parent voices */}
+      <Section tone="cream" id="parents">
+        <SectionHead center eyebrow="Our parent stories" title="What parents say" />
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {[["There was a consistent focus on discipline, and academic performance. Teachers explain concepts clearly and give personal attention. I was seeing a good balance of academics and co-curricular activities, opportunities for sports, cultural programmes and competitions that help build confidence and communication skills.", "Mr. Kariappa", "Parent of Lakshitha"], ["Teachers always go that extra mile to bring out the best in every child under the valuable guidance of their principal. The curriculum gives equal importance to both mental and physical health. The teachers emphasise creativity right from the nursery level and work on the best talent of each child.", "Dr Maimoona Arshi", "Parent of Abdul Majeeb"]].map(([q, n, r]) => (
+            <figure key={n} className="rounded-3xl bg-card p-8 shadow-soft"><blockquote className="text-muted-foreground">"{q}"</blockquote><figcaption className="mt-4 font-semibold text-navy">{n} <span className="font-normal text-muted-foreground">- {r}</span></figcaption></figure>
+          ))}
+        </div>
       </Section>
 
       {/* Explore */}
