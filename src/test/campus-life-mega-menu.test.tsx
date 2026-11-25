@@ -10,29 +10,24 @@ vi.mock("@tanstack/react-router", () => ({
 afterEach(cleanup);
 
 describe("Campus Life mega menu", () => {
-  it("segregates Campus Life by the four Vidyas plus welfare and services and switches panels", () => {
+  it("lists all 9 non-residential categories from slides 3-12 and switches tick points on hover/click", () => {
     render(<CampusLifeMegaMenu />);
     const tabs = screen.getAllByRole("tab");
-    expect(tabs).toHaveLength(6);
+    expect(tabs).toHaveLength(9);
     expect(CAMPUS_LIFE_MEGA_MENU.some((c) => /board|residen|hostel/i.test(c.label))).toBe(false);
 
-    // Initial active panel is Krishi Vidya
+    // Initial active panel is Experiential Learning
     let panel = screen.getByRole("tabpanel");
-    expect(within(panel).getByText("Life Skills Education - Organic Farming & Horticulture")).toBeInTheDocument();
+    expect(within(panel).getByText("Virtual Reality (VR) Room")).toBeInTheDocument();
 
-    // Switch to Khel Vidya
-    fireEvent.mouseEnter(screen.getByRole("tab", { name: /Khel Vidya/ }));
+    // Switch to Laboratories
+    fireEvent.mouseEnter(screen.getByRole("tab", { name: "Laboratories" }));
+    panel = screen.getByRole("tabpanel");
+    expect(within(panel).getByText("Artificial Intelligence and Machine Learning Lab")).toBeInTheDocument();
+
+    // Switch to Sports & Physical Education
+    fireEvent.click(screen.getByRole("tab", { name: "Sports & Physical Education" }));
     panel = screen.getByRole("tabpanel");
     expect(within(panel).getByText("Athletics & Archery")).toBeInTheDocument();
-
-    // Switch to Anubhav Vidya
-    fireEvent.click(screen.getByRole("tab", { name: /Anubhav Vidya/ }));
-    panel = screen.getByRole("tabpanel");
-    expect(within(panel).getByText("Robotics, AI & Machine Learning Labs")).toBeInTheDocument();
-
-    // Switch to Samskriti Vidya
-    fireEvent.click(screen.getByRole("tab", { name: /Samskriti Vidya/ }));
-    panel = screen.getByRole("tabpanel");
-    expect(within(panel).getByText("Creative Arts and Design Studio")).toBeInTheDocument();
   });
 });
