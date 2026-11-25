@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { img } from "@/assets/site";
+import anubhav2 from "@/assets/vidya-anubhav-2.jpg";
+import { programmePhotos } from "@/lib/programme-photos";
 import { seo } from "@/lib/seo";
+import { AcademicCommonSections } from "@/components/site/AcademicCommonSections";
 import { CardGrid, CheckList, CtaBand, PageHero, PillList, Section, SectionHead, Split } from "@/components/site/blocks";
 
 export const Route = createFileRoute("/competitive-exams")({
@@ -11,9 +13,9 @@ export const Route = createFileRoute("/competitive-exams")({
 function Comp() {
   return (
     <>
-      <PageHero crumb="Competitive Exams" eyebrow="Competitive edge" title="Preparing champions, early and confidently" intro="Age-appropriate, integrated preparation for national and international examinations - within the school day." image={img.topper3} />
+      <PageHero crumb="Competitive Exams" eyebrow="Competitive edge" title="Preparing champions, early and confidently" intro="Age-appropriate, integrated preparation for national and international examinations - within the school day." image={anubhav2} />
       <Section>
-        <Split image={img.topper2} alt="HKS students preparing for competitive exams">
+        <Split image={programmePhotos.senior[2]!.src} alt="HKS students preparing for competitive exams">
           <SectionHead eyebrow="Integrated programme" title="NEET & JEE foundation from Grade 6" />
           <p className="mt-4 text-muted-foreground">Progressive, concept-first preparation that grows with your child - no separate coaching needed.</p>
           <CheckList items={["Conceptual depth in Physics, Chemistry, Biology & Maths", "Mental ability, aptitude and logical reasoning", "Scholastic Aptitude Test (SAT) practice", "Regular mock tests and performance analytics", "Doubt-clearing sessions with subject experts"]} />
@@ -32,8 +34,9 @@ function Comp() {
       </Section>
       <Section>
         <SectionHead center eyebrow="Study abroad" title="International test preparation" intro="Examination-wise modules, mock assessments and guidance for international university admissions." />
-        <div className="flex justify-center"><PillList items={["Digital SAT", "ACT", "PSAT", "AP Examinations", "Cambridge English", "TOEFL", "IELTS"]} /></div>
+        <PillList center items={["Digital SAT", "ACT", "PSAT", "AP Examinations", "Cambridge English", "TOEFL", "IELTS"]} />
       </Section>
+      <AcademicCommonSections />
       <CtaBand />
     </>
   );

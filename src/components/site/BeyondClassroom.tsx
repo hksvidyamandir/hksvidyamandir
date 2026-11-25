@@ -22,28 +22,28 @@ import { KrishiIcon, KhelIcon, AnubhavIcon, SamskritiIcon } from "./VidyaIcons";
 
 const groups = [
   { id: "krishi", name: "Krishi Vidya", Icon: KrishiIcon, subtitle: "Nature becomes the classroom.", topics: [
-    { title: "Experiential Learning", text: "Planting, gardening and hands-on experiences bring learning to life.", image: krishi1, alt: "Illustrative photograph of planting a seedling", to: "/experiential-learning" as const },
-    { title: "Organic Farming & Gardening", text: "Sowing, caring for plants and harvesting connect learning with nature.", image: krishi2, alt: "Illustrative photograph of students harvesting vegetables with a teacher in a garden", to: "/experiential-learning" as const },
-    { title: "Horticulture & Sustainability", text: "Horticulture activities and environmental awareness help students learn to care for nature.", image: krishi3, alt: "Illustrative photograph of students and a teacher caring for young garden plants", to: "/experiential-learning" as const },
-    { title: "Composting & Environmental Care", text: "Hands-on environmental activities turn everyday choices into care for our planet.", image: krishi4, alt: "Illustrative photograph of students composting garden leaves", to: "/experiential-learning" as const },
+    { title: "Experiential Learning", text: "Planting, gardening and hands-on experiences bring learning to life.", image: krishi1, alt: "Illustrative photograph of planting a seedling", to: "/krishi-vidya" as const },
+    { title: "Organic Farming & Gardening", text: "Sowing, caring for plants and harvesting connect learning with nature.", image: krishi2, alt: "Illustrative photograph of students harvesting vegetables with a teacher in a garden", to: "/krishi-vidya" as const },
+    { title: "Horticulture & Sustainability", text: "Horticulture activities and environmental awareness help students learn to care for nature.", image: krishi3, alt: "Illustrative photograph of students and a teacher caring for young garden plants", to: "/krishi-vidya" as const },
+    { title: "Composting & Environmental Care", text: "Hands-on environmental activities turn everyday choices into care for our planet.", image: krishi4, alt: "Illustrative photograph of students composting garden leaves", to: "/krishi-vidya" as const },
   ] },
   { id: "khel", name: "Khel Vidya", Icon: KhelIcon, subtitle: "Movement, wellbeing and team spirit.", topics: [
-    { title: "Physical Education", text: "Sport, yoga and fitness develop confidence, discipline and teamwork.", image: khel1, alt: "Illustrative photograph of students playing basketball", to: "/sports" as const },
-    { title: "Indoor Sports", text: "Indoor games strengthen coordination, concentration and sporting confidence.", image: khel2, alt: "Illustrative photograph of students playing table tennis", to: "/campus" as const },
-    { title: "Yoga, Dance & Fitness", text: "Movement and mindful practice encourage confidence, coordination and joy.", image: khel3, alt: "Illustrative photograph of students practicing yoga with a teacher outdoors", to: "/sports" as const },
-    { title: "Athletics & Teamwork", text: "Relay activities and sporting challenges build resilience and team spirit.", image: khel4, alt: "Illustrative photograph of students passing a relay baton", to: "/sports" as const },
+    { title: "Physical Education", text: "Sport, yoga and fitness develop confidence, discipline and teamwork.", image: khel1, alt: "Illustrative photograph of students playing basketball", to: "/khel-vidya" as const },
+    { title: "Indoor Sports", text: "Indoor games strengthen coordination, concentration and sporting confidence.", image: khel2, alt: "Illustrative photograph of students playing table tennis", to: "/khel-vidya" as const },
+    { title: "Yoga, Dance & Fitness", text: "Movement and mindful practice encourage confidence, coordination and joy.", image: khel3, alt: "Illustrative photograph of students practicing yoga with a teacher outdoors", to: "/khel-vidya" as const },
+    { title: "Athletics & Teamwork", text: "Relay activities and sporting challenges build resilience and team spirit.", image: khel4, alt: "Illustrative photograph of students passing a relay baton", to: "/khel-vidya" as const },
   ] },
   { id: "anubhav", name: "Anubhav Vidya", Icon: AnubhavIcon, subtitle: "Curiosity meets real-world discovery.", topics: [
-    { title: "Laboratories", text: "Experiments and practical exploration connect ideas with discovery.", image: anubhav1, alt: "Illustrative photograph of a supervised school science experiment", to: "/campus" as const },
-    { title: "Competitive Exams & Olympiads", text: "Focused preparation and problem-solving strengthen understanding, reasoning and academic confidence.", image: anubhav2, alt: "Illustrative photograph of students preparing for competitive exams", to: "/competitive-exams" as const },
-    { title: "Industry Orientation", text: "Real-world projects connect classroom learning with practical applications.", image: anubhav3, alt: "Illustrative photograph of an educational engineering workshop visit", to: "/experiential-learning" as const },
-    { title: "Robotics & Maker Projects", text: "Designing, coding and building help young thinkers turn ideas into practical solutions.", image: anubhav4, alt: "Illustrative photograph of students building an educational robot", to: "/experiential-learning" as const },
+    { title: "Laboratories", text: "Experiments and practical exploration connect ideas with discovery.", image: anubhav1, alt: "Illustrative photograph of a supervised school science experiment", to: "/anubhav-vidya" as const },
+    { title: "Competitive Exams & Olympiads", text: "Focused preparation and problem-solving strengthen understanding, reasoning and academic confidence.", image: anubhav2, alt: "Illustrative photograph of students preparing for competitive exams", to: "/anubhav-vidya" as const },
+    { title: "Industry Orientation", text: "Real-world projects connect classroom learning with practical applications.", image: anubhav3, alt: "Illustrative photograph of an educational engineering workshop visit", to: "/anubhav-vidya" as const },
+    { title: "Robotics & Maker Projects", text: "Designing, coding and building help young thinkers turn ideas into practical solutions.", image: anubhav4, alt: "Illustrative photograph of students building an educational robot", to: "/anubhav-vidya" as const },
   ] },
   { id: "samskruti", name: "Samskriti Vidya", Icon: SamskritiIcon, subtitle: "Expression, culture and connections.", topics: [
-    { title: "Student Clubs", text: "Shared interests, house activities and teamwork create opportunities to participate.", image: samskruti1, alt: "Illustrative photograph of a student public speaking club", to: "/campus-life" as const },
-    { title: "Events & Celebrations", text: "Festivals, performances and annual events celebrate every student's expression.", image: samskruti2, alt: "Illustrative photograph of students celebrating with flower rangoli", to: "/campus-life" as const },
-    { title: "Student Performances", text: "Music, dance and creative expression give students opportunities to perform and connect.", image: samskruti3, alt: "Illustrative photograph of students enjoying music and dance with a teacher", to: "/campus-life" as const },
-    { title: "Leadership & Community", text: "Shared projects encourage student initiative, participation and thoughtful leadership.", image: samskruti4, alt: "Illustrative photograph of students planning a community project", to: "/campus-life" as const },
+    { title: "Student Clubs", text: "Shared interests, house activities and teamwork create opportunities to participate.", image: samskruti1, alt: "Illustrative photograph of a student public speaking club", to: "/samskriti-vidya" as const },
+    { title: "Events & Celebrations", text: "Festivals, performances and annual events celebrate every student's expression.", image: samskruti2, alt: "Illustrative photograph of students celebrating with flower rangoli", to: "/samskriti-vidya" as const },
+    { title: "Student Performances", text: "Music, dance and creative expression give students opportunities to perform and connect.", image: samskruti3, alt: "Illustrative photograph of students enjoying music and dance with a teacher", to: "/samskriti-vidya" as const },
+    { title: "Leadership & Community", text: "Shared projects encourage student initiative, participation and thoughtful leadership.", image: samskruti4, alt: "Illustrative photograph of students planning a community project", to: "/samskriti-vidya" as const },
   ] },
 ];
 

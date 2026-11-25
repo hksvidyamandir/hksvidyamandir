@@ -14,7 +14,7 @@ const steps = [["Enquire", "Fill the enquiry form or call our admissions office.
 const ages = [["Nursery", "3+ years"], ["LKG", "4+ years"], ["UKG", "5+ years"], ["Grade 1", "6+ years"], ["Grade 2 onwards", "As per CBSE norms & previous class"]];
 const faqs: [string, string][] = [
   ["When do admissions open?", "Admissions for 2026-27 are open now for Nursery to Grade 12, subject to seat availability."],
-  ["Do you offer boarding?", "Yes - full boarding and HKS Flexi-Boarding (weekday residential) programmes."],
+  ["Which curriculum does HKS follow?", "HKS Vidyamandir follows the CBSE curriculum from Nursery to Grade 12, enriched with experiential learning and our Four Vidyas."],
   ["Is transport available?", "Yes, school buses cover the city and surrounding areas."],
   ["Are scholarships available?", "Merit-based and sibling concessions are available. Please contact the admissions office for details."],
 ];
@@ -22,7 +22,7 @@ const faqs: [string, string][] = [
 function Admissions() {
   return (
     <>
-      <PageHero crumb="Admissions" eyebrow="Admissions open 2026-27" title="Begin your child's HKS journey" intro="Nursery to Grade 12 · Day scholar, full boarding and flexi-boarding options." image={img.campus5} />
+      <PageHero crumb="Admissions" eyebrow="Admissions open 2026-27" title="Begin your child's HKS journey" intro="Nursery to Grade 12 · Holistic CBSE education in Karnataka." image={img.building} />
       <Section>
         <SectionHead center eyebrow="Admission journey" title="Five simple steps" />
         <ol className="mt-12 grid gap-4 md:grid-cols-5">

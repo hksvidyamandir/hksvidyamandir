@@ -8,9 +8,6 @@ export function schoolChatReply(question: string): string {
   if (/visit|tour/.test(text)) {
     return "You can request a virtual visit or campus tour using the options below. Our team will confirm the arrangements.";
   }
-  if (/board|hostel|residen/.test(text)) {
-    return "HKS Vidyamandir offers day and residential schooling. Explore Residential Life below, or contact our team for current boarding details.";
-  }
   if (/admission|apply|enrol/.test(text)) {
     return "Admissions enquiries are open for 2026-27, from Nursery to Grade 12. Visit our Admissions page or speak with our team to discuss your child's application.";
   }
@@ -21,7 +18,7 @@ export function schoolChatReply(question: string): string {
     return `Find us at ${SITE.address}. Call ${SITE.phones.map((phone) => phone.label).join(", ")} or email ${SITE.email}.`;
   }
   if (/^(hi|hello|hey)\b/.test(text)) {
-    return "Hello! What would you like to know about admissions, academics, residential life or visiting HKS Vidyamandir?";
+    return "Hello! What would you like to know about admissions, academics, campus life or visiting HKS Vidyamandir?";
   }
-  return "I can help with school information about admissions, academics, residential life and campus visits. For other questions, please speak with our team on WhatsApp below.";
+  return "I can help with school information about admissions, academics, campus life and campus visits. For other questions, please speak with our team on WhatsApp below.";
 }

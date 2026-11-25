@@ -879,6 +879,8 @@
 @media (max-width: 767px) {
   .pillars-showcase { padding-block: 48px; }
   .pillars-showcase .curr-track { height: auto; }
+  .pillars-showcase .curr-card:not(.is-active) .curr-num { top: 50%; bottom: auto; transform: translateY(-50%); }
+  .pillars-showcase .curr-card:not(.is-active) h3 { min-height: 0; line-height: 1.25; }
   .pillars-showcase .curr-card.is-active { flex: none; height: 600px; }
   .pillars-showcase .curr-card.is-active .curr-body { padding: 24px; justify-content: center; }
   .pillars-showcase .curr-card.is-active h3 { font-size: 28px; }
@@ -1139,17 +1141,19 @@
 @media (prefers-reduced-motion: reduce) { .fam-card, .fam-photo img, .fam-open { transition: none; } }
 .fam-photo { aspect-ratio: auto; } .fam-photo img { display: block; aspect-ratio: 16/10; height: auto; }
 /* Students speak carousel */
-.stu-section::before { background: linear-gradient(180deg, color-mix(in oklab, var(--navy) 12%, var(--background)), color-mix(in oklab, var(--background) 90%, transparent)); }
-.stu-wrap { position: relative; margin-top: 52px; }
-.stu-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 56px) / 3); gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 4px 40px; scrollbar-width: none; }
+.stu-section::before { background: linear-gradient(180deg, color-mix(in oklab, var(--navy) 8%, var(--background)), color-mix(in oklab, var(--background) 92%, transparent)); }
+.stu-wrap { position: relative; margin-top: 40px; }
+.stu-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 56px) / 3); gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 4px 28px; scrollbar-width: none; }
+.stu-track.stu-track-two { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 480px)); justify-content: center; overflow-x: visible; }
 .stu-track::-webkit-scrollbar { display: none; }
 .stu-card { scroll-snap-align: start; }
-.stu-nav { position: absolute; top: 40%; z-index: 2; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px; background: var(--navy); color: var(--navy-foreground); box-shadow: 0 14px 26px -12px color-mix(in oklab, var(--navy) 80%, transparent); transition: background .3s, transform .3s; }
-.stu-nav svg { width: 20px; height: 20px; }
-.stu-nav:hover { background: var(--gold); color: var(--navy); transform: scale(1.08); }
-.stu-prev { left: -22px; } .stu-next { right: -22px; }
+.tst-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.stu-controls { display: inline-flex; align-items: center; gap: 8px; }
+.stu-nav { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--navy); transition: background .25s, color .25s, border-color .25s; }
+.stu-nav svg { width: 18px; height: 18px; }
+.stu-nav:hover { background: var(--navy); color: var(--navy-foreground); border-color: var(--navy); }
 @media (max-width: 1024px) { .stu-track { grid-auto-columns: calc((100% - 28px) / 2); } }
-@media (max-width: 640px) { .stu-track { grid-auto-columns: 85%; } .stu-prev { left: -6px; } .stu-next { right: -6px; } }
+@media (max-width: 640px) { .stu-track { grid-auto-columns: 86%; } .stu-track.stu-track-two { grid-template-columns: 1fr; } }
 /* Experiences that speak (families) */
 .exp-section { padding: clamp(72px, 9vw, 120px) 0; background: var(--background); }
 .exp-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
@@ -1489,15 +1493,15 @@
   animation: scroll-top-in 0.24s ease-out both;
 }
 /* Recognition band: warm gold strip, heading left, logos right */
-.recognition-strip { background: var(--card); padding: 30px 0; border-bottom: 1px solid var(--home-line); }
+.recognition-strip { background: var(--card); padding: 34px 0; border-top: 1px solid var(--home-line); border-bottom: 1px solid var(--home-line); }
 .recognition-inner { display: flex; align-items: center; justify-content: center; gap: 48px; }
 .recognition-heading { text-align: left; flex: none; }
 .recognition-heading .home-kicker { color: var(--primary); }
 .recognition-heading h2 { font-size: 26px; color: var(--navy); margin: 6px 0 0; }
-.recognition-logos { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.recognition-logos { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 36px; list-style: none; margin: 0; padding: 0; }
 .recognition-logos li { min-width: 0; }
 .recognition-image { display: grid; place-items: center; transition: transform 240ms ease; }
-.recognition-image img { width: 104px; height: 52px; object-fit: contain; }
+.recognition-image img { width: 120px; height: 60px; object-fit: contain; }
 .recognition-logos li:hover .recognition-image { transform: translateY(-3px); }
 @media (max-width: 1023px) {
   .recognition-inner { flex-direction: column; align-items: center; gap: 20px; }
@@ -1539,7 +1543,8 @@
 /* Testimonials header with tabs */
 .tst-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; text-align: left; flex-wrap: wrap; }
 .tst-tabs { display: inline-flex; gap: 6px; padding: 6px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); }
-.tst-tabs button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 999px; font-weight: 700; font-size: 14px; color: var(--navy); transition: background .25s, color .25s; }
+.tst-tabs button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 999px; font-weight: 700; font-size: 14px; background: transparent; color: var(--navy); transition: background .25s, color .25s; }
+.tst-tabs button:hover:not(.is-active) { background: var(--muted); }
 .tst-tabs button.is-active { background: var(--navy); color: var(--navy-foreground); }
 .tst-tabs button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 

@@ -8,7 +8,7 @@ export const voices = [
   { name: "Ananya R.", grade: "Grade 10 student", image: img.campus2, text: "My teachers explain every concept until it really clicks. The labs and projects make science my favourite subject, and I feel ready for my board exams." },
   { name: "Rohan K.", grade: "Grade 8 student", image: img.campus4, text: "Sports practice every evening has made me fitter and more confident. I captained our team this year and learnt how to lead others." },
   { name: "Diya S.", grade: "Grade 12 student", image: img.progSenior, text: "The NEET foundation classes alongside regular CBSE studies saved me so much time. Mentors guide us patiently and track our progress closely." },
-  { name: "Arjun M.", grade: "Residential student, Grade 9", image: img.infra4, text: "The hostel feels like a second home. Study hours keep me focused, and weekends with friends are always full of fun activities." },
+  { name: "Arjun M.", grade: "Grade 9 student", image: img.infra4, text: "The campus feels like a second home. Guided study sessions keep me focused, and clubs and activities with friends make every week exciting." },
   { name: "Sneha P.", grade: "Grade 6 student", image: img.progElementary, text: "I love Annual Day and art club. Performing on stage helped me overcome my shyness, and now I enjoy speaking in assemblies too." },
 ];
 
@@ -25,14 +25,23 @@ export function StudentsSpeak() {
   const [selected, setSelected] = useState<number | null>(null);
   const v = selected === null ? undefined : group.list[selected];
   const scroll = (d: number) => { const el = track.current; if (!el) return; const card = el.querySelector<HTMLElement>(".fam-card"); el.scrollBy({ left: d * ((card?.offsetWidth ?? 320) + 28), behavior: "smooth" }); };
+  const showArrows = group.list.length > 2;
   return <section className="fam-section stu-section" aria-labelledby="students-speak-heading">
-    <img className="fam-bg" src={img.campus5} alt="" aria-hidden="true" loading="lazy" />
     <div className="container-site">
-      <div className="fam-head tst-head"><div><span className="home-kicker">In their own words</span><h2 id="students-speak-heading"><em>Testimonials</em></h2><p>What learning, growing and belonging at HKS feels like.</p></div>
-        <div className="tst-tabs" role="tablist" aria-label="Testimonials by">{groups.map(({ label, Icon }, i) => <button key={label} type="button" role="tab" id={`tst-tab-${i}`} aria-selected={tab === i} aria-controls="tst-panel" className={tab === i ? "is-active" : ""} onClick={() => { setTab(i); setSelected(null); track.current?.scrollTo({ left: 0 }); }}><Icon size={16} aria-hidden="true" />{label}</button>)}</div></div>
+      <div className="fam-head tst-head">
+        <div><span className="home-kicker">In their own words</span><h2 id="students-speak-heading">Student &amp; parent <em>stories.</em></h2><p>What learning, growing and belonging at HKS feels like.</p></div>
+        <div className="tst-actions">
+          <div className="tst-tabs" role="tablist" aria-label="Testimonials by">{groups.map(({ label, Icon }, i) => <button key={label} type="button" role="tab" id={`tst-tab-${i}`} aria-selected={tab === i} aria-controls="tst-panel" className={tab === i ? "is-active" : ""} onClick={() => { setTab(i); setSelected(null); track.current?.scrollTo({ left: 0 }); }}><Icon size={16} aria-hidden="true" />{label}</button>)}</div>
+          {showArrows && (
+            <div className="stu-controls">
+              <button type="button" className="stu-nav" onClick={() => scroll(-1)} aria-label="Previous testimonials"><ArrowLeft /></button>
+              <button type="button" className="stu-nav" onClick={() => scroll(1)} aria-label="Next testimonials"><ArrowRight /></button>
+            </div>
+          )}
+        </div>
+      </div>
       <div className="stu-wrap">
-        <button type="button" className="stu-nav stu-prev" onClick={() => scroll(-1)} aria-label="Previous testimonials"><ArrowLeft /></button>
-        <div className="stu-track" ref={track} id="tst-panel" role="tabpanel" aria-labelledby={`tst-tab-${tab}`}>
+        <div className={`stu-track ${group.list.length === 2 ? "stu-track-two" : ""}`} ref={track} id="tst-panel" role="tabpanel" aria-labelledby={`tst-tab-${tab}`}>
           {group.list.map((item, i) => <article key={item.name} className="fam-card stu-card">
             <div className="fam-photo"><img src={item.image} alt={`${item.name} at HKS`} loading="lazy" /><span className="fam-quote"><Quote size={20} /></span></div>
             <div className="fam-body">
@@ -42,7 +51,6 @@ export function StudentsSpeak() {
             </div>
           </article>)}
         </div>
-        <button type="button" className="stu-nav stu-next" onClick={() => scroll(1)} aria-label="Next testimonials"><ArrowRight /></button>
       </div>
     </div>
     <Dialog open={Boolean(v)} onOpenChange={o => { if (!o) setSelected(null); }}>

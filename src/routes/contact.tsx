@@ -10,7 +10,7 @@ import type { ReactNode } from "react";
 export type VisitKind = "virtual" | "tour";
 
 export const Route = createFileRoute("/contact")({
-  head: () => seo("Contact Us - Visit Our Campus", `Contact HKS Vidyamandir, NH 75, Kenchattahalli. Call ${SITE.phones.map((phone) => phone.label).join(", ")} or email ${SITE.email} to book a campus tour.`, "/contact"),
+  head: () => seo("Contact Us - Visit Our Campus", `Contact HKS Vidyamandir, ${SITE.address}. Call ${SITE.phones.map((phone) => phone.label).join(", ")} or email ${SITE.email} to book a campus tour.`, "/contact"),
   validateSearch: (search: Record<string, unknown>): { visit?: VisitKind } => ({
     ...(search["visit"] === "virtual" || search["visit"] === "tour" ? { visit: search["visit"] } : {}),
   }),
@@ -30,7 +30,7 @@ function Contact() {
   ];
   return (
     <>
-      <PageHero crumb="Contact" eyebrow="Get in touch" title="We'd love to welcome you" intro="Education for a better tomorrow - reach out, visit, or send us an enquiry." image={img.infra5} />
+      <PageHero crumb="Contact" eyebrow="Get in touch" title="We'd love to welcome you" intro="Education for a better tomorrow - reach out, visit, or send us an enquiry." image={img.building} />
       <Section>
         <div className="grid grid-cols-1 md:grid-cols-none gap-10 lg:grid-cols-2">
           <div className="min-w-0 md:min-w-auto space-y-4">

@@ -13,15 +13,20 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as AdmissionsRouteImport } from './routes/admissions'
-import { Route as BoardingRouteImport } from './routes/boarding'
+import { Route as AnubhavVidyaRouteImport } from './routes/anubhav-vidya'
 import { Route as CampusRouteImport } from './routes/campus'
 import { Route as CampusLifeRouteImport } from './routes/campus-life'
 import { Route as CompetitiveExamsRouteImport } from './routes/competitive-exams'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EarlyYearsRouteImport } from './routes/early-years'
 import { Route as ExperientialLearningRouteImport } from './routes/experiential-learning'
-import { Route as LeadershipRouteImport } from './routes/leadership'
+import { Route as HighSchoolRouteImport } from './routes/high-school'
+import { Route as KhelVidyaRouteImport } from './routes/khel-vidya'
+import { Route as KrishiVidyaRouteImport } from './routes/krishi-vidya'
+import { Route as PrimaryRouteImport } from './routes/primary'
+import { Route as SamskritiVidyaRouteImport } from './routes/samskriti-vidya'
+import { Route as SeniorSecondaryRouteImport } from './routes/senior-secondary'
 import { Route as SportsRouteImport } from './routes/sports'
-import { Route as WhyHksRouteImport } from './routes/why-hks'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,9 +48,9 @@ const AdmissionsRoute = AdmissionsRouteImport.update({
   path: '/admissions',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BoardingRoute = BoardingRouteImport.update({
-  id: '/boarding',
-  path: '/boarding',
+const AnubhavVidyaRoute = AnubhavVidyaRouteImport.update({
+  id: '/anubhav-vidya',
+  path: '/anubhav-vidya',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CampusRoute = CampusRouteImport.update({
@@ -68,24 +73,49 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EarlyYearsRoute = EarlyYearsRouteImport.update({
+  id: '/early-years',
+  path: '/early-years',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExperientialLearningRoute = ExperientialLearningRouteImport.update({
   id: '/experiential-learning',
   path: '/experiential-learning',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LeadershipRoute = LeadershipRouteImport.update({
-  id: '/leadership',
-  path: '/leadership',
+const HighSchoolRoute = HighSchoolRouteImport.update({
+  id: '/high-school',
+  path: '/high-school',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhelVidyaRoute = KhelVidyaRouteImport.update({
+  id: '/khel-vidya',
+  path: '/khel-vidya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KrishiVidyaRoute = KrishiVidyaRouteImport.update({
+  id: '/krishi-vidya',
+  path: '/krishi-vidya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrimaryRoute = PrimaryRouteImport.update({
+  id: '/primary',
+  path: '/primary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SamskritiVidyaRoute = SamskritiVidyaRouteImport.update({
+  id: '/samskriti-vidya',
+  path: '/samskriti-vidya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeniorSecondaryRoute = SeniorSecondaryRouteImport.update({
+  id: '/senior-secondary',
+  path: '/senior-secondary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsRoute = SportsRouteImport.update({
   id: '/sports',
   path: '/sports',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WhyHksRoute = WhyHksRouteImport.update({
-  id: '/why-hks',
-  path: '/why-hks',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -94,30 +124,40 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/admissions': typeof AdmissionsRoute
-  '/boarding': typeof BoardingRoute
+  '/anubhav-vidya': typeof AnubhavVidyaRoute
   '/campus': typeof CampusRoute
   '/campus-life': typeof CampusLifeRoute
   '/competitive-exams': typeof CompetitiveExamsRoute
   '/contact': typeof ContactRoute
+  '/early-years': typeof EarlyYearsRoute
   '/experiential-learning': typeof ExperientialLearningRoute
-  '/leadership': typeof LeadershipRoute
+  '/high-school': typeof HighSchoolRoute
+  '/khel-vidya': typeof KhelVidyaRoute
+  '/krishi-vidya': typeof KrishiVidyaRoute
+  '/primary': typeof PrimaryRoute
+  '/samskriti-vidya': typeof SamskritiVidyaRoute
+  '/senior-secondary': typeof SeniorSecondaryRoute
   '/sports': typeof SportsRoute
-  '/why-hks': typeof WhyHksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/admissions': typeof AdmissionsRoute
-  '/boarding': typeof BoardingRoute
+  '/anubhav-vidya': typeof AnubhavVidyaRoute
   '/campus': typeof CampusRoute
   '/campus-life': typeof CampusLifeRoute
   '/competitive-exams': typeof CompetitiveExamsRoute
   '/contact': typeof ContactRoute
+  '/early-years': typeof EarlyYearsRoute
   '/experiential-learning': typeof ExperientialLearningRoute
-  '/leadership': typeof LeadershipRoute
+  '/high-school': typeof HighSchoolRoute
+  '/khel-vidya': typeof KhelVidyaRoute
+  '/krishi-vidya': typeof KrishiVidyaRoute
+  '/primary': typeof PrimaryRoute
+  '/samskriti-vidya': typeof SamskritiVidyaRoute
+  '/senior-secondary': typeof SeniorSecondaryRoute
   '/sports': typeof SportsRoute
-  '/why-hks': typeof WhyHksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,15 +165,20 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/admissions': typeof AdmissionsRoute
-  '/boarding': typeof BoardingRoute
+  '/anubhav-vidya': typeof AnubhavVidyaRoute
   '/campus': typeof CampusRoute
   '/campus-life': typeof CampusLifeRoute
   '/competitive-exams': typeof CompetitiveExamsRoute
   '/contact': typeof ContactRoute
+  '/early-years': typeof EarlyYearsRoute
   '/experiential-learning': typeof ExperientialLearningRoute
-  '/leadership': typeof LeadershipRoute
+  '/high-school': typeof HighSchoolRoute
+  '/khel-vidya': typeof KhelVidyaRoute
+  '/krishi-vidya': typeof KrishiVidyaRoute
+  '/primary': typeof PrimaryRoute
+  '/samskriti-vidya': typeof SamskritiVidyaRoute
+  '/senior-secondary': typeof SeniorSecondaryRoute
   '/sports': typeof SportsRoute
-  '/why-hks': typeof WhyHksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -142,45 +187,60 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/admissions'
-    | '/boarding'
+    | '/anubhav-vidya'
     | '/campus'
     | '/campus-life'
     | '/competitive-exams'
     | '/contact'
+    | '/early-years'
     | '/experiential-learning'
-    | '/leadership'
+    | '/high-school'
+    | '/khel-vidya'
+    | '/krishi-vidya'
+    | '/primary'
+    | '/samskriti-vidya'
+    | '/senior-secondary'
     | '/sports'
-    | '/why-hks'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/academics'
     | '/admissions'
-    | '/boarding'
+    | '/anubhav-vidya'
     | '/campus'
     | '/campus-life'
     | '/competitive-exams'
     | '/contact'
+    | '/early-years'
     | '/experiential-learning'
-    | '/leadership'
+    | '/high-school'
+    | '/khel-vidya'
+    | '/krishi-vidya'
+    | '/primary'
+    | '/samskriti-vidya'
+    | '/senior-secondary'
     | '/sports'
-    | '/why-hks'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/academics'
     | '/admissions'
-    | '/boarding'
+    | '/anubhav-vidya'
     | '/campus'
     | '/campus-life'
     | '/competitive-exams'
     | '/contact'
+    | '/early-years'
     | '/experiential-learning'
-    | '/leadership'
+    | '/high-school'
+    | '/khel-vidya'
+    | '/krishi-vidya'
+    | '/primary'
+    | '/samskriti-vidya'
+    | '/senior-secondary'
     | '/sports'
-    | '/why-hks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -188,15 +248,20 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AcademicsRoute: typeof AcademicsRoute
   AdmissionsRoute: typeof AdmissionsRoute
-  BoardingRoute: typeof BoardingRoute
+  AnubhavVidyaRoute: typeof AnubhavVidyaRoute
   CampusRoute: typeof CampusRoute
   CampusLifeRoute: typeof CampusLifeRoute
   CompetitiveExamsRoute: typeof CompetitiveExamsRoute
   ContactRoute: typeof ContactRoute
+  EarlyYearsRoute: typeof EarlyYearsRoute
   ExperientialLearningRoute: typeof ExperientialLearningRoute
-  LeadershipRoute: typeof LeadershipRoute
+  HighSchoolRoute: typeof HighSchoolRoute
+  KhelVidyaRoute: typeof KhelVidyaRoute
+  KrishiVidyaRoute: typeof KrishiVidyaRoute
+  PrimaryRoute: typeof PrimaryRoute
+  SamskritiVidyaRoute: typeof SamskritiVidyaRoute
+  SeniorSecondaryRoute: typeof SeniorSecondaryRoute
   SportsRoute: typeof SportsRoute
-  WhyHksRoute: typeof WhyHksRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -229,11 +294,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdmissionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/boarding': {
-      id: '/boarding'
-      path: '/boarding'
-      fullPath: '/boarding'
-      preLoaderRoute: typeof BoardingRouteImport
+    '/anubhav-vidya': {
+      id: '/anubhav-vidya'
+      path: '/anubhav-vidya'
+      fullPath: '/anubhav-vidya'
+      preLoaderRoute: typeof AnubhavVidyaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/campus': {
@@ -264,6 +329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/early-years': {
+      id: '/early-years'
+      path: '/early-years'
+      fullPath: '/early-years'
+      preLoaderRoute: typeof EarlyYearsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/experiential-learning': {
       id: '/experiential-learning'
       path: '/experiential-learning'
@@ -271,11 +343,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExperientialLearningRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/leadership': {
-      id: '/leadership'
-      path: '/leadership'
-      fullPath: '/leadership'
-      preLoaderRoute: typeof LeadershipRouteImport
+    '/high-school': {
+      id: '/high-school'
+      path: '/high-school'
+      fullPath: '/high-school'
+      preLoaderRoute: typeof HighSchoolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khel-vidya': {
+      id: '/khel-vidya'
+      path: '/khel-vidya'
+      fullPath: '/khel-vidya'
+      preLoaderRoute: typeof KhelVidyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/krishi-vidya': {
+      id: '/krishi-vidya'
+      path: '/krishi-vidya'
+      fullPath: '/krishi-vidya'
+      preLoaderRoute: typeof KrishiVidyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/primary': {
+      id: '/primary'
+      path: '/primary'
+      fullPath: '/primary'
+      preLoaderRoute: typeof PrimaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/samskriti-vidya': {
+      id: '/samskriti-vidya'
+      path: '/samskriti-vidya'
+      fullPath: '/samskriti-vidya'
+      preLoaderRoute: typeof SamskritiVidyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/senior-secondary': {
+      id: '/senior-secondary'
+      path: '/senior-secondary'
+      fullPath: '/senior-secondary'
+      preLoaderRoute: typeof SeniorSecondaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sports': {
@@ -283,13 +390,6 @@ declare module '@tanstack/react-router' {
       path: '/sports'
       fullPath: '/sports'
       preLoaderRoute: typeof SportsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/why-hks': {
-      id: '/why-hks'
-      path: '/why-hks'
-      fullPath: '/why-hks'
-      preLoaderRoute: typeof WhyHksRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -300,15 +400,20 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AcademicsRoute: AcademicsRoute,
   AdmissionsRoute: AdmissionsRoute,
-  BoardingRoute: BoardingRoute,
+  AnubhavVidyaRoute: AnubhavVidyaRoute,
   CampusRoute: CampusRoute,
   CampusLifeRoute: CampusLifeRoute,
   CompetitiveExamsRoute: CompetitiveExamsRoute,
   ContactRoute: ContactRoute,
+  EarlyYearsRoute: EarlyYearsRoute,
   ExperientialLearningRoute: ExperientialLearningRoute,
-  LeadershipRoute: LeadershipRoute,
+  HighSchoolRoute: HighSchoolRoute,
+  KhelVidyaRoute: KhelVidyaRoute,
+  KrishiVidyaRoute: KrishiVidyaRoute,
+  PrimaryRoute: PrimaryRoute,
+  SamskritiVidyaRoute: SamskritiVidyaRoute,
+  SeniorSecondaryRoute: SeniorSecondaryRoute,
   SportsRoute: SportsRoute,
-  WhyHksRoute: WhyHksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
