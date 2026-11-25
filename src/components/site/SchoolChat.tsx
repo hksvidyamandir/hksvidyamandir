@@ -55,12 +55,12 @@ export function SchoolChat() {
           ))}
         </div>
         <div className="flex flex-wrap gap-2 border-t border-border px-4 py-3">
-          {["Admissions", "Campus visit", "Boarding"].map((topic) => <Button key={topic} variant="outline" size="sm" onClick={() => ask(topic)}>{topic}</Button>)}
+          {["Admissions", "Campus visit", "Academics"].map((topic) => <Button key={topic} variant="outline" size="sm" onClick={() => ask(topic)}>{topic}</Button>)}
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 px-4 pb-3 text-xs font-semibold text-navy">
           <Link to="/admissions" onClick={close}>Admissions</Link>
           <Link to="/academics" onClick={close}>Academics</Link>
-          <Link to="/boarding" onClick={close}>Residential Life</Link>
+          <Link to="/campus-life" onClick={close}>Campus Life</Link>
           <Link to="/contact" search={{ visit: "virtual" }} onClick={close}>Virtual visit</Link>
           <Link to="/contact" search={{ visit: "tour" }} onClick={close}>Campus tour</Link>
           <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">Speak with our team ↗</a>

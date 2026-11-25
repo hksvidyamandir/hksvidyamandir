@@ -2,15 +2,37 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, Phone, Mail, X } from "lucide-react";
 import { NAV, SITE, VIDYA } from "@/lib/site";
+import { CAMPUS_LIFE_MEGA_MENU } from "@/lib/campus-life-menu";
 import { img } from "@/assets/site";
 import { Button } from "@/components/ui/button";
+import { CampusLifeMegaMenu } from "@/components/site/CampusLifeMegaMenu";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
-  const closeMenu = () => { setOpen(false); setExpanded(null); };
+  const closeMenu = () => { setOpen(false); setExpanded(null); setMegaOpen(false); };
+
+  const openMega = () => {
+    if (megaTimer.current) clearTimeout(megaTimer.current);
+    setMegaOpen(true);
+  };
+  const scheduleCloseMega = () => {
+    if (megaTimer.current) clearTimeout(megaTimer.current);
+    megaTimer.current = setTimeout(() => setMegaOpen(false), 140);
+  };
+
+  useEffect(() => {
+    if (!megaOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMegaOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [megaOpen]);
 
   useEffect(() => {
     if (!open) return;
@@ -74,20 +96,41 @@ export function SiteHeader() {
         <div className="hidden lg:flex flex-col items-end gap-1.5">
           <div className="flex w-full flex-nowrap items-center justify-end gap-3 border-b border-border pb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-foreground/60 xl:gap-5">
             {VIDYA.map((v) => (
-              <span key={v.label} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-foreground/80">
+              <Link key={v.label} to={v.to} onClick={closeMenu} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-foreground/80 transition hover:text-primary">
                 <v.icon className={`h-5 w-5 shrink-0 ${v.tone}`} />
                 {v.label}
-              </span>
+              </Link>
             ))}
             <span className="hidden whitespace-nowrap min-[1600px]:inline">CBSE · Nursery - Grade 12</span>
-            <span className="hidden whitespace-nowrap min-[1600px]:inline">Day & Residential</span>
             <span className="whitespace-nowrap font-medium text-foreground/80">Admissions Open 2026-27</span>
           </div>
         <nav aria-label="Main" className="flex items-center gap-0.5">
           <Link to="/" className="px-3 py-2 text-sm font-semibold text-foreground hover:text-primary" activeOptions={{ exact: true }} activeProps={{ className: "text-primary" }}>Home</Link>
           {NAV.map((g) =>
-            g.children ? (
-              <div key={g.label} className="group relative">
+            g.label === "Campus Life" ? (
+              <div
+                key={g.label}
+                className="relative"
+                onMouseEnter={openMega}
+                onMouseLeave={scheduleCloseMega}
+              >
+                <Link
+                  to={g.to}
+                  onFocus={openMega}
+                  onClick={() => setMegaOpen(false)}
+                  aria-expanded={megaOpen}
+                  className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-semibold transition ${
+                    megaOpen
+                      ? "border border-navy/50 bg-card text-navy"
+                      : "border border-transparent text-foreground hover:text-primary"
+                  }`}
+                >
+                  {g.label}
+                  <ChevronDown className={`h-4 w-4 transition ${megaOpen ? "rotate-180" : ""}`} />
+                </Link>
+              </div>
+            ) : g.children ? (
+              <div key={g.label} className="group relative" onMouseEnter={() => setMegaOpen(false)}>
                 <Link to={g.to} className="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-foreground hover:text-primary">
                   {g.label}<ChevronDown className="h-4 w-4 transition group-hover:rotate-180" />
                 </Link>
@@ -104,7 +147,7 @@ export function SiteHeader() {
                 </div>
               </div>
             ) : (
-              <Link key={g.label} to={g.to} className="px-3 py-2 text-sm font-semibold text-foreground hover:text-primary" activeProps={{ className: "text-primary" }}>{g.label}</Link>
+              <Link key={g.label} to={g.to} onMouseEnter={() => setMegaOpen(false)} className="px-3 py-2 text-sm font-semibold text-foreground hover:text-primary" activeProps={{ className: "text-primary" }}>{g.label}</Link>
             ),
           )}
           <Button asChild className="ml-2 rounded-full px-5 font-bold"><Link to="/admissions" hash="enquire">Apply Now</Link></Button>
@@ -119,15 +162,27 @@ export function SiteHeader() {
         </div>
       </div>
 
+      {megaOpen && (
+        <div
+          className="hidden lg:block absolute inset-x-0 top-full z-50 pt-2"
+          onMouseEnter={openMega}
+          onMouseLeave={scheduleCloseMega}
+        >
+          <div className="container-site">
+            <CampusLifeMegaMenu onNavigate={() => setMegaOpen(false)} />
+          </div>
+        </div>
+      )}
+
       {open && (
         <nav id="mobile-navigation" aria-label="Mobile" className="lg:hidden border-t border-border bg-card max-h-[calc(100dvh-5rem)] md:max-h-[75vh] overflow-y-auto overscroll-contain">
           <div className="container-site py-3">
             <div className="flex flex-wrap items-center gap-1.5 pb-3 max-[768px]:grid max-[768px]:grid-cols-2 max-[768px]:gap-2">
               {VIDYA.map((v) => (
-                <span key={v.label} className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-muted/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground max-[768px]:min-h-11 max-[768px]:rounded-md max-[768px]:px-2 max-[768px]:text-[11px] max-[768px]:tracking-normal">
+                <Link key={v.label} to={v.to} onClick={closeMenu} className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-muted/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground transition hover:border-primary hover:text-primary max-[768px]:min-h-11 max-[768px]:rounded-md max-[768px]:px-2 max-[768px]:text-[11px] max-[768px]:tracking-normal">
                   <v.icon className={`h-5 w-5 shrink-0 ${v.tone}`} />
                   {v.label}
-                </span>
+                </Link>
               ))}
             </div>
             <div className="hidden border-b border-border pb-3 text-xs font-medium text-foreground/80 max-[768px]:block">Admissions Open 2026-27</div>
@@ -141,9 +196,17 @@ export function SiteHeader() {
                     </Button>
                     {expanded === g.label && (
                       <div className="pb-3 pl-3 space-y-1">
-                        {g.children.map((c) => (
-                          <Link key={c.label} to={c.to} onClick={closeMenu} className="flex min-h-11 items-center py-2 md:block md:min-h-0 md:py-1.5 text-sm text-muted-foreground hover:text-primary">{c.label}</Link>
-                        ))}
+                        {g.label === "Campus Life"
+                          ? CAMPUS_LIFE_MEGA_MENU.map((cat) => (
+                              <Link key={cat.id} to={cat.to} onClick={closeMenu} className="flex min-h-11 items-center py-2 md:block md:min-h-0 md:py-1.5 text-sm text-muted-foreground hover:text-primary">
+                                {cat.label}
+                              </Link>
+                            ))
+                          : g.children.map((c) => (
+                              <Link key={c.label} to={c.to} onClick={closeMenu} className="flex min-h-11 items-center py-2 md:block md:min-h-0 md:py-1.5 text-sm text-muted-foreground hover:text-primary">
+                                {c.label}
+                              </Link>
+                            ))}
                       </div>
                     )}
                   </>

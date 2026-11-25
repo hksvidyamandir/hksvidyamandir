@@ -112,10 +112,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           url: "https://hksinternationalschool.in/",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "NH 75, Bengaluru - Mangaluru Highway, Kenchattahalli",
-            addressLocality: "Kenchattahalli",
+            streetAddress: "Survey No. 28, Gram Panchayat, NPKL, S.M. Krishna Rd, near Sulikere, Kengeri",
+            addressLocality: "Bengaluru",
             addressRegion: "Karnataka",
-            postalCode: "573201",
+            postalCode: "560060",
             addressCountry: "IN",
           },
         }),

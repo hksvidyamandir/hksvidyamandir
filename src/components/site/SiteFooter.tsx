@@ -8,7 +8,7 @@ import { ScrollTop } from "@/components/site/ScrollTop";
 
 const COLS = [
   { label: "Home", links: [
-    { label: "Why HKS", to: "/why-hks" },
+    { label: "About Us", to: "/about" },
     { label: "Experiential Learning", to: "/experiential-learning" },
     { label: "Competitive Exams", to: "/competitive-exams" },
     { label: "Contact Us", to: "/contact" },
@@ -37,7 +37,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="container-site border-t border-border py-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {COLS.map((c) => (
             <div key={c.label}>
               <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-navy">{c.label}</p>
@@ -50,10 +50,10 @@ export function SiteFooter() {
           ))}
         </div>
         <p className="mt-10 max-w-5xl text-sm leading-relaxed text-foreground/80">
-          <strong className="text-navy">HKS Vidyamandir</strong> is a CBSE day & residential school on {SITE.address}. Founded in {SITE.founded}, HKS nurtures confident, future-ready learners from Nursery to Grade 12 - <strong className="text-navy">{SITE.tagline}</strong>.
+          <strong className="text-navy">HKS Vidyamandir</strong> is a CBSE school at {SITE.address}. Founded in {SITE.founded}, HKS nurtures confident, future-ready learners from Nursery to Grade 12 - <strong className="text-navy">{SITE.tagline}</strong>.
         </p>
       </div>
-      <div className="container-site flex flex-col gap-2 border-t border-border py-5 text-xs text-foreground/70 sm:flex-row sm:justify-between">
+      <div className="container-site flex flex-col gap-2 border-t border-border pt-5 pb-36 text-xs text-foreground/70 sm:flex-row sm:justify-between md:pb-16">
         <p>© {new Date().getFullYear()} HKS Vidyamandir. All rights reserved.</p>
         <p className="flex min-w-0 flex-wrap gap-x-4 gap-y-2">{SITE.phones.map((phone) => <a key={phone.href} href={phone.href} className="whitespace-nowrap hover:text-primary">{phone.label}</a>)}<a href={`mailto:${SITE.email}`} className="min-w-0 break-all hover:text-primary">{SITE.email}</a></p>
       </div>

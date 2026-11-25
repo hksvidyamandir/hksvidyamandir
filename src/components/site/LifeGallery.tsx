@@ -10,7 +10,7 @@ const photos = [
   { label: "Primary School (Grades 3 - 5)", src: img.progElementary },
   { label: "Middle & High (Grades 6 - 10)", src: img.progCbse },
   { label: "Senior Secondary (Grades 11 - 12)", src: img.progSenior },
-  { label: "Residential Life", src: img.infra4 },
+  { label: "Campus Life", src: img.building },
   { label: "Science & Technology", src: img.infra1 },
   { label: "The Arts", src: img.campus3 },
   { label: "Sports", src: img.campus4 },

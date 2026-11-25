@@ -23,7 +23,7 @@ export function PageHero({ eyebrow, title, intro, image, crumb }: { eyebrow: str
 
 export function SectionHead({ eyebrow, title, intro, center }: { eyebrow: string; title: string; intro?: string; center?: boolean }) {
   return (
-    <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+    <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-2xl"}>
       <span className="eyebrow">{eyebrow}</span>
       <h2 className="mt-3 text-3xl md:text-5xl font-semibold text-navy leading-tight">{title}</h2>
       {intro && <p className="mt-4 text-muted-foreground text-lg">{intro}</p>}
@@ -51,9 +51,9 @@ export function CardGrid({ items, cols = 3 }: { items: { title: string; text: st
   );
 }
 
-export function PillList({ items }: { items: string[] }) {
+export function PillList({ items, center = false }: { items: string[]; center?: boolean }) {
   return (
-    <ul className="mt-6 flex flex-wrap gap-2">
+    <ul className={`flex flex-wrap ${center ? "mx-auto mt-8 max-w-4xl justify-center gap-3" : "mt-6 gap-2"}`}>
       {items.map((i) => <li key={i} className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-navy">{i}</li>)}
     </ul>
   );
@@ -84,7 +84,7 @@ export function Split({ image, alt, children, reverse }: { image: string; alt: s
 export function CtaBand({ title = "Give your child wings to succeed", text = "Admissions are open for 2026-27, from Nursery to Grade 12. Visit our campus or speak to our admissions team today." }: { title?: string; text?: string }) {
   return (
     <section className="relative isolate overflow-hidden bg-photo-shade text-navy-foreground">
-      <img src={img.infra3} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+      <img src={img.building} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
       <div className="absolute inset-0 -z-10 bg-photo-shade/75" aria-hidden="true" />
       <div className="container-site flex flex-col items-start gap-8 py-20 md:flex-row md:items-center md:justify-between">
         <div className="max-w-2xl">

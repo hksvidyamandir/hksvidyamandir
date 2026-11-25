@@ -10,7 +10,7 @@ const pillars = [
   { title: "Build the Foundations", image: img.high, alt: "Students learning in an HKS classroom", text: "Make concepts clear through teaching, modelling, practice, reading, numeracy and feedback.", to: "/academics" as const },
   { title: "Explore Ideas", image: gardeningImage, alt: "Illustrative image of hands planting a seedling", text: "Ask questions, investigate, discuss and connect ideas through age-appropriate inquiry.", to: "/experiential-learning" as const },
   { title: "Apply and Express", image: img.campus5, alt: "HKS students in a performance", text: "Use learning through projects, demonstrations, presentations, performance and problem-solving.", to: "/campus-life" as const },
-  { title: "Reflect and Grow", image: img.acad3, alt: "HKS students exercising together outdoors", text: "Recognise progress, use feedback, set next steps and seek support when needed.", to: "/why-hks" as const },
+  { title: "Reflect and Grow", image: img.acad3, alt: "HKS students exercising together outdoors", text: "Recognise progress, use feedback, set next steps and seek support when needed.", to: "/about" as const },
 ];
 
 

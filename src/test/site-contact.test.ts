@@ -10,8 +10,8 @@ describe("confirmed school contact details", () => {
     expect(SITE.phones).toHaveLength(2);
   });
   it("uses the supplied school email", () => {
-    expect(SITE.email).toBe("hksvidyamandir@gmail.com");
-    expect(schoolChatReply("Email address?")).toContain("hksvidyamandir@gmail.com");
+    expect(SITE.email).toBe("info@hksvidyamandir.com");
+    expect(schoolChatReply("Email address?")).toContain("info@hksvidyamandir.com");
   });
   it("adds the first screenshot number as a callable contact", () => {
     expect(SITE.phones).toContainEqual({ label: "+91 95130 01414", href: "tel:+919513001414" });

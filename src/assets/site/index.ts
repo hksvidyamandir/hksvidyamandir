@@ -31,6 +31,11 @@ import topper4A from "./topper4.asset.json";
 import topper5A from "./topper5.asset.json";
 import welcomeA from "./welcome.asset.json";
 export const img = {
+  building: "/media/hks-main-building.jpg",
+  leaderChairperson: "/media/hks-leaders2.webp",
+  leaderGeneralSecretary: "/media/hks-leaders1.webp",
+  leaderSecretary: "/media/hks-leaders3.webp",
+  leaderPrincipal: "/media/hks-principal.webp",
   acad1: acad1A.url,
   acad2: acad2A.url,
   acad3: acad3A.url,

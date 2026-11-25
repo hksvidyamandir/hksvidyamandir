@@ -10,6 +10,7 @@ afterEach(cleanup);
 
 describe("Programme selection", () => {
   const choices = ["Early Years", "Primary", "High School", "Senior Secondary"];
+  const hrefs = ["/early-years", "/primary", "/high-school", "/senior-secondary"];
   const images = [programmePhotos.early, programmePhotos.primary, programmePhotos.high, programmePhotos.senior];
   choices.forEach((name, index) => {
     it(`shows only the linked detail and matching photo for ${name}`, () => {
@@ -25,7 +26,7 @@ describe("Programme selection", () => {
       const photos = panel.querySelectorAll(".programme-photo-slide img");
       expect(photos).toHaveLength(6);
       expect(new Set(Array.from(photos).map(photo => photo.getAttribute("src"))).size).toBe(6);
-      expect(within(panel).getByRole("link")).toHaveAttribute("href", "/academics");
+      expect(within(panel).getByRole("link")).toHaveAttribute("href", hrefs[index]);
       expect(screen.getAllByRole("tab").filter(item => item.getAttribute("aria-selected") === "true")).toHaveLength(1);
     });
   });

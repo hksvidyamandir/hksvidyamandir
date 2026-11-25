@@ -11,7 +11,7 @@ export function EnquiryForm({ title = "Admission enquiry", visit }: { title?: st
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const msg = `Hello HKS Vidyamandir, I'd like to enquire about admission.\nParent: ${f.get("parent")}\nStudent: ${f.get("student")}\nGrade: ${f.get("grade")}\nBoarding: ${f.get("boarding")}\nPhone: ${f.get("phone")}${visit ? `\nVisit requested: ${visitLabels[visit]}` : ""}\n${f.get("message") || ""}`;
+    const msg = `Hello HKS Vidyamandir, I'd like to enquire about admission.\nParent: ${f.get("parent")}\nStudent: ${f.get("student")}\nGrade: ${f.get("grade")}\nPhone: ${f.get("phone")}${visit ? `\nVisit requested: ${visitLabels[visit]}` : ""}\n${f.get("message") || ""}`;
     window.open(`${SITE.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
     setSent(true);
   }
@@ -26,7 +26,6 @@ export function EnquiryForm({ title = "Admission enquiry", visit }: { title?: st
         <input name="student" required maxLength={80} placeholder="Student's name" className={field} />
         <select name="grade" required className={field} defaultValue=""><option value="" disabled>Grade applying for</option>{grades.map((g) => <option key={g}>{g}</option>)}</select>
       </div>
-      <select name="boarding" className={field} defaultValue="Day scholar"><option>Day scholar</option><option>Full boarding</option><option>Flexi-boarding (weekdays)</option></select>
       <textarea name="message" rows={3} maxLength={500} placeholder="Message (optional)" className={field} />
       <Button type="submit" className="h-auto w-full rounded-full py-3.5 font-bold">Send Enquiry</Button>
       {sent && <p className="text-sm text-primary font-semibold">Thank you! WhatsApp has opened with your enquiry.</p>}
