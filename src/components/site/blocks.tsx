@@ -74,7 +74,7 @@ export function Split({ image, alt, children, reverse }: { image: string; alt: s
     <div className="grid items-center gap-12 lg:grid-cols-2">
       <div className={`relative ${reverse ? "lg:order-2" : ""}`}>
         <div className="absolute -inset-3 -z-10 rounded-3xl bg-flame opacity-30 rotate-2" />
-        <img src={image} alt={alt} loading="lazy" className="aspect-[4/3] w-full rounded-3xl object-cover shadow-soft" />
+        <img src={image} alt={alt} loading="lazy" className="h-auto max-h-[520px] w-full rounded-3xl object-cover object-top shadow-soft" />
       </div>
       <div>{children}</div>
     </div>

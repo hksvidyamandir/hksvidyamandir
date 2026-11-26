@@ -66,7 +66,7 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
             {active.columns.map((col, idx) => (
               <div key={col.title} className={idx === 1 ? "border-l border-border pl-6 lg:pl-8" : ""}>
                 <h3 className="font-display text-lg font-bold leading-snug text-navy lg:text-xl">
-                  <Link to={active.to} onClick={onNavigate} className="transition hover:text-primary">
+                  <Link to={col.to} onClick={onNavigate} className="transition hover:text-primary">
                     {col.title}
                   </Link>
                 </h3>
@@ -84,7 +84,7 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
                   {col.items.map((item) => (
                     <li key={item}>
                       <Link
-                        to={active.to}
+                        to={col.to}
                         onClick={onNavigate}
                         className="group flex items-start gap-2.5 text-sm leading-snug text-foreground/85 transition hover:text-primary"
                       >

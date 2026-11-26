@@ -1,5 +1,6 @@
 export type MegaMenuColumn = {
   title: string;
+  to: string;
   badges: string[];
   items: string[];
 };
@@ -8,7 +9,7 @@ export type CampusLifeCategory = {
   id: string;
   label: string;
   subtitle?: string;
-  to: "/experiential-learning" | "/competitive-exams" | "/sports" | "/campus-life" | "/campus";
+  to: string;
   ctaLabel: string;
   columns: [MegaMenuColumn, MegaMenuColumn];
 };
@@ -22,6 +23,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
     columns: [
       {
         title: "Immersive & Discovery Zones",
+        to: "/campus-life/immersive-discovery-zones",
         badges: ["9 Areas", "Hands-On"],
         items: [
           "Virtual Reality (VR) Room",
@@ -33,6 +35,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Creative, Speech & Enterprise",
+        to: "/campus-life/creative-speech-enterprise",
         badges: ["Studios & Centres", "All Grades"],
         items: [
           "Creative Arts and Design Studio",
@@ -46,11 +49,12 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
   {
     id: "laboratories",
     label: "Laboratories",
-    to: "/experiential-learning",
+    to: "/campus-life/laboratories",
     ctaLabel: "Explore All Laboratories",
     columns: [
       {
         title: "Core Science & Math Labs",
+        to: "/campus-life/core-science-math-labs",
         badges: ["13+ Labs", "Practical Learning"],
         items: [
           "Physics Laboratory",
@@ -64,6 +68,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Technology, AI & Maker Labs",
+        to: "/campus-life/technology-ai-maker-labs",
         badges: ["Future Skills", "STEM & Robotics"],
         items: [
           "Computer Science Laboratory",
@@ -80,11 +85,12 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
   {
     id: "olympiad-preparation",
     label: "Olympiad Preparation",
-    to: "/competitive-exams",
+    to: "/campus-life/olympiad-preparation",
     ctaLabel: "Explore Olympiad Preparation",
     columns: [
       {
         title: "Preparation & Grade 4+ Tracks",
+        to: "/campus-life/olympiad-tracks",
         badges: ["15 Areas", "Grade 4 Onwards"],
         items: [
           "Olympiad Preparation Methodology",
@@ -100,6 +106,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "International Olympiads & MUN",
+        to: "/campus-life/international-olympiads-mun",
         badges: ["Global Benchmarks", "Competitions"],
         items: [
           "International Mathematics Olympiad (IMO)",
@@ -120,6 +127,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
     columns: [
       {
         title: "Coaching & Outdoor Sports",
+        to: "/campus-life/outdoor-sports",
         badges: ["25 Areas", "Outdoor & PE"],
         items: [
           "Professional Coaching and Training",
@@ -134,6 +142,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Indoor, Wellness & Olympic Sports",
+        to: "/campus-life/indoor-wellness-olympic-sports",
         badges: ["Indoor Games", "Olympic Sports"],
         items: [
           "Chess, Table Tennis, Badminton & Carrom",
@@ -155,6 +164,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
     columns: [
       {
         title: "National Exams & Foundations",
+        to: "/campus-life/national-exams",
         badges: ["National Exams", "Grade 6 Onwards"],
         items: [
           "Integrated Competitive Examination Preparation",
@@ -166,6 +176,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "International Exams & Admissions",
+        to: "/campus-life/international-exams",
         badges: ["International Exams", "14 Areas"],
         items: [
           "Guidance for International University Admissions",
@@ -181,11 +192,12 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
   {
     id: "student-development",
     label: "Student Development & Clubs",
-    to: "/campus-life",
+    to: "/campus-life/student-development",
     ctaLabel: "Explore Student Development",
     columns: [
       {
         title: "Leadership & Life Skills",
+        to: "/campus-life/leadership-life-skills",
         badges: ["21 Areas", "Whole Child"],
         items: [
           "Personality Development Programmes",
@@ -201,6 +213,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Clubs, Arts & Expression",
+        to: "/campus-life/clubs-arts-expression",
         badges: ["Student Clubs", "Co-Curricular"],
         items: [
           "Debate and Public Speaking Club",
@@ -219,11 +232,12 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
   {
     id: "student-welfare",
     label: "Student Welfare & Facilities",
-    to: "/campus",
-    ctaLabel: "Explore Campus & Facilities",
+    to: "/campus-life/student-welfare",
+    ctaLabel: "Explore Student Welfare & Facilities",
     columns: [
       {
         title: "Learning & Campus Infrastructure",
+        to: "/campus-life/learning-campus-infrastructure",
         badges: ["8 Areas", "Campus"],
         items: [
           "Smart Classrooms",
@@ -234,6 +248,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Health, Support & Safety",
+        to: "/campus-life/health-support-safety",
         badges: ["Wellbeing", "Safe Campus"],
         items: [
           "Medical and First-Aid Facilities / Medical Room",
@@ -247,11 +262,12 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
   {
     id: "events-achievements",
     label: "Events & Achievements",
-    to: "/campus-life",
-    ctaLabel: "Explore Events & Community",
+    to: "/campus-life/events-achievements",
+    ctaLabel: "Explore Events & Achievements",
     columns: [
       {
         title: "Celebrations, Exhibitions & Trips",
+        to: "/campus-life/celebrations-exhibitions-trips",
         badges: ["15 Areas", "Annual Calendar"],
         items: [
           "Annual Day Celebrations & Sports Day",
@@ -265,6 +281,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Recognition, Tours & Initiatives",
+        to: "/campus-life/recognition-tours-initiatives",
         badges: ["Achievements", "Global Exposure"],
         items: [
           "Olympiad Achievements",
@@ -280,11 +297,12 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
   {
     id: "additional-services",
     label: "Additional Services",
-    to: "/campus-life",
-    ctaLabel: "Enquire About Services",
+    to: "/campus-life/additional-services",
+    ctaLabel: "Explore Additional Services",
     columns: [
       {
         title: "After-School, Camps & Care",
+        to: "/campus-life/after-school-camps-care",
         badges: ["Extended Support", "Proposed"],
         items: [
           "After-school programmes",
@@ -296,6 +314,7 @@ export const CAMPUS_LIFE_MEGA_MENU: CampusLifeCategory[] = [
       },
       {
         title: "Enrichment & Parent Sessions",
+        to: "/campus-life/enrichment-parent-sessions",
         badges: ["Skill Building", "Community"],
         items: [
           "Music and dance classes",

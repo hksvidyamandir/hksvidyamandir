@@ -27,6 +27,7 @@ import { Route as PrimaryRouteImport } from './routes/primary'
 import { Route as SamskritiVidyaRouteImport } from './routes/samskriti-vidya'
 import { Route as SeniorSecondaryRouteImport } from './routes/senior-secondary'
 import { Route as SportsRouteImport } from './routes/sports'
+import { Route as CampusLifeSlugRouteImport } from './routes/campus-life_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -118,6 +119,11 @@ const SportsRoute = SportsRouteImport.update({
   path: '/sports',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CampusLifeSlugRoute = CampusLifeSlugRouteImport.update({
+  id: '/campus-life_/$slug',
+  path: '/campus-life/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/samskriti-vidya': typeof SamskritiVidyaRoute
   '/senior-secondary': typeof SeniorSecondaryRoute
   '/sports': typeof SportsRoute
+  '/campus-life/$slug': typeof CampusLifeSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/samskriti-vidya': typeof SamskritiVidyaRoute
   '/senior-secondary': typeof SeniorSecondaryRoute
   '/sports': typeof SportsRoute
+  '/campus-life/$slug': typeof CampusLifeSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/samskriti-vidya': typeof SamskritiVidyaRoute
   '/senior-secondary': typeof SeniorSecondaryRoute
   '/sports': typeof SportsRoute
+  '/campus-life_/$slug': typeof CampusLifeSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/samskriti-vidya'
     | '/senior-secondary'
     | '/sports'
+    | '/campus-life/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
     | '/samskriti-vidya'
     | '/senior-secondary'
     | '/sports'
+    | '/campus-life/$slug'
   id:
     | '__root__'
     | '/'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/samskriti-vidya'
     | '/senior-secondary'
     | '/sports'
+    | '/campus-life_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -262,6 +274,7 @@ export interface RootRouteChildren {
   SamskritiVidyaRoute: typeof SamskritiVidyaRoute
   SeniorSecondaryRoute: typeof SeniorSecondaryRoute
   SportsRoute: typeof SportsRoute
+  CampusLifeSlugRoute: typeof CampusLifeSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -392,6 +405,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/campus-life_/$slug': {
+      id: '/campus-life_/$slug'
+      path: '/campus-life/$slug'
+      fullPath: '/campus-life/$slug'
+      preLoaderRoute: typeof CampusLifeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -414,6 +434,7 @@ const rootRouteChildren: RootRouteChildren = {
   SamskritiVidyaRoute: SamskritiVidyaRoute,
   SeniorSecondaryRoute: SeniorSecondaryRoute,
   SportsRoute: SportsRoute,
+  CampusLifeSlugRoute: CampusLifeSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
