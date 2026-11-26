@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, screen, within } from "@testing-library/rea
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { CampusLifeMegaMenu } from "@/components/site/CampusLifeMegaMenu";
 import { CAMPUS_LIFE_MEGA_MENU } from "@/lib/campus-life-menu";
+import { CAMPUS_LIFE_PAGES_BY_SLUG } from "@/lib/campus-life-pages";
 
 vi.mock("@tanstack/react-router", () => ({
   Link: ({ children, to, ...props }: { children: React.ReactNode; to: string }) => <a href={to} {...props}>{children}</a>,
@@ -29,5 +30,20 @@ describe("Campus Life mega menu", () => {
     fireEvent.click(screen.getByRole("tab", { name: "Sports & Physical Education" }));
     panel = screen.getByRole("tabpanel");
     expect(within(panel).getByText("Athletics & Archery")).toBeInTheDocument();
+  });
+
+  it("maps every mega-menu category and sub-section column to an existing page", () => {
+    const topLevel = new Set(["/experiential-learning", "/sports", "/competitive-exams", "/campus-life", "/campus"]);
+    for (const cat of CAMPUS_LIFE_MEGA_MENU) {
+      if (cat.to.startsWith("/campus-life/")) {
+        expect(CAMPUS_LIFE_PAGES_BY_SLUG[cat.to.replace("/campus-life/", "")]).toBeDefined();
+      } else {
+        expect(topLevel.has(cat.to)).toBe(true);
+      }
+      for (const col of cat.columns) {
+        expect(col.to.startsWith("/campus-life/")).toBe(true);
+        expect(CAMPUS_LIFE_PAGES_BY_SLUG[col.to.replace("/campus-life/", "")]).toBeDefined();
+      }
+    }
   });
 });

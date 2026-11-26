@@ -17,6 +17,48 @@ export const Route = createFileRoute("/krishi-vidya")({
   component: KrishiVidya,
 });
 
+const alternatingSections = [
+  {
+    eyebrow: "01 · Life Skills Education",
+    title: "Organic farming & horticulture in action",
+    text: "Through Krishi Vidya, students learn by doing in living campus gardens — sowing seeds, tending seasonal beds, watering thoughtfully and harvesting fresh produce together.",
+    image: krishi1,
+    alt: "Students planting seedlings in Krishi Vidya at HKS",
+    points: [
+      "Life Skills Education in organic farming and horticulture",
+      "Hands-on sowing, mulching, plant care and seasonal harvests",
+      "Understanding food cycles, soil nutrition and natural growth",
+      "Building patience, teamwork and respect for agricultural work",
+    ],
+  },
+  {
+    eyebrow: "02 · Science & Ecology",
+    title: "Environmental & sustainability learning zone",
+    text: "Classroom ecology comes alive when students test soil and water samples, observe living ecosystems and practise sustainable habits every day on campus.",
+    image: krishi3,
+    alt: "Students caring for young garden plants at HKS",
+    points: [
+      "Dedicated Environmental and Sustainability Learning Zone",
+      "Environmental Science Laboratory studying air, water, soil and ecosystems",
+      "Composting garden leaves and organic matter back into healthy soil",
+      "Water conservation, biodiversity observation and zero-waste habits",
+    ],
+  },
+  {
+    eyebrow: "03 · Empathy & Stewardship",
+    title: "Environmental club, Pet Day & community care",
+    text: "Caring for nature extends beyond the garden into caring for animals, neighbours and the wider community through student-led green initiatives.",
+    image: krishi4,
+    alt: "Students composting garden leaves in Krishi Vidya",
+    points: [
+      "Active student-led Environmental Club and campus plantation drives",
+      "Pet Day helping children meet pets and learn compassionate animal care",
+      "Community engagement and social responsibility projects",
+      "Everyday eco-friendly choices turning awareness into action",
+    ],
+  },
+];
+
 const gallery = [
   { src: krishi1, caption: "Planting seedlings and experiential learning" },
   { src: krishi2, caption: "Organic farming and garden harvests" },
@@ -46,21 +88,15 @@ function KrishiVidya() {
         image={krishi2}
       />
 
-      <Section>
-        <Split image={krishi1} alt="Students planting seedlings in Krishi Vidya at HKS">
-          <SectionHead eyebrow="Rooted in nature" title="Learning by growing, caring and harvesting" />
-          <p className="mt-4 text-muted-foreground">
-            Through Krishi Vidya, students step out into living campus gardens to sow seeds, nurture plants, compost organic waste and observe ecosystems first-hand. Practical farming connects classroom science with real-world sustainability.
-          </p>
-          <CheckList items={[
-            "Life Skills Education in organic farming and horticulture",
-            "Dedicated Environmental and Sustainability Learning Zone",
-            "Hands-on Environmental Science Laboratory investigations",
-            "Active student-led Environmental Club and green drives",
-            "Pet Day and animal care nurturing empathy for all living beings",
-          ]} />
-        </Split>
-      </Section>
+      {alternatingSections.map((sec, i) => (
+        <Section key={sec.title} tone={i % 2 === 1 ? "cream" : "default"}>
+          <Split image={sec.image} alt={sec.alt} reverse={i % 2 === 1}>
+            <SectionHead eyebrow={sec.eyebrow} title={sec.title} />
+            <p className="mt-4 text-muted-foreground">{sec.text}</p>
+            <CheckList items={sec.points} />
+          </Split>
+        </Section>
+      ))}
 
       <Section tone="cream">
         <SectionHead center eyebrow="Four experiences" title="What students practise in Krishi Vidya" />

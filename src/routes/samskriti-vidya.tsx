@@ -17,6 +17,61 @@ export const Route = createFileRoute("/samskriti-vidya")({
   component: SamskritiVidya,
 });
 
+const alternatingSections = [
+  {
+    eyebrow: "01 · Performing & Visual Arts",
+    title: "Music, dance, theatre & creative arts studio",
+    text: "Samskriti Vidya gives every child joyful spaces to paint, sculpt, sing, play instruments, dance and act — turning creativity into everyday confidence.",
+    image: samskruti3,
+    alt: "Students enjoying music and dance in Samskriti Vidya at HKS",
+    points: [
+      "Creative Arts and Design Studio for drawing, painting and craft",
+      "Music and Performing Arts covering vocals, instruments and stage recitals",
+      "Theatre and Drama building expression, voice projection and storytelling",
+      "Photography and Film Club capturing campus life through visual media",
+    ],
+  },
+  {
+    eyebrow: "02 · Voice & Student Clubs",
+    title: "Debate, writing, reading & literary clubs",
+    text: "Dedicated speaking centres and interest-based clubs help students sharpen articulation, explore literature, debate thoughtfully and share their voice.",
+    image: samskruti1,
+    alt: "Students participating in public speaking and clubs at HKS",
+    points: [
+      "Public Speaking and Debate Centre for confident stage presence",
+      "Debate & Public Speaking, Creative Writing and Reading & Literary clubs",
+      "Entrepreneurship Club encouraging creative pitches and initiative",
+      "School Newsletters showcasing student essays, poetry and artwork",
+    ],
+  },
+  {
+    eyebrow: "03 · Heritage & Celebrations",
+    title: "Cultural festivals, Annual Day & heritage zone",
+    text: "Rooted in Karnataka's and India's living traditions, our celebrations bring students, educators and families together in music, colour and community pride.",
+    image: samskruti2,
+    alt: "Students celebrating cultural festivals with flower rangoli at HKS",
+    points: [
+      "Heritage and Cultural Learning Zone celebrating local and national traditions",
+      "Annual Day Celebrations showcasing every student's creative talent",
+      "Cultural Festivals honouring diversity, harmony and shared traditions",
+      "Workshops and Guest Lectures connecting learners with artists and authors",
+    ],
+  },
+  {
+    eyebrow: "04 · Character & Leadership",
+    title: "Personality development, emotional intelligence & service",
+    text: "Through student governance, team-building and community service, learners grow into compassionate, poised young leaders ready to contribute to society.",
+    image: samskruti4,
+    alt: "Students collaborating on leadership and community projects at HKS",
+    points: [
+      "Personality Development Programmes and emotional intelligence sessions",
+      "Leadership and Team-Building Activities across house and club events",
+      "Student Leadership Council giving students an active role in school life",
+      "Community Service Initiatives and Student Awards recognising character",
+    ],
+  },
+];
+
 const gallery = [
   { src: samskruti1, caption: "Public speaking and student clubs" },
   { src: samskruti2, caption: "Cultural festivals and heritage celebrations" },
@@ -57,23 +112,17 @@ function SamskritiVidya() {
         image={samskruti2}
       />
 
-      <Section>
-        <Split image={samskruti3} alt="Students enjoying music and dance in Samskriti Vidya at HKS">
-          <SectionHead eyebrow="Creative & cultural life" title="Roots in heritage. Confidence on stage." />
-          <p className="mt-4 text-muted-foreground">
-            Samskriti Vidya celebrates creativity, voice and community. Through arts studios, performing stages, literary and debate clubs, cultural festivals and the Student Leadership Council, every student finds a space to shine.
-          </p>
-          <CheckList items={[
-            "Dedicated Creative Arts & Design Studio and Heritage & Cultural Zone",
-            "Music, vocal, instruments, classical & western dance, theatre and drama",
-            "Debate, Public Speaking, Creative Writing, Literary & Photography clubs",
-            "Annual Day, cultural festivals, workshops and guest lectures",
-            "Personality development, emotional intelligence and Student Leadership Council",
-          ]} />
-        </Split>
-      </Section>
+      {alternatingSections.map((sec, i) => (
+        <Section key={sec.title} tone={i % 2 === 1 ? "cream" : "default"}>
+          <Split image={sec.image} alt={sec.alt} reverse={i % 2 === 1}>
+            <SectionHead eyebrow={sec.eyebrow} title={sec.title} />
+            <p className="mt-4 text-muted-foreground">{sec.text}</p>
+            <CheckList items={sec.points} />
+          </Split>
+        </Section>
+      ))}
 
-      <Section tone="cream">
+      <Section>
         <SectionHead center eyebrow="Four pillars" title="Arts, heritage & leadership at HKS" />
         <CardGrid cols={4} items={[
           { icon: <Palette className="h-6 w-6" />, title: "Visual Arts & Craft", text: "Drawing, painting, craft, design studio work, photography and filmmaking." },
@@ -83,7 +132,7 @@ function SamskritiVidya() {
         ]} />
       </Section>
 
-      <Section>
+      <Section tone="cream">
         <SectionHead center eyebrow="Co-curricular life" title="Clubs, arts & celebrations" />
         <div className="mt-8 grid gap-8 md:grid-cols-2">
           <div className="rounded-3xl border border-border bg-card p-6 md:p-8">

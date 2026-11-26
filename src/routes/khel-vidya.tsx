@@ -17,6 +17,61 @@ export const Route = createFileRoute("/khel-vidya")({
   component: KhelVidya,
 });
 
+const alternatingSections = [
+  {
+    eyebrow: "01 · Structured PE & Coaching",
+    title: "Professional coaching, curriculum & tournaments",
+    text: "Khel Vidya integrates daily physical education with specialist coaching so every student builds stamina, technique and sportsmanship across the academic year.",
+    image: khel4,
+    alt: "Students participating in athletics and relays at HKS",
+    points: [
+      "Professional coaching and regular structured practice sessions",
+      "Expansive indoor and outdoor sports facilities across campus",
+      "Year-wise Physical Education curriculum for every age group",
+      "Inter-school competitions, tournaments and annual Sports Day",
+    ],
+  },
+  {
+    eyebrow: "02 · Outdoor Sports",
+    title: "Team play, traditional games & outdoor adventure",
+    text: "From cricket pitches and basketball courts to traditional Indian games, skating, horse riding and outdoor challenges, students learn teamwork and resilience under open skies.",
+    image: khel1,
+    alt: "Students playing outdoor team sports at HKS",
+    points: [
+      "Cricket, Football, Basketball and Volleyball match play",
+      "Kho-Kho and Kabaddi celebrating traditional Indian team grit",
+      "Skating for balance and fitness on wheels",
+      "Horse riding and adventure outdoor activities building courage",
+    ],
+  },
+  {
+    eyebrow: "03 · Indoor Games & Wellness",
+    title: "Strategy, reflexes, yoga & martial arts",
+    text: "Indoor sports and mindful wellness programmes strengthen concentration, emotional balance, flexibility and self-discipline alongside physical fitness.",
+    image: khel2,
+    alt: "Students playing indoor table tennis at HKS",
+    points: [
+      "Chess, Table Tennis, Badminton, Carrom and indoor games",
+      "Yoga and Meditation for strength, flexibility and calm focus",
+      "Aerobics, Dance and Movement for energetic fitness and expression",
+      "Martial Arts nurturing self-defence, discipline and confidence",
+    ],
+  },
+  {
+    eyebrow: "04 · Olympic Disciplines",
+    title: "Precision, speed & Olympic-style training",
+    text: "Dedicated pathways in track and field, archery, swimming and gymnastics encourage students to set personal goals and pursue sporting excellence.",
+    image: khel3,
+    alt: "Students practising outdoor wellness and athletic training at HKS",
+    points: [
+      "Athletics covering track races, relays and field events",
+      "Archery developing focus, discipline and steady precision",
+      "Swimming and Gymnastics for endurance, balance and core strength",
+      "Structured training pathways for Olympic-style sports",
+    ],
+  },
+];
+
 const gallery = [
   { src: khel1, caption: "Outdoor team sports and coaching" },
   { src: khel2, caption: "Indoor games and reflexes" },
@@ -32,29 +87,23 @@ function KhelVidya() {
     <>
       <PageHero
         crumb="Khel Vidya"
-        eyebrow="Sports & Physical Education"
+        eyebrow="Sports & Physical Education · 25 Areas"
         title="Movement, wellbeing and team spirit"
         intro="Strong bodies and sharp minds — structured physical education, professional coaching, indoor and outdoor sports, wellness and Olympic disciplines."
         image={khel1}
       />
 
-      <Section>
-        <Split image={khel4} alt="Students participating in athletics in Khel Vidya at HKS">
-          <SectionHead eyebrow="25 sports & wellness areas" title="Every student active, confident and resilient" />
-          <p className="mt-4 text-muted-foreground">
-            Khel Vidya places sport and physical wellbeing at the heart of every school day. Trained coaches guide students across team sports, traditional Indian games, indoor strategy games, yoga and Olympic-style events.
-          </p>
-          <CheckList items={[
-            "Professional coaching and regular structured practice",
-            "Expansive indoor and outdoor sports facilities",
-            "Structured Physical Education curriculum for every grade",
-            "Inter-school competitions, tournaments and annual Sports Day",
-            "Dedicated focus on yoga, meditation, aerobics and martial arts",
-          ]} />
-        </Split>
-      </Section>
+      {alternatingSections.map((sec, i) => (
+        <Section key={sec.title} tone={i % 2 === 1 ? "cream" : "default"}>
+          <Split image={sec.image} alt={sec.alt} reverse={i % 2 === 1}>
+            <SectionHead eyebrow={sec.eyebrow} title={sec.title} />
+            <p className="mt-4 text-muted-foreground">{sec.text}</p>
+            <CheckList items={sec.points} />
+          </Split>
+        </Section>
+      ))}
 
-      <Section tone="cream">
+      <Section>
         <SectionHead center eyebrow="Four pillars" title="Sports & fitness across campus" />
         <CardGrid cols={4} items={[
           { icon: <Trophy className="h-6 w-6" />, title: "Outdoor Team Sports", text: "Cricket, football, basketball, volleyball, kho-kho, kabaddi, skating and horse riding." },
@@ -64,7 +113,7 @@ function KhelVidya() {
         ]} />
       </Section>
 
-      <Section>
+      <Section tone="cream">
         <SectionHead center eyebrow="Disciplines" title="Outdoor, indoor & Olympic sports" />
         <div className="mt-8 grid gap-8 md:grid-cols-2">
           <div className="rounded-3xl border border-border bg-card p-6 md:p-8">
