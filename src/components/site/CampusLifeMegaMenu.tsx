@@ -16,14 +16,17 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
             {CAMPUS_LIFE_MEGA_MENU.map((cat) => {
               const isActive = cat.id === active.id;
               return (
-                <button
+                <Link
                   key={cat.id}
-                  type="button"
+                  to={cat.to}
                   role="tab"
                   aria-selected={isActive}
                   onMouseEnter={() => setActiveId(cat.id)}
                   onFocus={() => setActiveId(cat.id)}
-                  onClick={() => setActiveId(cat.id)}
+                  onClick={() => {
+                    setActiveId(cat.id);
+                    onNavigate?.();
+                  }}
                   className={`flex w-full items-center justify-between gap-2 rounded-lg px-3.5 py-2.5 text-left text-sm transition ${
                     isActive
                       ? "bg-card font-bold text-navy shadow-xs"
@@ -39,7 +42,7 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
                     )}
                   </span>
                   <ChevronRight className={`h-4 w-4 shrink-0 transition ${isActive ? "text-navy" : "text-foreground/45"}`} />
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -63,7 +66,9 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
             {active.columns.map((col, idx) => (
               <div key={col.title} className={idx === 1 ? "border-l border-border pl-6 lg:pl-8" : ""}>
                 <h3 className="font-display text-lg font-bold leading-snug text-navy lg:text-xl">
-                  {col.title}
+                  <Link to={active.to} onClick={onNavigate} className="transition hover:text-primary">
+                    {col.title}
+                  </Link>
                 </h3>
                 <div className="mt-2.5 flex flex-wrap gap-2">
                   {col.badges.map((badge) => (
@@ -77,9 +82,15 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
                 </div>
                 <ul className="mt-5 space-y-2.5">
                   {col.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm leading-snug text-foreground/85">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-navy" aria-hidden="true" />
-                      <span>{item}</span>
+                    <li key={item}>
+                      <Link
+                        to={active.to}
+                        onClick={onNavigate}
+                        className="group flex items-start gap-2.5 text-sm leading-snug text-foreground/85 transition hover:text-primary"
+                      >
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-navy transition group-hover:text-primary" aria-hidden="true" />
+                        <span>{item}</span>
+                      </Link>
                     </li>
                   ))}
                 </ul>

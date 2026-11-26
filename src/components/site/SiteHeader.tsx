@@ -101,8 +101,8 @@ export function SiteHeader() {
                 {v.label}
               </Link>
             ))}
-            <span className="hidden whitespace-nowrap min-[1600px]:inline">CBSE · Nursery - Grade 12</span>
-            <span className="whitespace-nowrap font-medium text-foreground/80">Admissions Open 2026-27</span>
+            <Link to="/academics" onClick={closeMenu} className="hidden whitespace-nowrap transition hover:text-primary min-[1600px]:inline">CBSE · Nursery - Grade 12</Link>
+            <Link to="/admissions" onClick={closeMenu} className="whitespace-nowrap font-medium text-foreground/80 transition hover:text-primary">Admissions Open 2026-27</Link>
           </div>
         <nav aria-label="Main" className="flex items-center gap-0.5">
           <Link to="/" className="px-3 py-2 text-sm font-semibold text-foreground hover:text-primary" activeOptions={{ exact: true }} activeProps={{ className: "text-primary" }}>Home</Link>
@@ -138,7 +138,7 @@ export function SiteHeader() {
                   <div className="rounded-xl border border-border bg-card p-2 shadow-soft">
                     <div className="h-1 rounded-full bg-flame mb-2" />
                     {g.children.map((c) => (
-                      <Link key={c.label} to={c.to} className="block rounded-lg px-3 py-2.5 hover:bg-muted">
+                      <Link key={c.label} to={c.to} onClick={(e) => e.currentTarget.blur()} className="block rounded-lg px-3 py-2.5 hover:bg-muted">
                         <span className="block text-sm font-semibold text-navy">{c.label}</span>
                         <span className="block text-xs text-muted-foreground">{c.desc}</span>
                       </Link>
@@ -185,7 +185,7 @@ export function SiteHeader() {
                 </Link>
               ))}
             </div>
-            <div className="hidden border-b border-border pb-3 text-xs font-medium text-foreground/80 max-[768px]:block">Admissions Open 2026-27</div>
+            <Link to="/admissions" onClick={closeMenu} className="hidden border-b border-border pb-3 text-xs font-medium text-foreground/80 transition hover:text-primary max-[768px]:block">Admissions Open 2026-27</Link>
             <Link to="/" onClick={closeMenu} className="block py-3 font-semibold border-b border-border">Home</Link>
             {NAV.map((g) => (
               <div key={g.label} className="border-b border-border">
