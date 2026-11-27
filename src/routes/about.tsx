@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, Bus, Cctv, Compass, HeartPulse, Leaf, Quote, ShieldCheck, Sparkles, Trophy, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Bus, Cctv, Compass, HeartPulse, Leaf, Palette, Quote, ShieldCheck, Trophy, Users } from "lucide-react";
 import { img } from "@/assets/site";
 import gree from "@/assets/recognitions/gree.asset.json";
 import cbse from "@/assets/recognitions/cbse.asset.json";
@@ -118,7 +118,7 @@ function About() {
           { icon: <Leaf className="h-6 w-6" />, title: "Krishi Vidya", text: "Hands-on gardening and farming that build responsibility and respect for nature." },
           { icon: <Trophy className="h-6 w-6" />, title: "Khel Vidya", text: "Sport, fitness and play that develop teamwork, resilience and discipline." },
           { icon: <Compass className="h-6 w-6" />, title: "Anubhav Vidya", text: "Experiential projects that connect classroom concepts to real life." },
-          { icon: <Sparkles className="h-6 w-6" />, title: "Samskriti Vidya", text: "Music, dance, art and celebrations that root children in culture." },
+          { icon: <Palette className="h-5 w-5" strokeWidth={1.5} />, title: "Samskriti Vidya", text: "Music, dance, art and celebrations that root children in culture." },
         ]} /></div>
       </Section>
 
@@ -133,7 +133,7 @@ function About() {
         <Split image={img.welcome} alt="Students together at HKS Vidyamandir">
           <SectionHead eyebrow="One school. A world of possibility." title="A childhood full of wonder" />
           <div className="mt-6 space-y-5">
-            {[[Trophy, "Sports and Fitness", "Cricket, football, basketball, badminton, athletics, table tennis, Yoga and More."], [Sparkles, "Arts and Culture", "Music, dance, visual arts, performances and cultural celebrations."], [Users, "Clubs and Leadership", "Public speaking, student clubs, house activities and competitions."]].map(([Icon, t, d]) => { const I = Icon as typeof Trophy; return <div key={t as string} className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-primary"><I className="h-5 w-5" /></span><div><h3 className="font-semibold text-navy">{t as string}</h3><p className="text-sm text-muted-foreground">{d as string}</p></div></div>; })}
+            {[[Trophy, "Sports and Fitness", "Cricket, football, basketball, badminton, athletics, table tennis, yoga and more."], [Palette, "Arts and Culture", "Music, dance, visual arts, performances and cultural celebrations."], [Users, "Clubs and Leadership", "Public speaking, student clubs, house activities and competitions."]].map(([Icon, t, d]) => { const I = Icon as typeof Trophy; return <div key={t as string} className="flex gap-4"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border bg-card text-navy"><I className="h-4 w-4" strokeWidth={1.5} /></span><div><h3 className="font-medium text-navy">{t as string}</h3><p className="text-sm text-muted-foreground">{d as string}</p></div></div>; })}
           </div>
         </Split>
       </Section>

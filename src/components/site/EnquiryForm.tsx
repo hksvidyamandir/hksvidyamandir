@@ -15,11 +15,11 @@ export function EnquiryForm({ title = "Admission enquiry", visit }: { title?: st
     window.open(`${SITE.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
     setSent(true);
   }
-  const field = "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-ring";
+  const field = "w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm outline-none focus:border-navy focus:ring-2 focus:ring-navy/15";
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl bg-card p-7 md:p-9 shadow-soft space-y-4">
-      <h2 className="text-3xl font-semibold text-navy">{title}</h2>
-      <p className="text-sm text-muted-foreground">Submit and we'll connect with you on WhatsApp right away.</p>
+    <form onSubmit={onSubmit} className="space-y-4 rounded-xl border border-border bg-card p-6 md:p-8">
+      <h2 className="font-display text-2xl font-medium text-navy md:text-3xl">{title}</h2>
+      <p className="text-sm text-muted-foreground">Submit and our admissions desk will connect with you on WhatsApp.</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <input name="parent" required maxLength={80} placeholder="Parent's name" className={field} />
         <input name="phone" required type="tel" pattern="[0-9+ ]{10,15}" placeholder="Phone number" className={field} />
@@ -27,8 +27,8 @@ export function EnquiryForm({ title = "Admission enquiry", visit }: { title?: st
         <select name="grade" required className={field} defaultValue=""><option value="" disabled>Grade applying for</option>{grades.map((g) => <option key={g}>{g}</option>)}</select>
       </div>
       <textarea name="message" rows={3} maxLength={500} placeholder="Message (optional)" className={field} />
-      <Button type="submit" className="h-auto w-full rounded-full py-3.5 font-bold">Send Enquiry</Button>
-      {sent && <p className="text-sm text-primary font-semibold">Thank you! WhatsApp has opened with your enquiry.</p>}
+      <Button type="submit" className="h-11 w-full rounded-lg font-medium">Send Enquiry</Button>
+      {sent && <p className="text-sm font-medium text-navy">WhatsApp has opened with your enquiry.</p>}
     </form>
   );
 }

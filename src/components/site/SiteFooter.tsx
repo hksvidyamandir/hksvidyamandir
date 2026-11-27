@@ -11,13 +11,17 @@ const COLS = [
     { label: "About Us", to: "/about" },
     { label: "Experiential Learning", to: "/experiential-learning" },
     { label: "Competitive Exams", to: "/competitive-exams" },
+    { label: "Mandatory Public Disclosure", to: "/mandatory-public-disclosure" },
     { label: "Contact Us", to: "/contact" },
   ] },
   ...NAV.filter((g) => g.children).map((g) => ({ label: g.label, links: g.children!.map((c) => ({ label: c.label, to: c.to })) })),
   { label: "Admissions", links: [
     { label: "Admission Process", to: "/admissions" },
+    { label: "Online Admission Kit", to: "/admissions" },
     { label: "Schedule a Campus Visit", to: "/contact" },
-    { label: "Enquire Now", to: "/admissions" },
+    { label: "Terms & Conditions", to: "/terms-and-conditions" },
+    { label: "Privacy Policy", to: "/privacy-policy" },
+    { label: "HTML Sitemap", to: "/sitemap" },
   ] },
 ];
 
@@ -40,10 +44,10 @@ export function SiteFooter() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {COLS.map((c) => (
             <div key={c.label}>
-              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-navy">{c.label}</p>
-              <ul className="mt-4 space-y-2.5 text-sm">
+              <p className="text-sm font-medium text-navy">{c.label}</p>
+              <ul className="mt-3.5 space-y-2 text-sm">
                 {c.links.map((l) => (
-                  <li key={l.label}><Link to={l.to} className="text-foreground/80 hover:text-primary">{l.label}</Link></li>
+                  <li key={l.label}><Link to={l.to} className="text-foreground/85 transition-colors hover:text-navy">{l.label}</Link></li>
                 ))}
               </ul>
             </div>
@@ -53,8 +57,14 @@ export function SiteFooter() {
           <strong className="text-navy">HKS Vidyamandir</strong> is a CBSE school at {SITE.address}. Founded in {SITE.founded}, HKS nurtures confident, future-ready learners from Nursery to Grade 12 - <strong className="text-navy">{SITE.tagline}</strong>.
         </p>
       </div>
-      <div className="container-site flex flex-col gap-2 border-t border-border pt-5 pb-36 text-xs text-foreground/70 sm:flex-row sm:justify-between md:pb-16">
+      <div className="container-site flex flex-col gap-3 border-t border-border pt-5 pb-36 text-xs text-foreground/70 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between md:pb-16">
         <p>© {new Date().getFullYear()} HKS Vidyamandir. All rights reserved.</p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Link to="/privacy-policy" className="hover:text-primary">Privacy Policy</Link>
+          <Link to="/terms-and-conditions" className="hover:text-primary">Terms &amp; Conditions</Link>
+          <Link to="/mandatory-public-disclosure" className="hover:text-primary">Mandatory Disclosure</Link>
+          <Link to="/sitemap" className="hover:text-primary">Sitemap</Link>
+        </div>
         <p className="flex min-w-0 flex-wrap gap-x-4 gap-y-2">{SITE.phones.map((phone) => <a key={phone.href} href={phone.href} className="whitespace-nowrap hover:text-primary">{phone.label}</a>)}<a href={`mailto:${SITE.email}`} className="min-w-0 break-all hover:text-primary">{SITE.email}</a></p>
       </div>
       <div aria-label="Contact the school" className="fixed bottom-5 left-3 z-40 flex flex-col gap-3 md:left-5">

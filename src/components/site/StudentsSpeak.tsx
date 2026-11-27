@@ -29,7 +29,7 @@ export function StudentsSpeak() {
   return <section className="fam-section stu-section" aria-labelledby="students-speak-heading">
     <div className="container-site">
       <div className="fam-head tst-head">
-        <div><span className="home-kicker">In their own words</span><h2 id="students-speak-heading">Student &amp; parent <em>stories.</em></h2><p>What learning, growing and belonging at HKS feels like.</p></div>
+        <div><span className="home-kicker">In their own words</span><h2 id="students-speak-heading">Student &amp; parent stories</h2><p>What learning, growing and belonging at HKS feels like.</p></div>
         <div className="tst-actions">
           <div className="tst-tabs" role="tablist" aria-label="Testimonials by">{groups.map(({ label, Icon }, i) => <button key={label} type="button" role="tab" id={`tst-tab-${i}`} aria-selected={tab === i} aria-controls="tst-panel" className={tab === i ? "is-active" : ""} onClick={() => { setTab(i); setSelected(null); track.current?.scrollTo({ left: 0 }); }}><Icon size={16} aria-hidden="true" />{label}</button>)}</div>
           {showArrows && (

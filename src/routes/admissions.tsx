@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { img } from "@/assets/site";
 import { seo } from "@/lib/seo";
 import { CardGrid, CheckList, PageHero, Section, SectionHead } from "@/components/site/blocks";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { AdmissionKitForm } from "@/components/site/AdmissionKitForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/admissions")({
@@ -49,6 +50,34 @@ function Admissions() {
           <EnquiryForm />
         </div>
       </Section>
+      <Section tone="muted" id="application-form">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
+                Interactive 5-step online application
+              </p>
+              <h2 className="mt-1 font-display text-3xl font-medium text-navy md:text-4xl">
+                Students Admission Kit Form
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                Complete the learner profile, academic history, health &amp; vaccination record,
+                support services questionnaire and parents&apos; undertaking online.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4 text-xs font-medium text-navy">
+              <Link to="/terms-and-conditions" className="underline underline-offset-4 hover:text-cta">
+                Terms &amp; Conditions
+              </Link>
+              <Link to="/privacy-policy" className="underline underline-offset-4 hover:text-cta">
+                Privacy Policy
+              </Link>
+            </div>
+          </div>
+          <AdmissionKitForm />
+        </div>
+      </Section>
+
       <Section>
         <SectionHead center eyebrow="Support" title="Scholarships & policies" />
         <CardGrid items={[

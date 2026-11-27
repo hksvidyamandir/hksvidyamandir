@@ -21,7 +21,7 @@ export function PillarsShowcase() {
     <div className="container-site">
       <div className="curr-head home-heading">
         <span className="home-kicker">From Understanding to Confident Action</span>
-        <h2 id="pillars-heading">The Proposed <em>HKS</em> Growth Pathway</h2>
+        <h2 id="pillars-heading">The Proposed HKS Growth Pathway</h2>
         <p>Meaningful learning takes a child from first understanding to confident application. The proposed HKS Growth Pathway brings together teaching, exploration, expression and reflection.</p>
       </div>
       <p className="pathway-motto">Know the child. Build the foundations. Open up the world. Help the child reflect and grow.</p>

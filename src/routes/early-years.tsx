@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Blocks, Compass, HeartHandshake, Sparkles } from "lucide-react";
+import { Blocks, BookOpen, Compass, HeartHandshake } from "lucide-react";
 import { img } from "@/assets/site";
 import { programmePhotos } from "@/lib/programme-photos";
 import { seo } from "@/lib/seo";
@@ -55,10 +55,10 @@ function EarlyYears() {
       <Section tone="cream">
         <SectionHead center eyebrow="Four pillars" title="How children learn in Early Years" />
         <CardGrid cols={4} items={[
-          { icon: <Blocks className="h-6 w-6" />, title: "Play-Based Learning", text: "Purposeful play strengthens language, early numeracy, imagination, coordination and the confidence to explore new ideas." },
-          { icon: <Compass className="h-6 w-6" />, title: "Inquiry-Led Exploration", text: "Through Quest projects, stories and hands-on investigations, children ask questions, make connections and discover how the world works." },
-          { icon: <Sparkles className="h-6 w-6" />, title: "Montessori Learning Experiences", text: "Scientifically designed materials develop concentration, fine motor skills, sensory awareness and independent problem-solving." },
-          { icon: <HeartHandshake className="h-6 w-6" />, title: "Whole-Child Development", text: "Art, music, movement, outdoor play and collaborative experiences support physical, emotional, social and creative growth." },
+          { icon: <Blocks className="h-4 w-4" strokeWidth={1.5} />, title: "Play-Based Learning", text: "Purposeful play strengthens language, early numeracy, imagination, coordination and the confidence to explore new ideas." },
+          { icon: <Compass className="h-4 w-4" strokeWidth={1.5} />, title: "Inquiry-Led Exploration", text: "Through Quest projects, stories and hands-on investigations, children ask questions, make connections and discover how the world works." },
+          { icon: <BookOpen className="h-4 w-4" strokeWidth={1.5} />, title: "Montessori Learning Experiences", text: "Scientifically designed materials develop concentration, fine motor skills, sensory awareness and independent problem-solving." },
+          { icon: <HeartHandshake className="h-4 w-4" strokeWidth={1.5} />, title: "Whole-Child Development", text: "Art, music, movement, outdoor play and collaborative experiences support physical, emotional, social and creative growth." },
         ]} />
       </Section>
 

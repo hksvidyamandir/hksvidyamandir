@@ -1,0 +1,391 @@
+/* =========================================================================
+   HKS Vidyamandir — Co-Curricular Four Vidyas Stylesheet (Unslopped)
+   Quiet chrome, 4px rhythm, hairline dividers, Fraunces 500 / Manrope 400-500,
+   zero decorative loops, zero gradients or glows.
+   ========================================================================= */
+
+.vk-page {
+  --vt: var(--navy);
+  --vt-soft: var(--background);
+  --vk-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: clip;
+}
+
+.vk-page[data-track="krishi"] { --vt: var(--teal); --vt-soft: var(--surface-teal); }
+.vk-page[data-track="khel"] { --vt: var(--cta); --vt-soft: var(--cream); }
+.vk-page[data-track="anubhav"] { --vt: var(--navy); --vt-soft: color-mix(in oklab, var(--navy) 6%, var(--card)); }
+.vk-page[data-track="samskriti"] { --vt: var(--navy); --vt-soft: var(--cream); }
+
+.vk-band {
+  padding: clamp(56px, 7vw, 96px) 0;
+  position: relative;
+}
+.vk-ground-card { background-color: var(--card); }
+.vk-ground-paper { background-color: var(--background); }
+.vk-ground-cream { background-color: var(--cream); }
+.vk-ground-soft { background-color: var(--vt-soft); }
+.vk-ground-navy {
+  background-color: var(--ink);
+  color: color-mix(in oklab, var(--card) 82%, transparent);
+}
+.vk-ground-navy h2,
+.vk-ground-navy h3 { color: var(--card); }
+
+.vk-kicker {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+.vk-ground-navy .vk-kicker { color: var(--gold); }
+
+.vk-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px 56px;
+  align-items: end;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+.vk-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+}
+.vk-ground-navy .vk-head h2 { color: var(--card); }
+.vk-head .vk-lede { justify-self: end; }
+.vk-lede {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--foreground);
+  max-width: 58ch;
+}
+.vk-ground-navy .vk-lede { color: color-mix(in oklab, var(--card) 78%, transparent); }
+@media (max-width: 820px) {
+  .vk-head { grid-template-columns: 1fr; }
+  .vk-head .vk-lede { justify-self: start; }
+}
+
+/* Sticky track nav below SiteHeader */
+.vk-tracknav {
+  position: sticky;
+  top: 80px;
+  z-index: 35;
+  background: var(--card);
+  border-block: 1px solid var(--border);
+}
+@media (min-width: 1024px) {
+  .vk-tracknav { top: 96px; }
+}
+.vk-tracknav-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.vk-tracknav-row::-webkit-scrollbar { display: none; }
+.vk-tracknav a {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  border-bottom: 2px solid transparent;
+  transition: color 160ms var(--vk-ease), border-color 160ms var(--vk-ease);
+}
+.vk-tracknav a i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dot-c);
+  opacity: 0.45;
+}
+.vk-tracknav a:hover { color: var(--navy); }
+.vk-tracknav a.is-on {
+  color: var(--navy);
+  border-color: var(--navy);
+}
+.vk-tracknav a.is-on i { opacity: 1; }
+
+/* Hairline 4-fact stats ledger */
+.vk-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--border);
+}
+.vk-stats > div {
+  padding: 20px 20px 0 20px;
+  border-right: 1px solid var(--border);
+}
+.vk-stats > div:first-child { padding-left: 0; }
+.vk-stats > div:last-child { border-right: 0; }
+.vk-stats b {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.08;
+  color: var(--navy);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.vk-stats span {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-top: 6px;
+}
+.vk-stats small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted-foreground);
+  margin-top: 2px;
+}
+@media (max-width: 720px) {
+  .vk-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .vk-stats > div { border-right: 0; padding: 16px 0 0 0; }
+}
+
+/* At a glance 6-column ledger */
+.vk-glance {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+.vk-glance-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.vk-glance-ttl {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  padding: 24px 0 4px;
+}
+.vk-glance-ttl h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--navy);
+}
+.vk-glance-cell {
+  padding: 16px 16px 24px;
+  border-left: 1px solid var(--border);
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.vk-glance-cell:nth-child(2) {
+  border-left: 0;
+  padding-left: 0;
+}
+.vk-glance-cell small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+.vk-glance-cell b {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--navy);
+}
+@media (max-width: 1024px) {
+  .vk-glance-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .vk-glance-cell { border-top: 1px solid var(--border); }
+  .vk-glance-cell:nth-child(3n + 2) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 560px) {
+  .vk-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vk-glance-cell { border-left: 0 !important; padding-left: 0 !important; padding-right: 12px; }
+}
+
+/* Quiet control tabs / filter buttons (8px radius, not pills) */
+.vk-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.vk-chip {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background-color 150ms var(--vk-ease), color 150ms, border-color 150ms;
+}
+.vk-chip:hover { border-color: var(--navy); color: var(--navy); }
+.vk-chip[aria-pressed="true"],
+.vk-chip[aria-selected="true"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--card);
+}
+.vk-chip em {
+  font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  opacity: 0.72;
+  margin-left: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Grade finder */
+.vk-finder {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(20px, 4vw, 40px);
+  align-items: start;
+}
+.vk-gpick { display: grid; gap: 6px; }
+.vk-gpick button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--navy);
+  text-align: left;
+  transition: background-color 150ms var(--vk-ease), color 150ms, border-color 150ms;
+}
+.vk-gpick button:hover { border-color: var(--navy); }
+.vk-gpick button small { font-weight: 400; font-size: 12px; color: var(--muted-foreground); }
+.vk-gpick button[aria-selected="true"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--card);
+}
+.vk-gpick button[aria-selected="true"] small {
+  color: color-mix(in oklab, var(--card) 78%, transparent);
+}
+.vk-gpanel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: clamp(24px, 3vw, 32px);
+}
+@media (max-width: 860px) {
+  .vk-finder { grid-template-columns: 1fr; }
+  .vk-gpick { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+
+/* Editorial statement band */
+.vk-tagline {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: var(--card);
+  border-block: 1px solid var(--border);
+}
+.vk-tagline-text {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(26px, 3.6vw, 44px);
+  line-height: 1.18;
+  color: var(--navy);
+  max-width: 26ch;
+  text-wrap: balance;
+  letter-spacing: -0.015em;
+}
+
+/* Horizontal scroller */
+.vk-hs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 30%);
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+}
+.vk-hs > * { scroll-snap-align: start; }
+@media (max-width: 720px) {
+  .vk-hs { grid-auto-columns: 84%; }
+}
+
+/* Quiet breathing circle (no glow, no idle animation) */
+.vk-orb {
+  position: relative;
+  width: min(300px, 74vw);
+  aspect-ratio: 1;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+.vk-orb-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--card) 22%, transparent);
+}
+.vk-orb-core {
+  width: 44%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--gold) 22%, var(--navy));
+  border: 1.5px solid var(--gold);
+  transition: transform 4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.vk-orb.is-inhale .vk-orb-core,
+.vk-orb.is-hold .vk-orb-core {
+  transform: scale(1.8);
+}
+
+/* Co-Curricular 4-panel expanding hub */
+.vk-hub-panels {
+  display: flex;
+  gap: 12px;
+  height: min(460px, 64vh);
+  min-height: 360px;
+}
+.vk-hub-panel {
+  flex: 1;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  color: var(--card);
+  text-decoration: none;
+  transition: flex 420ms var(--vk-ease);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+}
+.vk-hub-panel:hover,
+.vk-hub-panel:focus-visible,
+.vk-hub-panels:not(:hover) .vk-hub-panel.is-first {
+  flex: 2.2;
+}
+.vk-hub-panel .vk-hub-more {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 380ms var(--vk-ease), opacity 280ms;
+}
+.vk-hub-panel:hover .vk-hub-more,
+.vk-hub-panel:focus-visible .vk-hub-more,
+.vk-hub-panels:not(:hover) .vk-hub-panel.is-first .vk-hub-more {
+  max-height: 180px;
+  opacity: 1;
+}
+@media (max-width: 860px) {
+  .vk-hub-panels { flex-direction: column; height: auto; }
+  .vk-hub-panel { min-height: 196px; }
+  .vk-hub-panel .vk-hub-more { max-height: none; opacity: 1; }
+}
