@@ -81,7 +81,7 @@ export function SiteHeader() {
             <span className="opacity-50">|</span>
             <Link to="/campus" className="px-3 hover:text-gold">Campus Tour</Link>
             <span className="opacity-50">|</span>
-            <Link to="/admissions" className="px-3 hover:text-gold">Application Form</Link>
+            <Link to="/application-form" className="px-3 hover:text-gold">Application Form</Link>
             <span className="opacity-50">|</span>
             <Link to="/mandatory-public-disclosure" className="px-3 hover:text-gold">Mandatory Disclosure</Link>
             <span className="opacity-50">|</span>
@@ -221,7 +221,7 @@ export function SiteHeader() {
               <div className="grid grid-cols-2 gap-x-3 text-sm font-semibold">
                 <Link to="/admissions" hash="enquire" onClick={closeMenu} className="flex min-h-11 items-center">Enquire Now</Link>
                 <Link to="/campus" onClick={closeMenu} className="flex min-h-11 items-center">Campus Tour</Link>
-                <Link to="/admissions" onClick={closeMenu} className="flex min-h-11 items-center">Application Form</Link>
+                <Link to="/application-form" onClick={closeMenu} className="flex min-h-11 items-center">Application Form</Link>
                 <Link to="/mandatory-public-disclosure" onClick={closeMenu} className="flex min-h-11 items-center">Mandatory Disclosure</Link>
                 <Link to="/contact" onClick={closeMenu} className="flex min-h-11 items-center">Contact</Link>
               </div>

@@ -176,11 +176,10 @@ function TermsAndConditionsPage() {
                 Print policy
               </Button>
               <Link
-                to="/admissions"
-                hash="application-form"
+                to="/application-form"
                 className="inline-flex items-center gap-1.5 border-b border-navy/40 pb-1 text-sm font-medium text-navy transition-colors hover:border-navy"
               >
-                Open admission form
+                Open application form
                 <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
               </Link>
             </div>
