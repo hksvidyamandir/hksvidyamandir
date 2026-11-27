@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { img } from "@/assets/site";
 import { seo } from "@/lib/seo";
 import { CardGrid, CheckList, PageHero, Section, SectionHead } from "@/components/site/blocks";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
-import { AdmissionKitForm } from "@/components/site/AdmissionKitForm";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/admissions")({
@@ -51,21 +51,20 @@ function Admissions() {
         </div>
       </Section>
       <Section tone="muted" id="application-form">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Interactive 5-step online application
-              </p>
-              <h2 className="mt-1 font-display text-3xl font-medium text-navy md:text-4xl">
-                Students Admission Kit Form
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                Complete the learner profile, academic history, health &amp; vaccination record,
-                support services questionnaire and parents&apos; undertaking online.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-4 text-xs font-medium text-navy">
+        <div className="mx-auto flex max-w-4xl flex-col gap-6 rounded-xl border border-border bg-card p-6 md:flex-row md:items-center md:justify-between md:p-8">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium text-muted-foreground">
+              Interactive 5-step online application
+            </p>
+            <h2 className="mt-1 font-display text-2xl font-medium text-navy md:text-3xl">
+              Students Admission Kit Form
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Ready to apply? Complete the learner profile, academic history, health &amp;
+              vaccination record, support services questionnaire and parents&apos; undertaking on
+              our dedicated application page.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-4 text-xs font-medium text-navy">
               <Link to="/terms-and-conditions" className="underline underline-offset-4 hover:text-cta">
                 Terms &amp; Conditions
               </Link>
@@ -74,7 +73,13 @@ function Admissions() {
               </Link>
             </div>
           </div>
-          <AdmissionKitForm />
+          <Link
+            to="/application-form"
+            className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-cta px-6 text-sm font-medium text-cta-foreground transition-colors hover:bg-cta/90"
+          >
+            Open Application Form
+            <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+          </Link>
         </div>
       </Section>
 

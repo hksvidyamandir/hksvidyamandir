@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as AnubhavVidyaRouteImport } from './routes/anubhav-vidya'
+import { Route as ApplicationFormRouteImport } from './routes/application-form'
 import { Route as CampusRouteImport } from './routes/campus'
 import { Route as CampusLifeRouteImport } from './routes/campus-life'
 import { Route as CompetitiveExamsRouteImport } from './routes/competitive-exams'
@@ -56,6 +57,11 @@ const AdmissionsRoute = AdmissionsRouteImport.update({
 const AnubhavVidyaRoute = AnubhavVidyaRouteImport.update({
   id: '/anubhav-vidya',
   path: '/anubhav-vidya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationFormRoute = ApplicationFormRouteImport.update({
+  id: '/application-form',
+  path: '/application-form',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CampusRoute = CampusRouteImport.update({
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/academics': typeof AcademicsRoute
   '/admissions': typeof AdmissionsRoute
   '/anubhav-vidya': typeof AnubhavVidyaRoute
+  '/application-form': typeof ApplicationFormRoute
   '/campus': typeof CampusRoute
   '/campus-life': typeof CampusLifeRoute
   '/competitive-exams': typeof CompetitiveExamsRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/academics': typeof AcademicsRoute
   '/admissions': typeof AdmissionsRoute
   '/anubhav-vidya': typeof AnubhavVidyaRoute
+  '/application-form': typeof ApplicationFormRoute
   '/campus': typeof CampusRoute
   '/campus-life': typeof CampusLifeRoute
   '/competitive-exams': typeof CompetitiveExamsRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/academics': typeof AcademicsRoute
   '/admissions': typeof AdmissionsRoute
   '/anubhav-vidya': typeof AnubhavVidyaRoute
+  '/application-form': typeof ApplicationFormRoute
   '/campus': typeof CampusRoute
   '/campus-life': typeof CampusLifeRoute
   '/competitive-exams': typeof CompetitiveExamsRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/admissions'
     | '/anubhav-vidya'
+    | '/application-form'
     | '/campus'
     | '/campus-life'
     | '/competitive-exams'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/admissions'
     | '/anubhav-vidya'
+    | '/application-form'
     | '/campus'
     | '/campus-life'
     | '/competitive-exams'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/admissions'
     | '/anubhav-vidya'
+    | '/application-form'
     | '/campus'
     | '/campus-life'
     | '/competitive-exams'
@@ -310,6 +322,7 @@ export interface RootRouteChildren {
   AcademicsRoute: typeof AcademicsRoute
   AdmissionsRoute: typeof AdmissionsRoute
   AnubhavVidyaRoute: typeof AnubhavVidyaRoute
+  ApplicationFormRoute: typeof ApplicationFormRoute
   CampusRoute: typeof CampusRoute
   CampusLifeRoute: typeof CampusLifeRoute
   CompetitiveExamsRoute: typeof CompetitiveExamsRoute
@@ -365,6 +378,13 @@ declare module '@tanstack/react-router' {
       path: '/anubhav-vidya'
       fullPath: '/anubhav-vidya'
       preLoaderRoute: typeof AnubhavVidyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/application-form': {
+      id: '/application-form'
+      path: '/application-form'
+      fullPath: '/application-form'
+      preLoaderRoute: typeof ApplicationFormRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/campus': {
@@ -502,6 +522,7 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicsRoute: AcademicsRoute,
   AdmissionsRoute: AdmissionsRoute,
   AnubhavVidyaRoute: AnubhavVidyaRoute,
+  ApplicationFormRoute: ApplicationFormRoute,
   CampusRoute: CampusRoute,
   CampusLifeRoute: CampusLifeRoute,
   CompetitiveExamsRoute: CompetitiveExamsRoute,

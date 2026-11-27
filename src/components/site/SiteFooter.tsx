@@ -17,7 +17,7 @@ const COLS = [
   ...NAV.filter((g) => g.children).map((g) => ({ label: g.label, links: g.children!.map((c) => ({ label: c.label, to: c.to })) })),
   { label: "Admissions", links: [
     { label: "Admission Process", to: "/admissions" },
-    { label: "Online Admission Kit", to: "/admissions" },
+    { label: "Application Form", to: "/application-form" },
     { label: "Schedule a Campus Visit", to: "/contact" },
     { label: "Terms & Conditions", to: "/terms-and-conditions" },
     { label: "Privacy Policy", to: "/privacy-policy" },

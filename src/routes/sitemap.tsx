@@ -21,6 +21,7 @@ const DIRECTORY_GROUPS = [
       { label: "Home", to: "/" },
       { label: "About HKS Vidyamandir", to: "/about" },
       { label: "Admissions Overview & Enquiry", to: "/admissions" },
+      { label: "Application Form (Online Admission Kit)", to: "/application-form" },
       { label: "Campus & Infrastructure", to: "/campus" },
       { label: "Contact Us", to: "/contact" },
     ],
