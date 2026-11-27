@@ -12,7 +12,7 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
       <div className="flex items-stretch gap-4 lg:gap-5">
         {/* Left category rail */}
         <div className="flex w-64 shrink-0 flex-col justify-between gap-3">
-          <div role="tablist" aria-label="Campus Life categories" className="space-y-1">
+          <div role="tablist" aria-label="Co-Curricular categories" className="space-y-1">
             {CAMPUS_LIFE_MEGA_MENU.map((cat) => {
               const isActive = cat.id === active.id;
               return (
@@ -52,7 +52,7 @@ export function CampusLifeMegaMenu({ onNavigate }: { onNavigate?: () => void }) 
             onClick={onNavigate}
             className="inline-flex w-fit items-center justify-center rounded-lg border-2 border-navy/80 bg-transparent px-4 py-2 text-sm font-bold text-navy transition hover:bg-navy hover:text-navy-foreground"
           >
-            Explore Campus Life
+            Explore Co-Curricular
           </Link>
         </div>
 

@@ -35,7 +35,7 @@ export function ExperienceStories() {
   };
   return <section className="home-section home-experiences" aria-labelledby="experience-heading">
     <div className="container-site">
-      <div className="experience-heading"><span className="home-kicker">The HKS community</span><h2 id="experience-heading">Our stories and<br /><em>experiences.</em></h2></div>
+      <div className="experience-heading"><span className="home-kicker">The HKS community</span><h2 id="experience-heading">Our stories and<br />experiences</h2></div>
       <Carousel className="experience-carousel" opts={{ align: "start", loop: true }}>
         <CarouselContent>{experiences.map((item, i) => <CarouselItem key={item.name} className="experience-slide">{card(item, i)}</CarouselItem>)}</CarouselContent>
         <CarouselPrevious className="experience-arrow-btn" aria-label="Previous story" />

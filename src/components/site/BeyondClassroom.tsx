@@ -49,7 +49,7 @@ const groups = [
 
 export function BeyondClassroom() {
   return <section className="home-section beyond-vidya" aria-labelledby="beyond-heading"><div className="container-site">
-    <div className="home-heading"><span className="home-kicker">Beyond the classroom</span><h2 id="beyond-heading">Discover what makes <em>you, you.</em></h2><p>Room for a new passion. Space for an unexpected talent.</p></div>
+    <div className="home-heading"><span className="home-kicker">Beyond the classroom</span><h2 id="beyond-heading">Discover what makes you, you</h2><p>Room for a new passion. Space for an unexpected talent.</p></div>
     <Tabs defaultValue="krishi">
       <TabsList className="beyond-tabs" aria-label="Explore the four Vidyas">{groups.map(({ id, name, Icon }) => <TabsTrigger key={id} value={id} className="beyond-tab"><Icon /><span>{name}</span></TabsTrigger>)}</TabsList>
       {groups.map(({ id, name, subtitle, topics }) => <TabsContent key={id} value={id} className="beyond-panel">

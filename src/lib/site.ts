@@ -51,7 +51,7 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    label: "Campus Life",
+    label: "Co-Curricular",
     to: "/campus-life",
     children: [
       { label: "Krishi Vidya", to: "/krishi-vidya", desc: "Organic farming, horticulture & sustainability" },

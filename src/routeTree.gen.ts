@@ -23,10 +23,14 @@ import { Route as ExperientialLearningRouteImport } from './routes/experiential-
 import { Route as HighSchoolRouteImport } from './routes/high-school'
 import { Route as KhelVidyaRouteImport } from './routes/khel-vidya'
 import { Route as KrishiVidyaRouteImport } from './routes/krishi-vidya'
+import { Route as MandatoryPublicDisclosureRouteImport } from './routes/mandatory-public-disclosure'
 import { Route as PrimaryRouteImport } from './routes/primary'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SamskritiVidyaRouteImport } from './routes/samskriti-vidya'
 import { Route as SeniorSecondaryRouteImport } from './routes/senior-secondary'
+import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as SportsRouteImport } from './routes/sports'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as CampusLifeSlugRouteImport } from './routes/campus-life_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -99,9 +103,20 @@ const KrishiVidyaRoute = KrishiVidyaRouteImport.update({
   path: '/krishi-vidya',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MandatoryPublicDisclosureRoute =
+  MandatoryPublicDisclosureRouteImport.update({
+    id: '/mandatory-public-disclosure',
+    path: '/mandatory-public-disclosure',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PrimaryRoute = PrimaryRouteImport.update({
   id: '/primary',
   path: '/primary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SamskritiVidyaRoute = SamskritiVidyaRouteImport.update({
@@ -114,9 +129,19 @@ const SeniorSecondaryRoute = SeniorSecondaryRouteImport.update({
   path: '/senior-secondary',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SportsRoute = SportsRouteImport.update({
   id: '/sports',
   path: '/sports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CampusLifeSlugRoute = CampusLifeSlugRouteImport.update({
@@ -140,10 +165,14 @@ export interface FileRoutesByFullPath {
   '/high-school': typeof HighSchoolRoute
   '/khel-vidya': typeof KhelVidyaRoute
   '/krishi-vidya': typeof KrishiVidyaRoute
+  '/mandatory-public-disclosure': typeof MandatoryPublicDisclosureRoute
   '/primary': typeof PrimaryRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/samskriti-vidya': typeof SamskritiVidyaRoute
   '/senior-secondary': typeof SeniorSecondaryRoute
+  '/sitemap': typeof SitemapRoute
   '/sports': typeof SportsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/campus-life/$slug': typeof CampusLifeSlugRoute
 }
 export interface FileRoutesByTo {
@@ -161,10 +190,14 @@ export interface FileRoutesByTo {
   '/high-school': typeof HighSchoolRoute
   '/khel-vidya': typeof KhelVidyaRoute
   '/krishi-vidya': typeof KrishiVidyaRoute
+  '/mandatory-public-disclosure': typeof MandatoryPublicDisclosureRoute
   '/primary': typeof PrimaryRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/samskriti-vidya': typeof SamskritiVidyaRoute
   '/senior-secondary': typeof SeniorSecondaryRoute
+  '/sitemap': typeof SitemapRoute
   '/sports': typeof SportsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/campus-life/$slug': typeof CampusLifeSlugRoute
 }
 export interface FileRoutesById {
@@ -183,10 +216,14 @@ export interface FileRoutesById {
   '/high-school': typeof HighSchoolRoute
   '/khel-vidya': typeof KhelVidyaRoute
   '/krishi-vidya': typeof KrishiVidyaRoute
+  '/mandatory-public-disclosure': typeof MandatoryPublicDisclosureRoute
   '/primary': typeof PrimaryRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/samskriti-vidya': typeof SamskritiVidyaRoute
   '/senior-secondary': typeof SeniorSecondaryRoute
+  '/sitemap': typeof SitemapRoute
   '/sports': typeof SportsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/campus-life_/$slug': typeof CampusLifeSlugRoute
 }
 export interface FileRouteTypes {
@@ -206,10 +243,14 @@ export interface FileRouteTypes {
     | '/high-school'
     | '/khel-vidya'
     | '/krishi-vidya'
+    | '/mandatory-public-disclosure'
     | '/primary'
+    | '/privacy-policy'
     | '/samskriti-vidya'
     | '/senior-secondary'
+    | '/sitemap'
     | '/sports'
+    | '/terms-and-conditions'
     | '/campus-life/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -227,10 +268,14 @@ export interface FileRouteTypes {
     | '/high-school'
     | '/khel-vidya'
     | '/krishi-vidya'
+    | '/mandatory-public-disclosure'
     | '/primary'
+    | '/privacy-policy'
     | '/samskriti-vidya'
     | '/senior-secondary'
+    | '/sitemap'
     | '/sports'
+    | '/terms-and-conditions'
     | '/campus-life/$slug'
   id:
     | '__root__'
@@ -248,10 +293,14 @@ export interface FileRouteTypes {
     | '/high-school'
     | '/khel-vidya'
     | '/krishi-vidya'
+    | '/mandatory-public-disclosure'
     | '/primary'
+    | '/privacy-policy'
     | '/samskriti-vidya'
     | '/senior-secondary'
+    | '/sitemap'
     | '/sports'
+    | '/terms-and-conditions'
     | '/campus-life_/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -270,10 +319,14 @@ export interface RootRouteChildren {
   HighSchoolRoute: typeof HighSchoolRoute
   KhelVidyaRoute: typeof KhelVidyaRoute
   KrishiVidyaRoute: typeof KrishiVidyaRoute
+  MandatoryPublicDisclosureRoute: typeof MandatoryPublicDisclosureRoute
   PrimaryRoute: typeof PrimaryRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SamskritiVidyaRoute: typeof SamskritiVidyaRoute
   SeniorSecondaryRoute: typeof SeniorSecondaryRoute
+  SitemapRoute: typeof SitemapRoute
   SportsRoute: typeof SportsRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   CampusLifeSlugRoute: typeof CampusLifeSlugRoute
 }
 
@@ -377,11 +430,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KrishiVidyaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mandatory-public-disclosure': {
+      id: '/mandatory-public-disclosure'
+      path: '/mandatory-public-disclosure'
+      fullPath: '/mandatory-public-disclosure'
+      preLoaderRoute: typeof MandatoryPublicDisclosureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/primary': {
       id: '/primary'
       path: '/primary'
       fullPath: '/primary'
       preLoaderRoute: typeof PrimaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/samskriti-vidya': {
@@ -398,11 +465,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeniorSecondaryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sports': {
       id: '/sports'
       path: '/sports'
       fullPath: '/sports'
       preLoaderRoute: typeof SportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/campus-life_/$slug': {
@@ -430,10 +511,14 @@ const rootRouteChildren: RootRouteChildren = {
   HighSchoolRoute: HighSchoolRoute,
   KhelVidyaRoute: KhelVidyaRoute,
   KrishiVidyaRoute: KrishiVidyaRoute,
+  MandatoryPublicDisclosureRoute: MandatoryPublicDisclosureRoute,
   PrimaryRoute: PrimaryRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   SamskritiVidyaRoute: SamskritiVidyaRoute,
   SeniorSecondaryRoute: SeniorSecondaryRoute,
+  SitemapRoute: SitemapRoute,
   SportsRoute: SportsRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
   CampusLifeSlugRoute: CampusLifeSlugRoute,
 }
 export const routeTree = rootRouteImport

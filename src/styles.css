@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./styles/vidya.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -988,14 +989,14 @@
 @keyframes evc-in { from { opacity: 0; transform: translateY(18px); } }
 .evc-copy { position: relative; }
 .evc-story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; grid-column: 1 / -1; }
-.evc-event-tabs { grid-column: 1 / -1; display: flex; gap: 8px; border-bottom: 1px solid color-mix(in oklab, var(--navy-foreground) 25%, transparent); padding-bottom: 16px; }
-.evc-event-tab { color: var(--navy-foreground); border-radius: 6px; gap: 8px; padding: 12px 18px; height: auto; }
+.evc-event-tabs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid color-mix(in oklab, var(--navy-foreground) 25%, transparent); padding-bottom: 16px; }
+.evc-event-tab { color: var(--navy-foreground); border-radius: 6px; gap: 8px; padding: 10px 15px; height: auto; font-size: 13px; }
 .evc-event-tab[aria-selected="true"], .evc-event-tab:hover { background: var(--gold); color: var(--navy); }
 .evc-event-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 @media (max-width: 767px) {
   .evc-story { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .evc-event-tabs { gap: 4px; }
-  .evc-event-tab { flex: 1; min-width: 0; flex-direction: column; padding: 10px 6px; font-size: 12px; gap: 5px; white-space: normal; min-height: 70px; }
+  .evc-event-tabs { flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding-bottom: 14px; -webkit-overflow-scrolling: touch; }
+  .evc-event-tab { flex: 0 0 auto; white-space: nowrap; padding: 10px 14px; font-size: 12px; gap: 6px; min-height: 44px; }
   .evc-event-tab svg { width: 15px; height: 15px; flex-shrink: 0; }
   .evc-event-tab span { min-width: 0; line-height: 1.3; }
 }
@@ -1661,4 +1662,127 @@ img, video { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: 
   #mobile-navigation a { min-height: 44px; }
   body[data-mobile-menu="open"] footer > .fixed { visibility: hidden; pointer-events: none; }
   body[data-mobile-menu="open"] .site-header { position: fixed; inset: 0 0 auto; width: 100%; }
+}
+
+/* =========================================================================
+   Site-Wide Unslop Refinement Layer (Damir Sokolovsky unslop passes 1-9)
+   Quiet chrome, neutral hairlines, sentence case, zero italics, zero loops
+   ========================================================================= */
+:root {
+  --border: color-mix(in oklab, var(--navy) 11%, transparent);
+  --shadow-soft: 0 1px 2px rgba(17, 24, 39, 0.05), 0 8px 24px -12px rgba(17, 24, 39, 0.08);
+}
+
+.eyebrow,
+.home-kicker {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--muted-foreground) !important;
+}
+
+.home-hero .home-kicker,
+.win-section .home-kicker,
+.home-tour .home-kicker {
+  color: var(--gold) !important;
+}
+
+h1 em,
+h2 em,
+h3 em,
+.hks-home h2 em,
+.evc-copy h3 span,
+.home-hero-script,
+.family-story-headline strong,
+.fam-snippet,
+.pathway-motto,
+.vstack-cap em {
+  font-style: normal !important;
+}
+
+/* Quiet Offers cards (replace 90px pill-blobs & rotating hover icons) */
+.val-card {
+  border-radius: 14px !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+  padding: 24px !important;
+  gap: 16px !important;
+  transition: border-color 180ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.val-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: color-mix(in oklab, var(--navy) 28%, transparent) !important;
+}
+.val-icon {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  background: var(--background) !important;
+  color: var(--navy) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+.val-card:hover .val-icon {
+  transform: none !important;
+  background: var(--background) !important;
+  color: var(--navy) !important;
+}
+.val-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+.val-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  color: var(--muted-foreground) !important;
+  font-variant-numeric: tabular-nums;
+}
+.val-card h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+}
+
+/* Quiet Events & Celebration folder tabs */
+.evc-tab,
+.evc-date {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-weight: 500 !important;
+}
+.evc-panel {
+  box-shadow: none !important;
+  border-radius: 0 14px 14px 14px !important;
+  animation: none !important;
+}
+.evc-panel:hover .evc-media > img {
+  transform: none !important;
+}
+
+/* Flat solid dark ground on LifeGallery (remove radial color wash) */
+.win-section {
+  background: var(--ink) !important;
+}
+
+/* Consistent 8px control radius & quiet weight on CTAs */
+.home-action,
+.qk-cta,
+.final-btn,
+.site-cta {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+.final-badge {
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+.final-dot {
+  animation: none !important;
 }

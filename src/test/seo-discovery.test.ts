@@ -10,10 +10,10 @@ describe("Public search discovery", () => {
     expect(directives).toEqual([`${origin}/sitemap.xml`]);
   });
 
-  it("lists all 18 school pages on the published domain", () => {
+  it("lists all 22 school pages on the published domain", () => {
     const xml = readFileSync("public/sitemap.xml", "utf8");
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-    const paths = ["/", "/about", "/academics", "/early-years", "/primary", "/high-school", "/senior-secondary", "/experiential-learning", "/competitive-exams", "/sports", "/campus-life", "/krishi-vidya", "/khel-vidya", "/anubhav-vidya", "/samskriti-vidya", "/campus", "/admissions", "/contact"];
+    const paths = ["/", "/about", "/academics", "/early-years", "/primary", "/high-school", "/senior-secondary", "/experiential-learning", "/competitive-exams", "/sports", "/campus-life", "/krishi-vidya", "/khel-vidya", "/anubhav-vidya", "/samskriti-vidya", "/campus", "/admissions", "/mandatory-public-disclosure", "/privacy-policy", "/terms-and-conditions", "/sitemap", "/contact"];
     expect(locations).toEqual(paths.map((path) => `${origin}${path}`));
   });
 });

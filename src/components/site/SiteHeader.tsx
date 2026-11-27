@@ -83,6 +83,8 @@ export function SiteHeader() {
             <span className="opacity-50">|</span>
             <Link to="/admissions" className="px-3 hover:text-gold">Application Form</Link>
             <span className="opacity-50">|</span>
+            <Link to="/mandatory-public-disclosure" className="px-3 hover:text-gold">Mandatory Disclosure</Link>
+            <span className="opacity-50">|</span>
             <Link to="/contact" className="pl-3 hover:text-gold">Contact</Link>
           </div>
         </div>
@@ -94,20 +96,20 @@ export function SiteHeader() {
         </Link>
 
         <div className="hidden lg:flex flex-col items-end gap-1.5">
-          <div className="flex w-full flex-nowrap items-center justify-end gap-3 border-b border-border pb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-foreground/60 xl:gap-5">
+          <div className="flex w-full flex-nowrap items-center justify-end gap-4 border-b border-border pb-2 text-xs font-medium text-muted-foreground xl:gap-5">
             {VIDYA.map((v) => (
-              <Link key={v.label} to={v.to} onClick={closeMenu} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-foreground/80 transition hover:text-primary">
-                <v.icon className={`h-5 w-5 shrink-0 ${v.tone}`} />
+              <Link key={v.label} to={v.to} onClick={closeMenu} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-foreground transition-colors hover:text-navy">
+                <v.icon className={`h-4 w-4 shrink-0 ${v.tone}`} />
                 {v.label}
               </Link>
             ))}
-            <Link to="/academics" onClick={closeMenu} className="hidden whitespace-nowrap transition hover:text-primary min-[1600px]:inline">CBSE · Nursery - Grade 12</Link>
-            <Link to="/admissions" onClick={closeMenu} className="whitespace-nowrap font-medium text-foreground/80 transition hover:text-primary">Admissions Open 2026-27</Link>
+            <Link to="/academics" onClick={closeMenu} className="hidden whitespace-nowrap transition-colors hover:text-navy min-[1600px]:inline">CBSE · Nursery – Grade 12</Link>
+            <Link to="/admissions" onClick={closeMenu} className="whitespace-nowrap font-medium text-navy transition-colors hover:text-cta">Admissions Open 2026–27</Link>
           </div>
         <nav aria-label="Main" className="flex items-center gap-0.5">
           <Link to="/" className="px-3 py-2 text-sm font-semibold text-foreground hover:text-primary" activeOptions={{ exact: true }} activeProps={{ className: "text-primary" }}>Home</Link>
           {NAV.map((g) =>
-            g.label === "Campus Life" ? (
+            g.label === "Co-Curricular" ? (
               <div
                 key={g.label}
                 className="relative"
@@ -136,10 +138,9 @@ export function SiteHeader() {
                 </Link>
                 <div className="invisible absolute right-0 top-full w-80 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                   <div className="rounded-xl border border-border bg-card p-2 shadow-soft">
-                    <div className="h-1 rounded-full bg-flame mb-2" />
                     {g.children.map((c) => (
-                      <Link key={c.label} to={c.to} onClick={(e) => e.currentTarget.blur()} className="block rounded-lg px-3 py-2.5 hover:bg-muted">
-                        <span className="block text-sm font-semibold text-navy">{c.label}</span>
+                      <Link key={c.label} to={c.to} onClick={(e) => e.currentTarget.blur()} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-background">
+                        <span className="block text-sm font-medium text-navy">{c.label}</span>
                         <span className="block text-xs text-muted-foreground">{c.desc}</span>
                       </Link>
                     ))}
@@ -147,10 +148,10 @@ export function SiteHeader() {
                 </div>
               </div>
             ) : (
-              <Link key={g.label} to={g.to} onMouseEnter={() => setMegaOpen(false)} className="px-3 py-2 text-sm font-semibold text-foreground hover:text-primary" activeProps={{ className: "text-primary" }}>{g.label}</Link>
+              <Link key={g.label} to={g.to} onMouseEnter={() => setMegaOpen(false)} className="px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-navy" activeProps={{ className: "text-navy" }}>{g.label}</Link>
             ),
           )}
-          <Button asChild className="ml-2 rounded-full px-5 font-bold"><Link to="/admissions" hash="enquire">Apply Now</Link></Button>
+          <Button asChild className="ml-2 h-9 rounded-lg px-4 text-sm font-medium"><Link to="/admissions" hash="enquire">Apply Now</Link></Button>
         </nav>
         </div>
 
@@ -196,7 +197,7 @@ export function SiteHeader() {
                     </Button>
                     {expanded === g.label && (
                       <div className="pb-3 pl-3 space-y-1">
-                        {g.label === "Campus Life"
+                        {g.label === "Co-Curricular"
                           ? CAMPUS_LIFE_MEGA_MENU.map((cat) => (
                               <Link key={cat.id} to={cat.to} onClick={closeMenu} className="flex min-h-11 items-center py-2 md:block md:min-h-0 md:py-1.5 text-sm text-muted-foreground hover:text-primary">
                                 {cat.label}
@@ -221,6 +222,7 @@ export function SiteHeader() {
                 <Link to="/admissions" hash="enquire" onClick={closeMenu} className="flex min-h-11 items-center">Enquire Now</Link>
                 <Link to="/campus" onClick={closeMenu} className="flex min-h-11 items-center">Campus Tour</Link>
                 <Link to="/admissions" onClick={closeMenu} className="flex min-h-11 items-center">Application Form</Link>
+                <Link to="/mandatory-public-disclosure" onClick={closeMenu} className="flex min-h-11 items-center">Mandatory Disclosure</Link>
                 <Link to="/contact" onClick={closeMenu} className="flex min-h-11 items-center">Contact</Link>
               </div>
               <div className="mt-2 border-t border-border pt-2">
