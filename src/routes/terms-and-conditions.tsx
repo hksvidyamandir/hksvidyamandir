@@ -74,7 +74,7 @@ const UNDERTAKING_CLAUSES = [
   {
     no: "02",
     title: "Leave applications",
-    text: "Sick leave (post diagnosis) or leave to attend a family marriage must be applied for in writing addressed to the School Principal, accompanied by a medical certificate or wedding invitation card respectively.",
+    text: "Sick leave (post diagnosis) or leave to attend a family marriage must be applied for in writing addressed to the School Office, accompanied by a medical certificate or wedding invitation card respectively.",
   },
   {
     no: "03",
@@ -114,7 +114,7 @@ const UNDERTAKING_CLAUSES = [
   {
     no: "10",
     title: "Campus visits by appointment",
-    text: "Parents will not enter the campus during school hours without a prior appointment with the Principal through the School Office.",
+    text: "Parents will not enter the campus during school hours without a prior appointment through the School Office.",
   },
   {
     no: "11",

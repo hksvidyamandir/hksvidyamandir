@@ -6,11 +6,11 @@ import {
 } from "@/lib/mandatory-disclosure";
 
 describe("Mandatory Public Disclosure data", () => {
-  it("contains all 7 General Information rows with affiliation 830417 and school code 45340", () => {
-    expect(GENERAL_INFORMATION).toHaveLength(7);
+  it("contains all 6 General Information rows with affiliation 830417 and school code 45340", () => {
+    expect(GENERAL_INFORMATION).toHaveLength(6);
     expect(GENERAL_INFORMATION.find((r) => r.label === "Affiliation No.")?.value).toBe("830417");
     expect(GENERAL_INFORMATION.find((r) => r.label === "School Code")?.value).toBe("45340");
-    expect(GENERAL_INFORMATION.find((r) => r.label === "Principal Name & Qualification")?.value).toContain("Dr. Gouri S. V.");
+    expect(JSON.stringify({ MANDATORY_SUMMARY, GENERAL_INFORMATION })).not.toMatch(/principal|gouri/i);
   });
 
   it("includes all 4 document disclosure sections (B, C, D, E) and all 15 statutory items", () => {

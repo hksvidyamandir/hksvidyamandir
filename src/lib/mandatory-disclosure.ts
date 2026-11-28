@@ -28,7 +28,7 @@ export type DisclosureDocumentSection = {
 export const MANDATORY_SUMMARY = [
   { value: "830417", label: "CBSE Affiliation No.", note: "Official affiliation record" },
   { value: "45340", label: "School Code", note: "CBSE institution code" },
-  { value: "Dr. Gouri S. V.", label: "Principal", note: "M.Sc · Ph.D · M.Ed · M.A" },
+  { value: "Nursery – Gr 12", label: "Academic Span", note: "CBSE K–12 curriculum" },
   { value: "Sections A–E", label: "Appendix-IX format", note: "15 statutory document records" },
 ] as const;
 
@@ -39,17 +39,12 @@ export const GENERAL_INFORMATION: DisclosureInfoRow[] = [
   { slNo: "04", label: "Complete Address with Pin Code", value: SITE.address },
   {
     slNo: "05",
-    label: "Principal Name & Qualification",
-    value: "Dr. Gouri S. V. — M.Sc | Ph.D | M.Ed | M.A",
-  },
-  {
-    slNo: "06",
     label: "School Email ID",
     value: SITE.email,
     href: `mailto:${SITE.email}`,
   },
   {
-    slNo: "07",
+    slNo: "06",
     label: "Contact Details",
     value: SITE.phones[0]!.label,
     href: SITE.phones[0]!.href,
