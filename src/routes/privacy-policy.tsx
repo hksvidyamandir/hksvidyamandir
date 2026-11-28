@@ -210,7 +210,7 @@ function PrivacyPolicyPage() {
                 <li className="flex items-start gap-2.5">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-navy" aria-hidden="true" />
                   <span>
-                    Access is restricted on a need-to-know basis to the Principal, school nurse /
+                    Access is restricted on a need-to-know basis to school administration, school nurse /
                     medical officer, designated special educators, school counsellors and relevant
                     class teachers.
                   </span>

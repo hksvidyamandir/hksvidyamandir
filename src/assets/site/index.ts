@@ -35,7 +35,6 @@ export const img = {
   leaderChairperson: "/media/hks-leaders2.webp",
   leaderGeneralSecretary: "/media/hks-leaders1.webp",
   leaderSecretary: "/media/hks-leaders3.webp",
-  leaderPrincipal: "/media/hks-principal.webp",
   acad1: acad1A.url,
   acad2: acad2A.url,
   acad3: acad3A.url,

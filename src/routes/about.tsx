@@ -9,7 +9,7 @@ import { seo } from "@/lib/seo";
 import { CardGrid, CheckList, CtaBand, PageHero, Section, SectionHead, Split } from "@/components/site/blocks";
 
 export const Route = createFileRoute("/about")({
-  head: () => seo("About Us - Our Story, Leadership & Why HKS", "Learn about HKS Vidyamandir: our story since 2010, vision, mission, Chairman and Principal messages, faculty, why families choose HKS, and school life in Kengeri, Bengaluru.", "/about"),
+  head: () => seo("About Us - Our Story, Leadership & Why HKS", "Learn about HKS Vidyamandir: our story since 2010, vision, mission, leadership messages, faculty, why families choose HKS, and school life in Kengeri, Bengaluru.", "/about"),
   component: About,
 });
 
@@ -44,18 +44,6 @@ const leaderProfiles = [
       "At HKS, we believe that education is not just about knowledge, but about shaping the next generation of global leaders. Where academic excellence meets innovation, we create a nurturing and dynamic learning environment that encourages students to explore, question, and grow.",
       "Every student is empowered not only to excel academically but also to cultivate the values of empathy, responsibility, and resilience, which are key to thriving in today's fast-evolving global landscape.",
       "Our dedicated educators are at the heart of this mission, guiding students with passion and expertise, while our modern, well-equipped facilities create an ideal setting for exploration and growth. Our diverse community represents a wide range of cultures and backgrounds, offering a rich and vibrant atmosphere where students engage with new ideas, perspectives, and experiences.",
-    ],
-  },
-  {
-    name: "Dr. Gouri S. V.",
-    role: "Principal",
-    org: "HKS Group of Institutions",
-    heading: "Principal's Message",
-    image: img.leaderPrincipal,
-    paragraphs: [
-      "It is with great honour and excitement that I serve as Principal at our esteemed institution. As we embark on this journey together, I am filled with a sense of privilege to lead such a renowned school community towards new horizons of excellence.",
-      "Affiliated with the CBSE, HKS has consistently set benchmarks in education, standing tall among the top-performing schools in Karnataka. We pride ourselves on incorporating best practices from across international curricula while delivering the CBSE curriculum with utmost effectiveness — built on our trinity of excellence: a dedicated team of educators, modern infrastructure, and a mission-driven approach focused on academic excellence, extracurricular development and character building.",
-      "We believe in nurturing not just scholars, but well-rounded individuals equipped with the values and skills necessary to contribute positively to society. In today's rapidly evolving educational landscape, adaptability is key — our faculty members are continuously equipped with the tools and resources to embrace change and drive innovation in education.",
     ],
   },
 ];
@@ -150,7 +138,7 @@ function About() {
 
       {/* Leadership */}
       <Section id="leadership">
-        <SectionHead center eyebrow="Leadership Team" title="Education for a better tomorrow" intro="Meet the founders, management and principal guiding HKS Group of Institutions." />
+        <SectionHead center eyebrow="Leadership Team" title="Education for a better tomorrow" intro="Meet the founders and management guiding HKS Group of Institutions." />
 
         {/* Founders & Message by Management */}
         <div className="mt-12 rounded-3xl border border-border bg-card p-6 shadow-soft md:p-10">
@@ -177,7 +165,7 @@ function About() {
           </div>
         </div>
 
-        {/* Secretary & Principal Messages */}
+        {/* Secretary's Message */}
         <div className="mt-8 space-y-8">
           {leaderProfiles.map((leader, idx) => (
             <article key={leader.name} className="rounded-3xl border border-border bg-card p-6 shadow-soft md:p-10">
@@ -245,7 +233,7 @@ function About() {
       <Section tone="cream" id="parents">
         <SectionHead center eyebrow="Our parent stories" title="What parents say" />
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {[["There was a consistent focus on discipline, and academic performance. Teachers explain concepts clearly and give personal attention. I was seeing a good balance of academics and co-curricular activities, opportunities for sports, cultural programmes and competitions that help build confidence and communication skills.", "Mr. Kariappa", "Parent of Lakshitha"], ["Teachers always go that extra mile to bring out the best in every child under the valuable guidance of their principal. The curriculum gives equal importance to both mental and physical health. The teachers emphasise creativity right from the nursery level and work on the best talent of each child.", "Dr Maimoona Arshi", "Parent of Abdul Majeeb"]].map(([q, n, r]) => (
+          {[["There was a consistent focus on discipline, and academic performance. Teachers explain concepts clearly and give personal attention. I was seeing a good balance of academics and co-curricular activities, opportunities for sports, cultural programmes and competitions that help build confidence and communication skills.", "Mr. Kariappa", "Parent of Lakshitha"], ["Teachers always go that extra mile to bring out the best in every child. The curriculum gives equal importance to both mental and physical health. The teachers emphasise creativity right from the nursery level and work on the best talent of each child.", "Dr Maimoona Arshi", "Parent of Abdul Majeeb"]].map(([q, n, r]) => (
             <figure key={n} className="rounded-3xl bg-card p-8 shadow-soft"><blockquote className="text-muted-foreground">"{q}"</blockquote><figcaption className="mt-4 font-semibold text-navy">{n} <span className="font-normal text-muted-foreground">- {r}</span></figcaption></figure>
           ))}
         </div>

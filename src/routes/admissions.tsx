@@ -40,10 +40,12 @@ function Admissions() {
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <SectionHead eyebrow="Requirements" title="Age criteria & documents" />
-            <table className="mt-8 w-full overflow-hidden rounded-2xl bg-card text-left text-sm">
-              <thead className="bg-navy text-navy-foreground"><tr><th className="p-4">Class</th><th className="p-4">Age (as on 1 June)</th></tr></thead>
-              <tbody>{ages.map(([c, a]) => <tr key={c} className="border-t border-border"><td className="p-4 font-semibold text-navy">{c}</td><td className="p-4">{a}</td></tr>)}</tbody>
-            </table>
+            <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-card">
+              <table className="w-full min-w-[300px] text-left text-sm">
+                <thead className="bg-navy text-navy-foreground"><tr><th className="p-4">Class</th><th className="p-4">Age (as on 1 June)</th></tr></thead>
+                <tbody>{ages.map(([c, a]) => <tr key={c} className="border-t border-border"><td className="p-4 font-semibold text-navy">{c}</td><td className="p-4">{a}</td></tr>)}</tbody>
+              </table>
+            </div>
             <h3 className="mt-10 text-2xl font-semibold text-navy">Documents required</h3>
             <CheckList items={["Birth certificate", "Aadhaar card of student and parents", "Previous school report card", "Transfer certificate (Grade 2 onwards)", "4 passport-size photographs", "Medical / immunisation record"]} />
           </div>

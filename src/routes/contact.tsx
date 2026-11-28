@@ -30,7 +30,7 @@ function Contact() {
   ];
   return (
     <>
-      <PageHero crumb="Contact" eyebrow="Get in touch" title="We'd love to welcome you" intro="Education for a better tomorrow - reach out, visit, or send us an enquiry." image={img.building} />
+      <PageHero crumb="Contact" eyebrow="Get in touch" title="We'd love to welcome you" intro="Education for a better tomorrow - reach out, visit, or send us an enquiry." image={img.building} showForm={false} />
       <Section>
         <div className="grid grid-cols-1 md:grid-cols-none gap-10 lg:grid-cols-2">
           <div className="min-w-0 md:min-w-auto space-y-4">

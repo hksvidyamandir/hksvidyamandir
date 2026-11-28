@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
   ArrowRight,
+  Award,
   Backpack,
+  BarChart3,
+  BookOpen,
   Calendar,
   Check,
   Clock,
   Eye,
+  Globe,
   GraduationCap,
   HandHeart,
+  Heart,
   Mail,
   MapPin,
   Phone,
   ShieldCheck,
+  Star,
   Users,
   Wallet,
 } from "lucide-react";
@@ -30,13 +36,28 @@ export const VIDYA_TRACKS: {
   dotVar: string;
   sub: string;
 }[] = [
-  { id: "krishi", name: "Krishi Vidya", to: "/krishi-vidya", dotVar: "var(--teal)", sub: "Farming, horticulture & ecology" },
-  { id: "khel", name: "Khel Vidya", to: "/khel-vidya", dotVar: "var(--cta)", sub: "Sports, fitness & wellbeing" },
-  { id: "anubhav", name: "Anubhav Vidya", to: "/anubhav-vidya", dotVar: "var(--navy)", sub: "Experiential learning & labs" },
-  { id: "samskriti", name: "Samskriti Vidya", to: "/samskriti-vidya", dotVar: "var(--gold)", sub: "Culture, arts & heritage" },
+  { id: "krishi", name: "Krishi Vidya", to: "/krishi-vidya", dotVar: "#2f7d4a", sub: "Farming, horticulture & ecology" },
+  { id: "khel", name: "Khel Vidya", to: "/khel-vidya", dotVar: "#d9482b", sub: "Sports, fitness & wellbeing" },
+  { id: "anubhav", name: "Anubhav Vidya", to: "/anubhav-vidya", dotVar: "#4352d1", sub: "Experiential learning & labs" },
+  { id: "samskriti", name: "Samskriti Vidya", to: "/samskriti-vidya", dotVar: "#a3264f", sub: "Culture, arts & heritage" },
 ];
 
-export type GlanceIconKey = "users" | "clock" | "pin" | "teacher" | "wallet" | "bag";
+export type GlanceIconKey =
+  | "users"
+  | "clock"
+  | "pin"
+  | "teacher"
+  | "wallet"
+  | "bag"
+  | "book"
+  | "star"
+  | "globe"
+  | "heart"
+  | "calendar"
+  | "chart"
+  | "first"
+  | "eye"
+  | "mail";
 
 export type GlanceItem = {
   icon: GlanceIconKey;
@@ -63,6 +84,15 @@ const GLANCE_ICONS: Record<GlanceIconKey, typeof Users> = {
   teacher: GraduationCap,
   wallet: Wallet,
   bag: Backpack,
+  book: BookOpen,
+  star: Star,
+  globe: Globe,
+  heart: Heart,
+  calendar: Calendar,
+  chart: BarChart3,
+  first: Award,
+  eye: Eye,
+  mail: Mail,
 };
 
 const GRADE_BANDS = [
@@ -73,31 +103,35 @@ const GRADE_BANDS = [
   { label: "Grades 11 – 12", ages: "Ages 16 to 17" },
 ] as const;
 
-export function VidyaTrackNav({ active }: { active: VidyaTrackId }) {
-  return (
-    <nav className="vk-tracknav" aria-label="Co-curricular tracks">
-      <div className="container-site vk-tracknav-row">
-        {VIDYA_TRACKS.map((t, idx) => {
-          const isOn = t.id === active;
-          return (
-            <Link
-              key={t.id}
-              to={t.to}
-              style={{ ["--dot-c" as string]: t.dotVar }}
-              className={isOn ? "is-on" : ""}
-              aria-current={isOn ? "page" : undefined}
-            >
-              <span className="font-mono text-xs tabular-nums text-muted-foreground">0{idx + 1}</span>
-              <span>{t.name}</span>
-            </Link>
-          );
-        })}
-        <Link to="/campus-life" style={{ ["--dot-c" as string]: "var(--navy)" }} className="ml-auto">
-          <span>All tracks</span>
-        </Link>
-      </div>
-    </nav>
-  );
+/** Triggers once when an element enters the viewport (SSR-safe). */
+export function useInViewOnce<T extends HTMLElement>(threshold = 0.08) {
+  const ref = useRef<T | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setInView(true);
+            obs.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return { ref, inView };
 }
 
 export function VidyaGlance({ name, items }: { name: string; items: GlanceItem[] }) {
@@ -106,15 +140,12 @@ export function VidyaGlance({ name, items }: { name: string; items: GlanceItem[]
       <div className="container-site vk-glance-grid">
         <div className="vk-glance-ttl">
           <h2>{name} at a glance</h2>
-          <span className="text-xs text-muted-foreground">
-            The essentials, before you read further
-          </span>
         </div>
         {items.map((item) => {
           const Icon = GLANCE_ICONS[item.icon];
           return (
             <div key={item.label} className="vk-glance-cell">
-              <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+              <Icon className="h-4 w-4" style={{ color: "var(--vt)" }} strokeWidth={1.6} />
               <small>{item.label}</small>
               <b>{item.value}</b>
             </div>
@@ -159,7 +190,7 @@ export function VidyaGradeFinder({
   const current = grades[selected] ?? grades[0]!;
 
   return (
-    <section className="vk-band border-y border-border bg-card" id="your-child">
+    <section className="vk-band vk-ground-soft border-y border-border" id="your-child">
       <div className="container-site">
         <div className="vk-head">
           <div>
@@ -203,40 +234,46 @@ export function VidyaGradeFinder({
           </div>
 
           <div className="vk-gpanel" role="tabpanel" aria-live="polite">
-            <span className="font-mono text-xs tabular-nums text-muted-foreground">
-              {currentBand.label} · {currentBand.ages}
-            </span>
-            <h3 className="mt-2 font-display text-2xl font-medium text-navy md:text-3xl">
-              {current.focus}
-            </h3>
+            <div key={selected} className="vk-fadeswap">
+              <span
+                className="font-mono text-xs font-medium tabular-nums"
+                style={{ color: "var(--vt)" }}
+              >
+                {currentBand.label} · {currentBand.ages}
+              </span>
+              <h3 className="mt-2 font-display text-2xl font-medium text-navy md:text-3xl">
+                {current.focus}
+              </h3>
 
-            <div className="mt-6 grid gap-6 border-t border-border pt-6 md:grid-cols-[1.2fr_0.8fr]">
-              <div>
-                <h4 className="mb-3 font-sans text-xs font-medium text-muted-foreground">
-                  What they do
-                </h4>
-                <ul className="space-y-2.5">
-                  {current.doItems.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                      <Check
-                        className="mt-0.5 h-4 w-4 shrink-0 text-navy"
-                        strokeWidth={1.5}
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <div className="rounded-lg border border-border bg-background p-4">
-                  <h4 className="font-sans text-xs font-medium text-muted-foreground">How often</h4>
-                  <p className="mt-1.5 text-sm leading-relaxed text-foreground">{current.often}</p>
-                </div>
-                <div className="rounded-lg border border-border bg-background p-4">
-                  <h4 className="font-sans text-xs font-medium text-muted-foreground">
-                    What you may notice at home
+              <div className="mt-6 grid gap-6 border-t border-border pt-6 md:grid-cols-[1.2fr_0.8fr]">
+                <div>
+                  <h4 className="mb-3 font-sans text-xs font-medium text-muted-foreground">
+                    What they do
                   </h4>
-                  <p className="mt-1.5 text-sm leading-relaxed text-foreground">{current.home}</p>
+                  <ul className="space-y-2.5">
+                    {current.doItems.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0"
+                          style={{ color: "var(--vt)" }}
+                          strokeWidth={1.7}
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="space-y-4">
+                  <div className="rounded-lg border border-border p-4" style={{ backgroundColor: "var(--vt-soft)" }}>
+                    <h4 className="font-sans text-xs font-medium text-navy">How often</h4>
+                    <p className="mt-1.5 text-sm leading-relaxed text-foreground">{current.often}</p>
+                  </div>
+                  <div className="rounded-lg border border-border p-4" style={{ backgroundColor: "var(--vt-soft)" }}>
+                    <h4 className="font-sans text-xs font-medium text-navy">
+                      What you may notice at home
+                    </h4>
+                    <p className="mt-1.5 text-sm leading-relaxed text-foreground">{current.home}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -247,15 +284,45 @@ export function VidyaGradeFinder({
   );
 }
 
+/** Word-by-word scroll-lit editorial statement band (faithful to artifacts). */
 export function VidyaTagline({ text, note }: { text: string; note?: string }) {
   const cleanText = text.replace(/\*/g, "");
+  const words = text.split(" ").map((raw) => ({
+    accent: raw.startsWith("*"),
+    word: raw.replace(/^\*/, ""),
+  }));
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [litCount, setLitCount] = useState(words.length);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      const progress = Math.min(1, Math.max(0, (vh * 0.82 - rect.top) / (vh * 0.55)));
+      setLitCount(Math.max(2, Math.round(progress * words.length)));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [words.length]);
+
   return (
-    <section className="vk-tagline" aria-label={cleanText}>
-      <div className="container-site max-w-4xl">
-        <blockquote className="border-l-2 border-navy pl-6">
-          <p className="vk-tagline-text">{cleanText}</p>
-          {note && <footer className="mt-4 text-sm text-muted-foreground">{note}</footer>}
-        </blockquote>
+    <section ref={sectionRef} className="vk-tagline" aria-label={cleanText}>
+      <div className="container-site max-w-4xl text-center">
+        <p className="vk-tagline-text mx-auto">
+          {words.map((item, i) => (
+            <span
+              key={`${item.word}-${i}`}
+              className={`vk-tw ${item.accent ? "is-acc" : ""} ${i < litCount ? "is-lit" : ""}`}
+            >
+              {item.word}
+              {i < words.length - 1 ? " " : ""}
+            </span>
+          ))}
+        </p>
+        {note && <p className="mx-auto mt-5 max-w-xl text-sm text-muted-foreground">{note}</p>}
       </div>
     </section>
   );
@@ -288,13 +355,18 @@ export function VidyaEssentials({
         <div className="grid gap-5 md:grid-cols-3">
           <article className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6">
             <div className="flex items-center gap-3">
-              <Backpack className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+              <span
+                className="grid h-10 w-10 place-items-center rounded-lg"
+                style={{ backgroundColor: "var(--vt-soft)", color: "var(--vt)" }}
+              >
+                <Backpack className="h-4 w-4" strokeWidth={1.6} />
+              </span>
               <h3 className="font-display text-lg font-medium text-navy">What to send</h3>
             </div>
             <ul className="space-y-2.5 border-t border-border pt-4">
               {kit.map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-navy" strokeWidth={1.5} />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--vt)" }} strokeWidth={1.7} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -303,7 +375,12 @@ export function VidyaEssentials({
 
           <article className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6">
             <div className="flex items-center gap-3">
-              <Eye className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+              <span
+                className="grid h-10 w-10 place-items-center rounded-lg"
+                style={{ backgroundColor: "var(--vt-soft)", color: "var(--vt)" }}
+              >
+                <Eye className="h-4 w-4" strokeWidth={1.6} />
+              </span>
               <h3 className="font-display text-lg font-medium text-navy">
                 How you&apos;ll see progress
               </h3>
@@ -311,7 +388,7 @@ export function VidyaEssentials({
             <ul className="space-y-2.5 border-t border-border pt-4">
               {progress.map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-navy" strokeWidth={1.5} />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--vt)" }} strokeWidth={1.7} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -320,13 +397,18 @@ export function VidyaEssentials({
 
           <article className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6">
             <div className="flex items-center gap-3">
-              <HandHeart className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+              <span
+                className="grid h-10 w-10 place-items-center rounded-lg"
+                style={{ backgroundColor: "var(--vt-soft)", color: "var(--vt)" }}
+              >
+                <HandHeart className="h-4 w-4" strokeWidth={1.6} />
+              </span>
               <h3 className="font-display text-lg font-medium text-navy">How you can join in</h3>
             </div>
             <ul className="space-y-2.5 border-t border-border pt-4">
               {join.map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-navy" strokeWidth={1.5} />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--vt)" }} strokeWidth={1.7} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -334,20 +416,20 @@ export function VidyaEssentials({
           </article>
         </div>
 
-        <div className="mt-5 grid gap-6 rounded-xl border border-border bg-card p-6 md:grid-cols-[0.65fr_1.35fr] md:p-8">
+        <div className="mt-5 grid gap-6 rounded-xl bg-ink p-6 text-white md:grid-cols-[0.65fr_1.35fr] md:p-8">
           <div className="flex items-start gap-3">
-            <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-navy" strokeWidth={1.5} />
+            <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-[#ffd27a]" strokeWidth={1.6} />
             <div>
-              <h3 className="font-display text-xl font-medium text-navy">Safety and care</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <h3 className="font-display text-xl font-medium text-white">Safety and care</h3>
+              <p className="mt-1 text-sm text-white/85">
                 Standard supervision and wellbeing safeguards across every session.
               </p>
             </div>
           </div>
           <ul className="grid gap-2.5 sm:grid-cols-2">
             {safety.map((item) => (
-              <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-navy" strokeWidth={1.5} />
+              <li key={item} className="flex items-start gap-2.5 text-sm text-white/95">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#ffd27a]" strokeWidth={1.7} />
                 <span>{item}</span>
               </li>
             ))}
@@ -390,7 +472,7 @@ export function VidyaFaqSection({
               href={SITE.phoneHref}
               className="flex items-center gap-3 rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm font-medium text-navy transition-colors hover:border-navy/40"
             >
-              <Phone className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
+              <Phone className="h-4 w-4 shrink-0" style={{ color: "var(--vt)" }} strokeWidth={1.6} />
               <span>
                 Call admissions
                 <small className="block text-xs font-normal text-muted-foreground">
@@ -402,8 +484,8 @@ export function VidyaFaqSection({
               href={`mailto:${SITE.email}`}
               className="flex items-center gap-3 rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm font-medium text-navy transition-colors hover:border-navy/40"
             >
-              <Mail className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
-              <span>
+              <Mail className="h-4 w-4 shrink-0" style={{ color: "var(--vt)" }} strokeWidth={1.6} />
+              <span className="min-w-0 break-all">
                 Email us
                 <small className="block text-xs font-normal text-muted-foreground">
                   {SITE.email}
@@ -415,7 +497,7 @@ export function VidyaFaqSection({
               hash="enquire"
               className="flex items-center gap-3 rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm font-medium text-navy transition-colors hover:border-navy/40"
             >
-              <Calendar className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
+              <Calendar className="h-4 w-4 shrink-0" style={{ color: "var(--vt)" }} strokeWidth={1.6} />
               <span>
                 Book a campus tour
                 <small className="block text-xs font-normal text-muted-foreground">
@@ -430,7 +512,7 @@ export function VidyaFaqSection({
           <Accordion
             type="single"
             collapsible
-            defaultValue={faqs[0]?.q}
+            {...(faqs[0]?.q ? { defaultValue: faqs[0].q } : {})}
             className="border-t border-border"
           >
             {faqs.map((faq) => (
@@ -462,18 +544,18 @@ export function VidyaTail({ active }: { active: VidyaTrackId }) {
           <Link to={prev.to} className="group flex flex-col gap-1">
             <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
-              Previous track
+              Previous Vidya
             </span>
-            <span className="font-display text-2xl font-medium text-navy transition-colors group-hover:text-cta">
+            <span className="font-display text-xl font-medium text-navy transition-colors group-hover:text-cta sm:text-2xl">
               {prev.name}
             </span>
           </Link>
           <Link to={next.to} className="group flex flex-col items-end gap-1 text-right">
             <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-              Next track
+              Next Vidya
               <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
             </span>
-            <span className="font-display text-2xl font-medium text-navy transition-colors group-hover:text-cta">
+            <span className="font-display text-xl font-medium text-navy transition-colors group-hover:text-cta sm:text-2xl">
               {next.name}
             </span>
           </Link>

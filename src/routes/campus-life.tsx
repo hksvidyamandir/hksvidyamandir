@@ -6,7 +6,10 @@ import anubhav4 from "@/assets/vidya-anubhav-4.jpg";
 import samskruti1 from "@/assets/vidya-samskruti-1.jpg";
 import samskruti2 from "@/assets/vidya-samskruti-2.jpg";
 import { seo } from "@/lib/seo";
+import { COCURRICULAR_PAGES } from "@/lib/cocurricular-pages-data";
 import { CardGrid, CtaBand, PillList, Section, SectionHead, Split } from "@/components/site/blocks";
+import { HeroEnquiryCard } from "@/components/site/CroEnquiryBanner";
+import { CoCurricularWidget } from "@/components/site/cocurricular/CoCurricularWidgets";
 
 export const Route = createFileRoute("/campus-life")({
   head: () =>
@@ -60,27 +63,38 @@ const TRACK_PANELS = [
 function Life() {
   return (
     <div className="vk-page bg-background text-foreground">
-      {/* Co-Curricular 4-Track Documentary Expanding Hub */}
+      {/* Unified Co-Curricular Hero + Full CRO Form on same ground */}
       <section className="border-b border-border bg-background pt-10 pb-14 md:pt-14 md:pb-20">
         <div className="container-site">
-          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
             <Link to="/" className="transition-colors hover:text-navy">Home</Link>
             <span aria-hidden="true">/</span>
             <span className="font-medium text-navy">Co-Curricular</span>
           </nav>
 
-          <div className="grid items-end gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-            <h1 className="max-w-[14ch] font-display text-4xl font-medium leading-[1.06] tracking-[-0.02em] text-navy md:text-6xl">
-              Four ways to grow beyond the classroom
-            </h1>
-            <p className="text-base leading-relaxed text-foreground">
-              Every child at HKS Vidyamandir learns through four co-curricular tracks: the soil, the
-              field, the lab and the stage. Each is timetabled, guided by trained educators and
-              structured from Nursery to Grade 12.
-            </p>
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <p className="text-sm font-semibold text-cta">Four Vidyas · Nursery to Grade 12</p>
+              <h1 className="mt-3 max-w-[14ch] font-display text-4xl font-medium leading-[1.06] tracking-[-0.02em] text-navy md:text-6xl">
+                Four ways to grow beyond the classroom
+              </h1>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-foreground">
+                Every child learns through four timetabled pillars: the soil, the field, the lab and
+                the stage.
+              </p>
+            </div>
+            <div className="lg:col-span-5">
+              <HeroEnquiryCard
+                context="Co-Curricular — Four Vidyas"
+                title="Visit Our Campus & Four Vidyas"
+                subtitle="Book a tour of our gardens, sports grounds, 13 labs and auditorium."
+                ctaLabel="Book a Campus Tour"
+                accentColor="#303783"
+              />
+            </div>
           </div>
 
-          <div className="vk-hub-panels mt-10">
+          <div className="vk-hub-panels mt-12">
             {TRACK_PANELS.map((panel, i) => (
               <Link
                 key={panel.id}
@@ -97,21 +111,21 @@ function Life() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(16, 20, 48, 0.12) 0%, rgba(16, 20, 48, 0.86) 100%)",
+                      "linear-gradient(180deg, rgba(16, 20, 48, 0.14) 0%, rgba(16, 20, 48, 0.65) 55%, rgba(16, 20, 48, 0.94) 100%)",
                   }}
                 />
                 <div className="relative z-10">
-                  <small className="font-mono text-xs text-card/85">
+                  <small className="font-mono text-xs text-[#ffd27a]">
                     {panel.num} · {panel.label}
                   </small>
-                  <h2 className="mt-1 font-display text-2xl font-medium text-card md:text-3xl">
+                  <h2 className="mt-1 font-display text-2xl font-medium text-white md:text-3xl">
                     {panel.name}
                   </h2>
                   <div className="vk-hub-more">
-                    <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-card/90">
+                    <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-white/95">
                       {panel.text}
                     </p>
-                    <span className="mt-3.5 inline-flex items-center gap-1.5 border-b border-gold pb-0.5 text-sm font-medium text-card">
+                    <span className="mt-3.5 inline-flex items-center gap-1.5 border-b border-[#ffd27a] pb-0.5 text-sm font-medium text-white">
                       Explore {panel.name}
                       <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
                     </span>
@@ -122,6 +136,24 @@ function Life() {
           </div>
         </div>
       </section>
+
+      {COCURRICULAR_PAGES["index"]?.widgets["dir"] && (
+        <section className="vk-band vk-ground-soft border-b border-border" data-sec="overview">
+          <div className="container-site">
+            <div className="vk-head">
+              <div>
+                <p className="vk-kicker">Explore all 26 co-curricular pages</p>
+                <h2>Nine areas of campus life</h2>
+              </div>
+              <p className="vk-lede">
+                Pick any area to explore its dedicated pages, interactive planners, lab directories
+                and parent FAQs.
+              </p>
+            </div>
+            <CoCurricularWidget config={COCURRICULAR_PAGES["index"].widgets["dir"]} />
+          </div>
+        </section>
+      )}
 
       <Section>
         <SectionHead center eyebrow="Holistic development" title="Skills for life" />

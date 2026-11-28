@@ -67,13 +67,13 @@ export function SiteFooter() {
         </div>
         <p className="flex min-w-0 flex-wrap gap-x-4 gap-y-2">{SITE.phones.map((phone) => <a key={phone.href} href={phone.href} className="whitespace-nowrap hover:text-primary">{phone.label}</a>)}<a href={`mailto:${SITE.email}`} className="min-w-0 break-all hover:text-primary">{SITE.email}</a></p>
       </div>
-      <div aria-label="Contact the school" className="fixed bottom-5 left-3 z-40 flex flex-col gap-3 md:left-5">
-        <Button asChild variant="ghost" size="icon" className="h-12 w-12 rounded-full bg-navy text-navy-foreground shadow-soft hover:bg-navy/90 hover:text-navy-foreground md:h-14 md:w-14 [&_svg]:size-6">
+      <div aria-label="Contact the school" className="fixed bottom-3 left-3 z-40 flex flex-row gap-2 md:bottom-5 md:left-5 md:flex-col md:gap-3">
+        <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-navy text-navy-foreground shadow-soft hover:bg-navy/90 hover:text-navy-foreground md:h-14 md:w-14 [&_svg]:size-4 md:[&_svg]:size-6">
           <a href={SITE.phoneHref} aria-label="Call HKS Vidyamandir" title="Call HKS Vidyamandir">
             <Phone aria-hidden="true" />
           </a>
         </Button>
-        <Button asChild variant="ghost" size="icon" className="h-12 w-12 rounded-full bg-whatsapp text-card shadow-soft hover:bg-whatsapp-hover hover:text-card md:h-14 md:w-14 [&_svg]:size-6">
+        <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-whatsapp text-card shadow-soft hover:bg-whatsapp-hover hover:text-card md:h-14 md:w-14 [&_svg]:size-4 md:[&_svg]:size-6">
           <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hello HKS Vidyamandir, I would like to know more about admissions")}`} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M21 11.5a9 9 0 0 1-13.4 7.9L3 21l1.6-4.6A9 9 0 1 1 21 11.5Z" />
@@ -82,7 +82,7 @@ export function SiteFooter() {
           </a>
         </Button>
       </div>
-      <div className="fixed bottom-5 right-3 z-40 flex flex-col items-end gap-3 md:right-5">
+      <div className="fixed bottom-4 right-2.5 z-40 flex flex-col items-end gap-2.5 md:bottom-5 md:right-5 md:gap-3">
         <SchoolChat />
         <ScrollTop />
       </div>

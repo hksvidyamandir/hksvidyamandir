@@ -74,7 +74,7 @@ const UNDERTAKING_CLAUSES = [
   {
     no: "02",
     title: "Leave applications",
-    text: "Sick leave (post diagnosis) or leave to attend a family marriage must be applied for in writing addressed to the School Principal, accompanied by a medical certificate or wedding invitation card respectively.",
+    text: "Sick leave (post diagnosis) or leave to attend a family marriage must be applied for in writing addressed to the School Office, accompanied by a medical certificate or wedding invitation card respectively.",
   },
   {
     no: "03",
@@ -114,7 +114,7 @@ const UNDERTAKING_CLAUSES = [
   {
     no: "10",
     title: "Campus visits by appointment",
-    text: "Parents will not enter the campus during school hours without a prior appointment with the Principal through the School Office.",
+    text: "Parents will not enter the campus during school hours without a prior appointment through the School Office.",
   },
   {
     no: "11",
@@ -251,8 +251,8 @@ function TermsAndConditionsPage() {
             </div>
 
             <div className="mt-8 grid gap-8 lg:grid-cols-12">
-              <div className="overflow-hidden rounded-xl border border-border bg-card lg:col-span-5">
-                <table className="w-full border-collapse text-left text-sm">
+              <div className="overflow-x-auto rounded-xl border border-border bg-card lg:col-span-5">
+                <table className="w-full min-w-[280px] border-collapse text-left text-sm">
                   <thead>
                     <tr className="border-b border-border bg-muted/40 text-xs font-medium text-muted-foreground">
                       <th className="px-5 py-3.5">Fee Component</th>

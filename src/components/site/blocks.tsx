@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { img } from "@/assets/site";
 import { Button } from "@/components/ui/button";
+import { HeroEnquiryCard } from "@/components/site/CroEnquiryBanner";
+import { DoodleUnderline, TopicIconBadge } from "@/components/site/EducationDoodles";
 
 export function PageHero({
   eyebrow,
@@ -10,32 +12,45 @@ export function PageHero({
   intro,
   image,
   crumb,
+  showForm = true,
 }: {
   eyebrow: string;
   title: string;
   intro: string;
   image: string;
   crumb: string;
+  showForm?: boolean;
 }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-border bg-ink">
       <img src={image} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
-      <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
-      <div className="container-site py-20 text-navy-foreground md:py-28">
-        <nav aria-label="Breadcrumb" className="mb-5 text-sm text-navy-foreground/75">
+      <div className="absolute inset-0 -z-10 bg-ink/80" aria-hidden="true" />
+      <div className="container-site py-12 text-navy-foreground sm:py-16 md:py-20">
+        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-navy-foreground/80">
           <Link to="/" className="transition-colors hover:text-card">
             Home
           </Link>{" "}
           <span className="mx-1.5" aria-hidden="true">/</span>
-          <span className="text-card">{crumb}</span>
+          <span className="font-medium text-card">{crumb}</span>
         </nav>
-        <p className="text-sm font-medium text-gold">{eyebrow}</p>
-        <h1 className="mt-3 max-w-3xl font-display text-4xl font-medium leading-[1.08] tracking-[-0.015em] text-card md:text-6xl">
-          {title}
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-navy-foreground/85 md:text-lg">
-          {intro}
-        </p>
+
+        <div className={showForm ? "grid items-center gap-8 lg:grid-cols-12 lg:gap-12" : ""}>
+          <div className={showForm ? "lg:col-span-7" : ""}>
+            <p className="text-sm font-semibold text-gold">{eyebrow}</p>
+            <h1 className="mt-3 max-w-2xl font-display text-3xl font-medium leading-[1.08] tracking-[-0.015em] text-card sm:text-4xl md:text-5xl">
+              {title}
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-navy-foreground/90 md:text-lg">
+              {intro}
+            </p>
+          </div>
+
+          {showForm && (
+            <div className="lg:col-span-5">
+              <HeroEnquiryCard context={crumb} accentColor="#ee8a2c" />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -58,6 +73,10 @@ export function SectionHead({
       <h2 className="mt-2 font-display text-3xl font-medium leading-[1.14] tracking-[-0.01em] text-navy md:text-4xl">
         {title}
       </h2>
+      <DoodleUnderline
+        className={`mt-2.5 w-24 ${center ? "mx-auto" : ""}`}
+        color="#ee8a2c"
+      />
       {intro && <p className="mt-4 text-base leading-relaxed text-foreground">{intro}</p>}
     </div>
   );
@@ -79,7 +98,7 @@ export function Section({
     navy: "bg-ink text-navy-foreground",
   }[tone];
   return (
-    <section id={id} className={`py-16 md:py-24 ${t}`}>
+    <section id={id} className={`py-12 sm:py-16 md:py-24 ${t}`}>
       <div className="container-site">{children}</div>
     </section>
   );
@@ -102,11 +121,15 @@ export function CardGrid({
       {items.map((it) => (
         <article
           key={it.title}
-          className="rounded-xl border border-border bg-card p-6 transition-colors hover:border-navy/30"
+          className="rounded-xl border border-border bg-card p-6 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-soft"
         >
-          {it.icon && (
-            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-navy">
+          {it.icon ? (
+            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-background text-navy">
               {it.icon}
+            </div>
+          ) : (
+            <div className="mb-4">
+              <TopicIconBadge label={`${it.title} ${it.text}`} theme="academics" />
             </div>
           )}
           <h3 className="font-display text-xl font-medium text-navy">{it.title}</h3>
@@ -185,24 +208,25 @@ export function CtaBand({
   text?: string;
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-ink text-navy-foreground">
+    <section className="relative isolate overflow-hidden bg-ink text-white">
       <img
         src={img.building}
         alt=""
-        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-20"
+        className="absolute inset-0 -z-20 h-full w-full object-cover opacity-20"
       />
+      <div className="absolute inset-0 -z-10 bg-ink/80" aria-hidden="true" />
       <div className="container-site flex flex-col items-start gap-8 py-16 md:flex-row md:items-center md:justify-between md:py-20">
         <div className="max-w-2xl">
-          <p className="text-sm font-medium text-gold">Admissions 2026–27</p>
-          <h2 className="mt-2 font-display text-3xl font-medium leading-[1.12] text-card md:text-4xl">
+          <p className="text-sm font-medium text-[#ffd27a]">Admissions 2026–27</p>
+          <h2 className="mt-2 font-display text-3xl font-medium leading-[1.12] text-white md:text-4xl">
             {title}
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-navy-foreground/80">{text}</p>
+          <p className="mt-3 text-base leading-relaxed text-white/90">{text}</p>
         </div>
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           <Button
             asChild
-            className="h-11 rounded-lg px-6 text-sm font-medium"
+            className="h-11 w-full rounded-lg bg-[#ee8a2c] px-6 text-sm font-medium text-white hover:bg-[#ffd27a] hover:text-ink sm:w-auto"
           >
             <Link to="/admissions" hash="enquire">
               Apply Now
@@ -211,7 +235,7 @@ export function CtaBand({
           </Button>
           <Link
             to="/contact"
-            className="inline-flex h-11 items-center rounded-lg border border-card/30 px-5 text-sm font-medium text-card transition-colors hover:border-card/60 hover:bg-card/10"
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-white/40 px-5 text-sm font-medium text-white transition-colors hover:border-white hover:bg-white/10 sm:w-auto"
           >
             Book a Campus Tour
           </Link>
