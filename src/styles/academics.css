@@ -1,0 +1,566 @@
+/* =========================================================================
+   HKS Vidyamandir — Academic Stages (v3) Animations & Interactive Styles
+   ========================================================================= */
+
+.vk-page[data-stage="cbse"] {
+  --vt: #23286b;
+  --vt-soft: #e9eaf6;
+  --vt-deep: #151947;
+}
+.vk-page[data-stage="early"] {
+  --vt: #0f8a84;
+  --vt-soft: #e1f3f1;
+  --vt-deep: #0a4f4b;
+}
+.vk-page[data-stage="primary"] {
+  --vt: #2c6fd1;
+  --vt-soft: #e6effc;
+  --vt-deep: #173f7a;
+}
+.vk-page[data-stage="high"] {
+  --vt: #b4451f;
+  --vt-soft: #fbe9e1;
+  --vt-deep: #6b2610;
+}
+.vk-page[data-stage="senior"] {
+  --vt: #0e5a8a;
+  --vt-soft: #e2eff7;
+  --vt-deep: #08344f;
+}
+.vk-page[data-stage="compete"] {
+  --vt: #a16207;
+  --vt-soft: #fbf0d9;
+  --vt-deep: #5a3604;
+}
+
+/* Academic Stage Hero (high-contrast deep accent ground + SVG art right) */
+.ac-hero {
+  background-color: var(--vt-deep);
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  position: relative;
+}
+.ac-hero-art {
+  aspect-ratio: 5 / 4;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+  position: relative;
+}
+.ac-hero-art svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Academic Vector Animations — opted in via prefers-reduced-motion: no-preference */
+@media (prefers-reduced-motion: no-preference) {
+  /* CBSE rising 5+3+3+4 stairs & milestone flag */
+  .ac-stair > g {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ac-rise 1s var(--vk-ease) both;
+    animation-delay: calc(0.2s + var(--i, 0) * 0.14s);
+  }
+  .ac-flag-wave {
+    transform-box: fill-box;
+    transform-origin: 0% 50%;
+    animation: ac-flag 2.8s ease-in-out infinite alternate;
+  }
+
+  /* Early Years dropping blocks, rotating sun rays & swaying kite */
+  .ac-blocks > g {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ac-drop 0.8s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+    animation-delay: calc(0.2s + var(--i, 0) * 0.14s);
+  }
+  .ac-sun-rays {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ac-spin-slow 24s linear infinite;
+  }
+  .ac-kite {
+    transform-origin: 120px 100px;
+    animation: ac-kite-sway 5s ease-in-out infinite alternate;
+  }
+
+  /* Primary floating book glyphs & inspecting magnifying glass */
+  .ac-float > * {
+    animation: ac-float-y 4s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i, 0) * 0.45s);
+  }
+  .ac-magnify {
+    transform-box: fill-box;
+    transform-origin: 65% 65%;
+    animation: ac-magnify-tilt 4.4s ease-in-out infinite alternate;
+  }
+
+  /* High School circuit pulses & glowing nodes */
+  .ac-circuit-flow {
+    stroke-dasharray: 22 98;
+    animation: ac-circuit-run 2.8s linear infinite;
+  }
+  .ac-node-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ac-node-beat 2.6s ease-in-out infinite alternate;
+  }
+
+  /* Senior Secondary floating graduation cap & globe meridian */
+  .ac-cap {
+    animation: ac-cap-float 4s ease-in-out infinite alternate;
+  }
+  .ac-globe-meridian {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ac-meridian 4.5s ease-in-out infinite alternate;
+  }
+
+  /* Competitive Exams rising podium, swaying medal & shooting arrow */
+  .ac-podium > g {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ac-rise 0.9s var(--vk-ease) both;
+    animation-delay: calc(0.18s + var(--i, 0) * 0.14s);
+  }
+  .ac-medal {
+    transform-origin: 260px 60px;
+    animation: ac-medal-sway 3s ease-in-out infinite alternate;
+  }
+  .ac-arrow {
+    animation: ac-arrow-shoot 3.2s var(--vk-ease) infinite;
+  }
+
+  /* SVG stroke draw animation */
+  .ac-draw path,
+  .ac-draw polyline {
+    stroke-dasharray: 520;
+    stroke-dashoffset: 520;
+    animation: ac-stroke-draw 2s var(--vk-ease) 0.25s forwards;
+  }
+}
+
+@keyframes ac-rise {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+@keyframes ac-flag {
+  from { transform: skewY(-4deg) scaleX(0.96); }
+  to { transform: skewY(4deg) scaleX(1.04); }
+}
+@keyframes ac-drop {
+  from {
+    transform: translateY(-180px);
+    opacity: 0;
+  }
+}
+@keyframes ac-spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes ac-kite-sway {
+  to {
+    transform: translate(14px, -10px) rotate(6deg);
+  }
+}
+@keyframes ac-float-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-14px); }
+}
+@keyframes ac-magnify-tilt {
+  from { transform: translate(0, 0) rotate(-6deg); }
+  to { transform: translate(-12px, -8px) rotate(8deg); }
+}
+@keyframes ac-circuit-run {
+  from { stroke-dashoffset: 120; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ac-node-beat {
+  from { transform: scale(0.9); opacity: 0.72; }
+  to { transform: scale(1.16); opacity: 1; }
+}
+@keyframes ac-cap-float {
+  to { transform: translateY(-10px) rotate(-3deg); }
+}
+@keyframes ac-meridian {
+  from { transform: scaleX(0.76); }
+  to { transform: scaleX(1.12); }
+}
+@keyframes ac-medal-sway {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+@keyframes ac-arrow-shoot {
+  0% { transform: translate(-60px, -40px); opacity: 0; }
+  30%, 80% { transform: none; opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes ac-stroke-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Assessment spectrum bar */
+.ac-spectrum-bar {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+.ac-spectrum-bar > i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #2c6fd1, #23286b, #ee8a2c);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 1.4s var(--vk-ease);
+}
+.ac-spectrum.is-in .ac-spectrum-bar > i {
+  transform: scaleX(1);
+}
+
+/* Horizontal 6-step roadmap stepper */
+.ac-stepper {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+  padding-top: 38px;
+}
+.ac-stepper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14px;
+  height: 2px;
+  background: var(--border);
+}
+.ac-stepper-fill {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  height: 2px;
+  width: 100%;
+  background: var(--vt);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 1.5s var(--vk-ease);
+}
+.ac-stepper.is-in .ac-stepper-fill {
+  transform: scaleX(1);
+}
+.ac-stepper > div {
+  position: relative;
+}
+.ac-stepper > div::before {
+  content: "";
+  position: absolute;
+  top: -31px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 3px solid var(--vt);
+}
+@media (max-width: 960px) {
+  .ac-stepper {
+    grid-template-columns: 1fr;
+    padding: 0 0 0 32px;
+  }
+  .ac-stepper::before,
+  .ac-stepper-fill {
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+  }
+  .ac-stepper-fill {
+    transform-origin: 50% 0;
+    transform: scaleY(0);
+  }
+  .ac-stepper.is-in .ac-stepper-fill {
+    transform: scaleY(1);
+  }
+  .ac-stepper > div::before {
+    left: -32px;
+    top: 4px;
+  }
+}
+
+/* Primary Theme Web */
+.ac-web {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto auto;
+  gap: 16px;
+  align-items: center;
+}
+.ac-web-core {
+  grid-column: 2;
+  grid-row: 2;
+  aspect-ratio: 1;
+  max-width: 220px;
+  width: 100%;
+  justify-self: center;
+  border-radius: 50%;
+  background-color: var(--vt);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.8vw, 34px);
+  font-weight: 500;
+  box-shadow: 0 28px 56px -28px var(--vt);
+}
+.ac-web-n0 { grid-column: 1; grid-row: 1; }
+.ac-web-n1 { grid-column: 2; grid-row: 1; }
+.ac-web-n2 { grid-column: 3; grid-row: 1; }
+.ac-web-n3 { grid-column: 1; grid-row: 3; }
+.ac-web-n4 { grid-column: 2; grid-row: 3; }
+.ac-web-n5 { grid-column: 3; grid-row: 3; }
+@media (max-width: 760px) {
+  .ac-web {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .ac-web-core {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    max-width: 164px;
+  }
+  .ac-web-n0,
+  .ac-web-n1,
+  .ac-web-n2,
+  .ac-web-n3,
+  .ac-web-n4,
+  .ac-web-n5 {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+@media (max-width: 520px) {
+  .ac-web {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* High School Ten Bagless Days 3D Flip Cards */
+.ac-flip {
+  perspective: 1000px;
+  height: 210px;
+}
+.ac-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s var(--vk-ease);
+}
+.ac-flip:hover .ac-flip-inner,
+.ac-flip:focus-within .ac-flip-inner,
+.ac-flip.is-flipped .ac-flip-inner {
+  transform: rotateY(180deg);
+}
+.ac-flip-front,
+.ac-flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ac-flip-front {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.ac-flip-back {
+  background: var(--vt);
+  color: #ffffff;
+  transform: rotateY(180deg);
+}
+
+/* Competitive Exams rising ladder */
+.ac-ladder {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 12px;
+  padding-left: 44px;
+}
+.ac-ladder::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  border-radius: 6px;
+  background: var(--border);
+}
+.ac-ladder::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  border-radius: 6px;
+  background: var(--vt);
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  transition: transform 1.5s var(--vk-ease);
+}
+.ac-ladder.is-in::after {
+  transform: scaleY(1);
+}
+.ac-rung {
+  position: relative;
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 12px 24px;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin-left: calc((4 - var(--ri, 0)) * 20px);
+  transition: transform 0.35s var(--vk-ease), border-color 0.25s;
+}
+.ac-rung:hover {
+  transform: translateX(6px);
+  border-color: var(--vt);
+}
+.ac-rung::before {
+  content: "";
+  position: absolute;
+  left: calc(-38px - (4 - var(--ri, 0)) * 20px);
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--vt);
+  border: 3px solid var(--card);
+  box-shadow: 0 0 0 2px var(--vt);
+}
+@media (max-width: 860px) {
+  .ac-ladder {
+    padding-left: 36px;
+  }
+  .ac-ladder::before,
+  .ac-ladder::after {
+    left: 10px;
+  }
+  .ac-rung {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-left: 0;
+  }
+  .ac-rung::before {
+    left: -32px;
+  }
+}
+
+/* Competitive Exams animated weekly breakdown bar */
+.ac-wbar {
+  display: flex;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  gap: 3px;
+}
+.ac-wbar > i {
+  display: block;
+  height: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 1s var(--vk-ease);
+  transition-delay: calc(var(--k, 0) * 0.1s);
+}
+.ac-week.is-in .ac-wbar > i {
+  transform: scaleX(1);
+}
+
+/* High School Class 10 board timeline fill */
+.ac-bline {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--border);
+  overflow: hidden;
+}
+.ac-bline > i {
+  display: block;
+  height: 100%;
+  background: var(--vt);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 1.4s var(--vk-ease);
+}
+.ac-bt.is-in .ac-bline > i {
+  transform: scaleX(1);
+}
+
+/* Early Years Montessori shelf */
+.ac-shelf {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  align-items: end;
+  padding: 20px 20px 0;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-bottom: 14px solid #c98e63;
+  border-radius: 18px 18px 0 0;
+}
+.ac-shelf button {
+  cursor: pointer;
+  display: grid;
+  place-items: end center;
+  height: 160px;
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.4s var(--vk-ease), background-color 0.25s;
+}
+.ac-shelf button:hover,
+.ac-shelf button.is-on {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.72);
+}
+.ac-shelf svg {
+  width: 82%;
+  max-height: 136px;
+}
+@media (max-width: 720px) {
+  .ac-shelf {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ac-shelf button {
+    height: 112px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-stair > g,
+  .ac-blocks > g,
+  .ac-kite,
+  .ac-float > *,
+  .ac-cap,
+  .ac-medal,
+  .ac-arrow,
+  .ac-draw path,
+  .ac-draw polyline {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .ac-flip-inner {
+    transition: none !important;
+  }
+}

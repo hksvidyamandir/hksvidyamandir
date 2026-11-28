@@ -251,8 +251,8 @@ function TermsAndConditionsPage() {
             </div>
 
             <div className="mt-8 grid gap-8 lg:grid-cols-12">
-              <div className="overflow-hidden rounded-xl border border-border bg-card lg:col-span-5">
-                <table className="w-full border-collapse text-left text-sm">
+              <div className="overflow-x-auto rounded-xl border border-border bg-card lg:col-span-5">
+                <table className="w-full min-w-[280px] border-collapse text-left text-sm">
                   <thead>
                     <tr className="border-b border-border bg-muted/40 text-xs font-medium text-muted-foreground">
                       <th className="px-5 py-3.5">Fee Component</th>

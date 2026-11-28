@@ -92,7 +92,7 @@ export function SiteHeader() {
 
       <div className="site-header-main container-site grid h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:flex md:justify-between md:gap-6 lg:h-24">
         <Link to="/" aria-label="HKS Vidyamandir home" className="min-w-0 shrink-0 md:min-w-auto">
-          <img src={img.logoFull} alt="HKS Vidyamandir logo" className="block h-14 w-auto max-w-full object-contain sm:h-16" width={480} height={190} />
+          <img src={img.logoFull} alt="HKS Vidyamandir logo" className="block h-12 w-auto max-w-[180px] object-contain sm:h-16 sm:max-w-none" width={480} height={190} />
         </Link>
 
         <div className="hidden lg:flex flex-col items-end gap-1.5">
@@ -178,11 +178,11 @@ export function SiteHeader() {
       {open && (
         <nav id="mobile-navigation" aria-label="Mobile" className="lg:hidden border-t border-border bg-card max-h-[calc(100dvh-5rem)] md:max-h-[75vh] overflow-y-auto overscroll-contain">
           <div className="container-site py-3">
-            <div className="flex flex-wrap items-center gap-1.5 pb-3 max-[768px]:grid max-[768px]:grid-cols-2 max-[768px]:gap-2">
+            <div className="grid grid-cols-2 gap-2 pb-3 sm:flex sm:flex-wrap sm:items-center">
               {VIDYA.map((v) => (
-                <Link key={v.label} to={v.to} onClick={closeMenu} className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-muted/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground transition hover:border-primary hover:text-primary max-[768px]:min-h-11 max-[768px]:rounded-md max-[768px]:px-2 max-[768px]:text-[11px] max-[768px]:tracking-normal">
-                  <v.icon className={`h-5 w-5 shrink-0 ${v.tone}`} />
-                  {v.label}
+                <Link key={v.label} to={v.to} onClick={closeMenu} className="flex min-h-11 min-w-0 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-navy transition-colors hover:border-navy">
+                  <v.icon className={`h-4 w-4 shrink-0 ${v.tone}`} />
+                  <span className="truncate">{v.label}</span>
                 </Link>
               ))}
             </div>
@@ -216,7 +216,7 @@ export function SiteHeader() {
                 )}
               </div>
             ))}
-            <Button asChild className="mt-4 min-h-11 w-full rounded-full font-bold"><Link to="/admissions" onClick={closeMenu}>Apply Now</Link></Button>
+            <Button asChild className="mt-4 min-h-11 w-full rounded-lg font-medium"><Link to="/admissions" onClick={closeMenu}>Apply Now</Link></Button>
             <div className="hidden border-t border-border mt-4 pt-3 max-[768px]:block">
               <div className="grid grid-cols-2 gap-x-3 text-sm font-semibold">
                 <Link to="/admissions" hash="enquire" onClick={closeMenu} className="flex min-h-11 items-center">Enquire Now</Link>

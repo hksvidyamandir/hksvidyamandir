@@ -620,7 +620,7 @@ export function AdmissionKitForm() {
                     }}
                     disabled={s.id > step}
                     aria-current={isCurrent ? "step" : undefined}
-                    className={`flex w-full items-center gap-2 rounded-lg border px-2.5 py-2 text-left text-xs transition-colors ${
+                    className={`flex w-full items-center justify-center gap-2 rounded-lg border px-1.5 py-2 text-left text-xs transition-colors sm:justify-start sm:px-2.5 ${
                       isCurrent
                         ? "border-navy bg-navy/5 font-medium text-navy"
                         : isDone

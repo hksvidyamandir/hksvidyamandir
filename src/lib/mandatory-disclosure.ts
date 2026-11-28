@@ -53,8 +53,9 @@ export const GENERAL_INFORMATION: DisclosureInfoRow[] = [
     label: "Contact Details",
     value: SITE.phones[0]!.label,
     href: SITE.phones[0]!.href,
-    secondaryValue: SITE.phones[1]?.label,
-    secondaryHref: SITE.phones[1]?.href,
+    ...(SITE.phones[1]
+      ? { secondaryValue: SITE.phones[1].label, secondaryHref: SITE.phones[1].href }
+      : {}),
   },
 ];
 

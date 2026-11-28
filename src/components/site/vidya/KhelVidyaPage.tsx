@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
-import khel1 from "@/assets/vidya-khel-1.jpg";
-import khel4 from "@/assets/vidya-khel-4.jpg";
 import { Button } from "@/components/ui/button";
+import { HeroEnquiryCard } from "@/components/site/CroEnquiryBanner";
 import {
+  DoodleMarginMotif,
+  DoodleUnderline,
+  MotionToggleButton,
+} from "@/components/site/EducationDoodles";
+import {
+  useInViewOnce,
   VidyaEssentials,
   VidyaFaqSection,
   VidyaGlance,
   VidyaGradeFinder,
   VidyaTagline,
   VidyaTail,
-  VidyaTrackNav,
   type FaqItem,
   type GlanceItem,
   type GradeBandContent,
@@ -53,10 +57,10 @@ const SPORTS: SportItem[] = [
   { name: "Other Olympic sports", cat: "oly", desc: "Training for Olympic-style events" },
 ];
 
-const CAT_LABELS: Record<SportCat, string> = {
-  out: "Outdoor",
-  in: "Indoor & wellness",
-  oly: "Olympic-style",
+const CAT_COLORS: Record<SportCat, string> = {
+  out: "#2f8a4f",
+  in: "#4352d1",
+  oly: "#d9482b",
 };
 
 const WEEK_SCHEDULE = [
@@ -116,6 +120,14 @@ const WEEK_SCHEDULE = [
     ],
   },
 ];
+
+const SPORTS_DAY_LANES = [
+  { tag: "Opening", title: "March past", desc: "Houses parade with flags, the torch is lit and the sports oath is taken.", speed: 1.0 },
+  { tag: "Track", title: "Races & relays", desc: "Sprints, hurdles and relays for every age group, from tiny-tot races upwards.", speed: 0.86 },
+  { tag: "Field", title: "Jumps & throws", desc: "Long jump, high jump and throws for older students.", speed: 0.94 },
+  { tag: "Display", title: "Yoga, drill & dance", desc: "Whole-class displays that show off months of practice.", speed: 0.78 },
+  { tag: "Finale", title: "Prize-giving", desc: "Medals, house trophy and a cheer for every participant.", speed: 1.05 },
+] as const;
 
 const GLANCE: GlanceItem[] = [
   { icon: "users", label: "Who takes part", value: "Every child, Nursery to Grade 12" },
@@ -219,12 +231,77 @@ const FAQS: FaqItem[] = [
   },
 ];
 
+function ArenaIcon({ cat }: { cat: SportCat }) {
+  if (cat === "out") {
+    return (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3c3 3 3 15 0 18M3 12h18" />
+      </svg>
+    );
+  }
+  if (cat === "in") {
+    return (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
+        <rect x="4" y="4" width="16" height="16" rx="3" />
+        <path d="M4 12h16M12 4v16" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
+      <circle cx="7" cy="10" r="4" />
+      <circle cx="17" cy="10" r="4" />
+      <circle cx="12" cy="15" r="4" />
+    </svg>
+  );
+}
+
 export function KhelVidyaPage() {
   const [filter, setFilter] = useState<"all" | SportCat>("all");
+  const [lapText, setLapText] = useState("00:00.0");
   const [breathState, setBreathState] = useState<"idle" | "inhale" | "hold" | "exhale" | "done">("idle");
   const [breathLabel, setBreathLabel] = useState("Ready");
+  const [laneProgress, setLaneProgress] = useState(0);
+  const [trackPaused, setTrackPaused] = useState(false);
+
   const breathTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const weekRef = useRef<HTMLDivElement>(null);
+  const lanesRef = useRef<HTMLDivElement>(null);
+  const podiumReveal = useInViewOnce<HTMLDivElement>(0.2);
+  const pillarsReveal = useInViewOnce<HTMLDivElement>(0.2);
+
+  /* Live lap timer */
+  useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setLapText("00:58.4");
+      return;
+    }
+    const t0 = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const s = ((t - t0) / 1000) % 60;
+      setLapText(`00:${s.toFixed(1).padStart(4, "0")}`);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  /* Sports Day scroll-linked runners */
+  useEffect(() => {
+    const el = lanesRef.current;
+    if (!el) return;
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height * 0.55)));
+      setLaneProgress(p);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -249,7 +326,7 @@ export function KhelVidyaPage() {
     const run = () => {
       if (n >= 15) {
         setBreathState("done");
-        setBreathLabel("Complete");
+        setBreathLabel("Well done");
         breathTimer.current = null;
         return;
       }
@@ -265,79 +342,73 @@ export function KhelVidyaPage() {
   const filteredSports = filter === "all" ? SPORTS : SPORTS.filter((s) => s.cat === filter);
 
   const scrollWeek = (dir: number) => {
-    weekRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
+    weekRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
   };
 
   return (
     <div className="vk-page" data-track="khel">
-      {/* 1. ASYMMETRIC DOCUMENTARY HERO ON CALM PAPER */}
-      <section className="border-b border-border bg-background pt-10 pb-14 md:pt-14 md:pb-20">
+      {/* 1. UNIFIED DARK STADIUM HERO + FULL CRO ENQUIRY FORM (SAME BACKGROUND) */}
+      <section className="vk-khero pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="container-site">
-          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
-            <Link to="/" className="transition-colors hover:text-navy">Home</Link>
+          <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-sm text-white/80">
+            <Link to="/" className="transition-colors hover:text-white">Home</Link>
             <span aria-hidden="true">/</span>
-            <Link to="/campus-life" className="transition-colors hover:text-navy">Co-Curricular</Link>
+            <Link to="/campus-life" className="transition-colors hover:text-white">Co-Curricular</Link>
             <span aria-hidden="true">/</span>
-            <span className="font-medium text-navy">Khel Vidya</span>
+            <span className="font-medium text-[#ffd27a]">Khel Vidya</span>
           </nav>
 
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
-              <p className="text-sm font-medium text-muted-foreground">
-                <span className="font-mono tabular-nums text-navy">02 of 04</span>
-                <span className="mx-2" aria-hidden="true">·</span>
-                <span>Sports, fitness and wellbeing</span>
+              <p className="text-sm font-semibold text-[#ffd27a]">
+                Sports, fitness &amp; wellbeing
               </p>
-              <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] tracking-[-0.02em] text-navy md:text-6xl">
+              <h1 className="mt-3 font-display text-4xl font-medium leading-[1.06] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl">
                 Every child finds their game
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground md:text-lg">
-                From the cricket pitch to the chess board, from the running track to the yoga mat,
-                Khel Vidya gives every child a sport to love, trained coaches to guide them and real
-                matches to play.
+              <p className="vk-khero-lede mt-4 max-w-xl text-base leading-relaxed text-white/90 md:text-lg">
+                24 sports and wellness disciplines with trained coaches, outdoor grounds, indoor
+                arenas and inter-school teams.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-6">
-                <Button asChild className="h-11 rounded-lg px-6 text-sm font-medium">
-                  <Link to="/admissions" hash="enquire">
-                    Book a sports-campus tour
-                    <ArrowRight className="ml-1.5 h-4 w-4" strokeWidth={1.5} />
-                  </Link>
-                </Button>
+              <div className="mt-7 flex flex-wrap items-center gap-5">
                 <a
                   href="#arena"
-                  className="inline-flex items-center gap-2 border-b border-navy/40 pb-1 text-sm font-medium text-navy transition-colors hover:border-navy"
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20"
                 >
                   Explore all 24 sports
-                  <ArrowDown className="h-4 w-4" strokeWidth={1.5} />
+                  <ArrowDown className="h-4 w-4" strokeWidth={1.6} />
                 </a>
+                <Link
+                  to="/application-form"
+                  className="inline-flex items-center gap-2 border-b-2 border-[#ffd27a] pb-1 text-sm font-medium text-white transition-colors hover:text-[#ffd27a]"
+                >
+                  Online Application Form
+                  <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+                </Link>
               </div>
             </div>
 
-            <figure className="lg:col-span-5">
-              <div className="overflow-hidden rounded-xl border border-border bg-card">
-                <img
-                  src={khel1}
-                  alt="Students playing basketball on the HKS Vidyamandir court"
-                  className="aspect-[5/4] w-full object-cover object-top"
-                />
-              </div>
-              <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-xs text-muted-foreground">
-                <span>Coached team play on the campus basketball court</span>
-                <span className="shrink-0 font-mono tabular-nums">Plate 01</span>
-              </figcaption>
-            </figure>
+            <div className="lg:col-span-5">
+              <HeroEnquiryCard
+                context="Khel Vidya — Sports, Fitness & Wellbeing"
+                title="Tour Our Sports Grounds"
+                subtitle="Book a campus visit & get the 2026–27 fee & sports curriculum guide."
+                ctaLabel="Book a Sports Campus Tour"
+                accentColor="#d9482b"
+              />
+            </div>
           </div>
 
-          <div className="vk-stats">
+          <div className="vk-stats vk-stats-dark">
             <div>
               <b>24</b>
               <span>Sports &amp; disciplines</span>
-              <small>Outdoor, indoor and Olympic-style</small>
+              <small>Outdoor, indoor &amp; Olympic-style</small>
             </div>
             <div>
               <b>3</b>
               <span>Arenas</span>
-              <small>Outdoor, indoor &amp; wellness, Olympic</small>
+              <small>Outdoor, indoor &amp; wellness</small>
             </div>
             <div>
               <b>Coached</b>
@@ -347,16 +418,108 @@ export function KhelVidyaPage() {
             <div>
               <b>Inter-school</b>
               <span>Competitions</span>
-              <small>Matches and tournaments</small>
+              <small>Matches &amp; tournaments</small>
             </div>
           </div>
         </div>
       </section>
 
-      <VidyaTrackNav active="khel" />
       <VidyaGlance name="Khel Vidya" items={GLANCE} />
 
-      {/* 2. FILTERABLE 24-SPORT ARENA DIRECTORY */}
+      {/* 2. SPORTS MARQUEE TICKER */}
+      <div className="vk-ticker" aria-hidden="true">
+        <div className="vk-marquee">
+          <div className="vk-marquee-track">
+            {SPORTS.map((s) => (
+              <span key={`m1-${s.name}`}>{s.name}</span>
+            ))}
+          </div>
+          <div className="vk-marquee-track">
+            {SPORTS.map((s) => (
+              <span key={`m2-${s.name}`}>{s.name}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 2B. ANIMATED RUNNING TRACK & LIVE LAP TIMER SHOWCASE (MOVED BELOW HERO) */}
+      <section className="vk-band vk-ground-paper border-b border-border">
+        <div className="container-site">
+          <div className="relative grid items-center gap-8 overflow-hidden rounded-2xl bg-[#181c55] p-6 text-white shadow-soft sm:p-10 lg:grid-cols-12 lg:gap-12">
+            <DoodleMarginMotif
+              theme="sports"
+              className="absolute -bottom-8 -left-6 h-40 w-40 text-white opacity-[0.07]"
+            />
+            <div className="relative z-10 lg:col-span-5">
+              <p className="vk-kicker" style={{ color: "#ffd27a" }}>Active every week</p>
+              <h2 className="font-display text-3xl font-medium leading-[1.12] text-white md:text-4xl">
+                Built into the timetable, not squeezed after school
+              </h2>
+              <DoodleUnderline className="mt-2.5 w-28" color="#ffd27a" />
+              <p className="mt-4 text-sm leading-relaxed text-white/85 md:text-base">
+                Every student rotates through athletics, team games, indoor sports and mindful
+                movement with dedicated coaches on campus.
+              </p>
+              <div className="mt-5">
+                <MotionToggleButton
+                  paused={trackPaused}
+                  onToggle={() => setTrackPaused((p) => !p)}
+                  tone="dark"
+                />
+              </div>
+            </div>
+            <div className={`vk-trackfig relative z-10 lg:col-span-7 ${trackPaused ? "is-motion-paused" : ""}`}>
+              <svg
+                viewBox="0 0 560 480"
+                role="img"
+                aria-label="Animated running track with runners in three lanes and bouncing ball"
+              >
+                <defs>
+                  <linearGradient id="kv-tr" x1="0" x2="1">
+                    <stop offset="0" stopColor="#c9472b" />
+                    <stop offset="1" stopColor="#e0623e" />
+                  </linearGradient>
+                </defs>
+                <rect x="20" y="70" width="520" height="340" rx="170" fill="url(#kv-tr)" />
+                <rect x="110" y="160" width="340" height="160" rx="80" fill="#2f8a4f" />
+                <rect x="150" y="190" width="260" height="100" rx="50" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" />
+                <line x1="280" y1="160" x2="280" y2="320" stroke="rgba(255,255,255,0.35)" strokeWidth="2" />
+                <circle cx="280" cy="240" r="22" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" />
+                <g>
+                  <path className="lane" d="M190 92 H370 A148 148 0 0 1 370 388 H190 A148 148 0 0 1 190 92Z" />
+                  <path className="lane" d="M190 114 H370 A126 126 0 0 1 370 366 H190 A126 126 0 0 1 190 114Z" />
+                  <path className="lane" d="M190 136 H370 A104 104 0 0 1 370 344 H190 A104 104 0 0 1 190 136Z" />
+                </g>
+                <line x1="300" y1="70" x2="300" y2="160" stroke="#ffffff" strokeWidth="4" />
+                <g>
+                  <circle r="8" fill="#ffffff">
+                    <animateMotion dur="7s" repeatCount="indefinite" path="M190 103 H370 A137 137 0 0 1 370 377 H190 A137 137 0 0 1 190 103Z" />
+                  </circle>
+                  <circle r="8" fill="#ffd0a8">
+                    <animateMotion dur="7.6s" repeatCount="indefinite" path="M190 125 H370 A115 115 0 0 1 370 355 H190 A115 115 0 0 1 190 125Z" />
+                  </circle>
+                  <circle r="8" fill="#ee8a2c">
+                    <animateMotion dur="8.3s" repeatCount="indefinite" path="M190 147 H370 A93 93 0 0 1 370 333 H190 A93 93 0 0 1 190 147Z" />
+                  </circle>
+                </g>
+                <g transform="translate(250 230)">
+                  <circle r="13" fill="#ffffff" />
+                  <path d="M-9 -9 Q0 0 -9 9 M9 -9 Q0 0 9 9" stroke="#c9472b" strokeWidth="2" fill="none">
+                    <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="3s" repeatCount="indefinite" />
+                  </path>
+                  <animateTransform attributeName="transform" type="translate" values="250 230;320 210;250 250;250 230" dur="4s" repeatCount="indefinite" />
+                </g>
+              </svg>
+              <div className="vk-scoreboard" aria-hidden="true">
+                Lap timer
+                <b>{lapText}</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. FILTERABLE 24-SPORT ARENA DIRECTORY */}
       <section className="vk-band vk-ground-paper" id="arena">
         <div className="container-site">
           <div className="vk-head">
@@ -391,24 +554,42 @@ export function KhelVidyaPage() {
             ))}
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-            {filteredSports.map((sport) => (
-              <article
-                key={sport.name}
-                className="flex flex-col justify-between rounded-xl border border-border bg-card p-5 transition-colors hover:border-navy/35"
-              >
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-xs text-muted-foreground">{CAT_LABELS[sport.cat]}</span>
-                  {sport.note && (
-                    <span className="font-mono text-xs text-muted-foreground">*</span>
-                  )}
-                </div>
-                <div className="mt-4">
-                  <h3 className="font-display text-lg font-medium text-navy">{sport.name}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-foreground">{sport.desc}</p>
-                </div>
-              </article>
-            ))}
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {filteredSports.map((sport) => {
+              const col = CAT_COLORS[sport.cat];
+              return (
+                <article
+                  key={sport.name}
+                  className="vk-fadeswap group relative flex min-h-[152px] flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-[0.18] transition-transform duration-500 group-hover:scale-x-100"
+                    style={{ backgroundColor: col }}
+                  />
+                  <div className="flex items-start justify-between gap-2">
+                    <span
+                      className="grid h-10 w-10 place-items-center rounded-xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
+                      style={{
+                        backgroundColor: `color-mix(in srgb, ${col} 14%, white)`,
+                        color: col,
+                      }}
+                    >
+                      <ArenaIcon cat={sport.cat} />
+                    </span>
+                    {sport.note && (
+                      <span className="rounded-full bg-background px-2 py-0.5 font-mono text-xs text-muted-foreground">
+                        *
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-4">
+                    <h3 className="font-display text-lg font-medium text-navy">{sport.name}</h3>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{sport.desc}</p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
             * Offered with available facilities. Schedules are confirmed by the school each term.
@@ -418,13 +599,13 @@ export function KhelVidyaPage() {
 
       <VidyaGradeFinder name="Khel Vidya" grades={GRADES} />
 
-      {/* 3. ATHLETE PATHWAY & FOUR COACHING PILLARS */}
+      {/* 4. RISING PODIUM ATHLETE PATHWAY */}
       <section className="vk-band vk-ground-paper">
         <div className="container-site">
           <div className="vk-head">
             <div>
               <p className="vk-kicker">The athlete pathway</p>
-              <h2>From first kick to student leadership</h2>
+              <h2>From first kick to the podium</h2>
             </div>
             <p className="vk-lede">
               Each stage builds on the last. Students who want to compete can climb all the way;
@@ -432,61 +613,72 @@ export function KhelVidyaPage() {
             </p>
           </div>
 
-          <ol className="grid gap-4 md:grid-cols-5">
+          <div ref={podiumReveal.ref} className={`vk-podium ${podiumReveal.inView ? "is-in" : ""}`}>
             {[
-              { step: "01", band: "Nursery – Grade 2", title: "Play", desc: "Running, balancing, throwing and catching through joyful movement games." },
-              { step: "02", band: "Grades 3 – 5", title: "Explore", desc: "A taste of every arena through PE: team games, racquets and athletics." },
-              { step: "03", band: "Grades 6 – 8", title: "Train", desc: "Children choose their sports and train in coached batches with clear skill goals." },
-              { step: "04", band: "Grades 9 – 12", title: "Compete", desc: "School teams enter inter-school competitions and tournaments." },
-              { step: "05", band: "Senior students", title: "Lead", desc: "Captains and sports leaders run warm-ups, mentor juniors and help organise Sports Day." },
+              { i: 0, h: "76px", band: "Nursery – Grade 2", title: "Play", desc: "Running, balancing, throwing and catching through joyful movement games." },
+              { i: 1, h: "130px", band: "Grades 3 – 5", title: "Explore", desc: "A taste of every arena through PE: team games, racquets and athletics." },
+              { i: 2, h: "184px", band: "Grades 6 – 8", title: "Train", desc: "Children choose their sports and train in coached batches with clear skill goals." },
+              { i: 3, h: "238px", band: "Grades 9 – 12", title: "Compete", desc: "School teams enter inter-school competitions and tournaments." },
+              { i: 4, h: "292px", band: "Senior students", title: "Lead", desc: "Captains and sports leaders run warm-ups, mentor juniors and help organise Sports Day." },
             ].map((p) => (
-              <li key={p.title} className="rounded-xl border border-border bg-card p-5">
-                <div className="flex items-baseline justify-between">
-                  <span className="font-mono text-xs tabular-nums text-muted-foreground">{p.step}</span>
-                  <span className="text-xs text-muted-foreground">{p.band}</span>
+              <div key={p.title} className="vk-pstep" style={{ ["--i" as string]: p.i }}>
+                <div className="pb-4">
+                  <small className="text-xs font-semibold" style={{ color: "var(--vt)" }}>
+                    {p.band}
+                  </small>
+                  <h3 className="mt-1 font-display text-2xl font-medium text-navy">{p.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
                 </div>
-                <h3 className="mt-3 font-display text-2xl font-medium text-navy">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground">{p.desc}</p>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-14 border-t border-border pt-14">
-            <div className="vk-head">
-              <div>
-                <p className="vk-kicker">How we coach</p>
-                <h2>Four pillars behind every match</h2>
+                <div className="blk" style={{ ["--h" as string]: p.h }}>
+                  {p.i + 1}
+                </div>
               </div>
-              <p className="vk-lede">
-                Sport at HKS is taught like any other subject: with a curriculum, qualified coaches,
-                proper spaces and real feedback.
-              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FOUR SCOREBOARD COACHING PILLARS */}
+      <section className="vk-band vk-ground-navy">
+        <div className="container-site">
+          <div className="vk-head">
+            <div>
+              <p className="vk-kicker">How we coach</p>
+              <h2>Four pillars behind every match</h2>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                ["01", "Professional coaching", "Trained coaches and regular practice sessions, grouped by age and skill."],
-                ["02", "Dedicated facilities", "Indoor and outdoor spaces where children play, train, stretch and unwind."],
-                ["03", "Inter-school fixtures", "Matches and tournaments with other schools for genuine competitive experience."],
-                ["04", "Structured PE syllabus", "Annual progression in fitness, motor skills, rules of the game and sportsmanship."],
-              ].map(([num, title, desc]) => (
-                <article key={num} className="rounded-xl border border-border bg-card p-6">
-                  <span className="font-mono text-xs tabular-nums text-muted-foreground">{num}</span>
-                  <h3 className="mt-3 font-display text-xl font-medium text-navy">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-foreground">{desc}</p>
-                </article>
-              ))}
-            </div>
+            <p className="vk-lede">
+              Sport at HKS is taught like any other subject: with a curriculum, qualified coaches,
+              proper spaces and real assessment.
+            </p>
+          </div>
+          <div ref={pillarsReveal.ref} className={`vk-reveal grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ${pillarsReveal.inView ? "is-in" : ""}`}>
+            {[
+              ["Coach", "Professional coaching & training", "Trained coaches and regular practice sessions, batch-wise by age and skill."],
+              ["Space", "Indoor & outdoor facilities", "Dedicated indoor and outdoor spaces where children play, train, stretch and unwind."],
+              ["Match", "Inter-school competitions", "Matches and tournaments with other schools that give children real competitive experience."],
+              ["PE", "Physical education curriculum", "A planned PE syllabus for each year: fitness, motor skills, rules and sportsmanship."],
+            ].map(([led, title, desc], idx) => (
+              <article
+                key={led}
+                style={{ ["--ri" as string]: idx }}
+                className="rounded-2xl border border-white/15 bg-[#0f1240] p-6 transition-colors hover:border-[#ffd27a]/60"
+              >
+                <div className="font-display text-4xl font-medium text-[#ffd27a]">{led}</div>
+                <h3 className="mt-4 font-display text-xl font-medium text-white">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/90">{desc}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <VidyaTagline
-        text="Sport teaches what no textbook can: how to win with grace, lose with courage and try again tomorrow."
+        text="Sport teaches what no textbook can: how to *win *with *grace, *lose *with *courage and *try *again *tomorrow."
         note="Every child plays. Every child learns to be a good teammate."
       />
 
-      {/* 4. CALM BREATHING EXERCISE (Quiet Interactive Wellness Moment) */}
-      <section className="vk-band vk-ground-navy">
+      {/* 6. CALM BREATHING INTERACTIVE ORB */}
+      <section className="vk-band" style={{ backgroundColor: "#1b1f5a", color: "#c5c8ea" }}>
         <div className="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div
             className={`vk-orb ${
@@ -498,31 +690,43 @@ export function KhelVidyaPage() {
             }`}
           >
             <div className="vk-orb-ring" aria-hidden="true" />
-            <div className="vk-orb-core" aria-hidden="true" />
+            <div
+              className={`vk-orb-core ${breathState === "idle" ? "is-idle" : ""}`}
+              aria-hidden="true"
+            />
             <div className="absolute text-center" aria-live="polite">
-              <span className="block font-display text-2xl font-medium text-card">{breathLabel}</span>
-              <span className="mt-1 block font-mono text-xs text-navy-foreground/70">
+              <span className="block font-display text-2xl font-medium text-white drop-shadow">
+                {breathLabel}
+              </span>
+              <span className="mt-1 block font-mono text-xs text-white/75">
                 4s in · 4s hold · 4s out
               </span>
             </div>
           </div>
 
           <div>
-            <p className="vk-kicker">Wellness in Khel Vidya</p>
-            <h2 className="font-display text-3xl font-medium text-card md:text-4xl">
+            <p className="vk-kicker" style={{ color: "#ffd27a" }}>Wellness in Khel Vidya</p>
+            <h2 className="font-display text-3xl font-medium text-white md:text-4xl">
               Strong bodies, calm minds
             </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-navy-foreground/80">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/90">
               Fitness is only half the story. Yoga builds strength and flexibility, meditation gives
               children quiet time to focus, and aerobics and dance keep movement joyful.
             </p>
-            <p className="mt-4 font-mono text-xs text-navy-foreground/70">
-              Yoga · Meditation · Aerobics · Dance &amp; movement · Martial arts
-            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["Yoga", "Meditation", "Aerobics", "Dance & movement", "Martial arts"].map((w) => (
+                <span
+                  key={w}
+                  className="rounded-lg border border-white/25 px-3 py-1.5 text-xs font-medium text-white"
+                >
+                  {w}
+                </span>
+              ))}
+            </div>
             <Button
               type="button"
               onClick={toggleBreathing}
-              className="mt-7 h-11 rounded-lg px-6 text-sm font-medium"
+              className="mt-7 h-11 rounded-lg bg-[#ee8a2c] px-6 text-sm font-medium text-white hover:bg-[#ffd27a] hover:text-[#1b1f5a]"
             >
               {breathState === "idle"
                 ? "Try one minute of calm breathing"
@@ -534,8 +738,8 @@ export function KhelVidyaPage() {
         </div>
       </section>
 
-      {/* 5. SAMPLE WEEK HORIZONTAL SCROLLER */}
-      <section className="vk-band border-b border-border bg-card" aria-label="A sample week in Khel Vidya">
+      {/* 7. SAMPLE WEEK SCROLLER */}
+      <section className="vk-band vk-ground-cream border-b border-border" aria-label="A sample week in Khel Vidya">
         <div className="container-site">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -575,46 +779,40 @@ export function KhelVidyaPage() {
             {WEEK_SCHEDULE.map((w) => (
               <article
                 key={w.day}
-                className={`flex min-h-[300px] flex-col gap-4 rounded-xl border p-5 ${
+                className={`flex min-h-[300px] flex-col gap-4 rounded-2xl border p-5 ${
                   w.sat
-                    ? "border-navy bg-navy text-card"
-                    : "border-border bg-background text-foreground"
+                    ? "border-[#d9482b] bg-[#d9482b] text-white"
+                    : "border-border bg-card text-foreground"
                 }`}
               >
                 <h3
                   className={`flex items-baseline justify-between font-display text-xl font-medium ${
-                    w.sat ? "text-card" : "text-navy"
+                    w.sat ? "text-white" : "text-navy"
                   }`}
                 >
                   <span>{w.day}</span>
-                  {w.tag && (
-                    <small className="font-mono text-xs text-gold">{w.tag}</small>
-                  )}
+                  {w.tag && <small className="font-mono text-xs text-white/90">{w.tag}</small>}
                 </h3>
                 <ol className="space-y-3">
                   {w.rows.map(([time, title, note]) => (
                     <li
                       key={`${w.day}-${title}`}
-                      className={`grid grid-cols-[80px_1fr] gap-3 border-t pt-3 ${
-                        w.sat ? "border-white/20" : "border-border"
+                      className={`grid grid-cols-[78px_1fr] gap-3 border-t pt-3 ${
+                        w.sat ? "border-white/25" : "border-border"
                       }`}
                     >
                       <time
                         className={`font-mono text-xs ${
-                          w.sat ? "text-gold" : "text-muted-foreground"
+                          w.sat ? "text-white/85" : "text-muted-foreground"
                         }`}
                       >
                         {time}
                       </time>
                       <div>
-                        <b className={`block text-sm font-medium ${w.sat ? "text-card" : "text-navy"}`}>
+                        <b className={`block text-sm font-medium ${w.sat ? "text-white" : "text-navy"}`}>
                           {title}
                         </b>
-                        <span
-                          className={`text-xs ${
-                            w.sat ? "text-card/80" : "text-muted-foreground"
-                          }`}
-                        >
+                        <span className={`text-xs ${w.sat ? "text-white/85" : "text-muted-foreground"}`}>
                           {note}
                         </span>
                       </div>
@@ -627,63 +825,77 @@ export function KhelVidyaPage() {
         </div>
       </section>
 
-      {/* 6. SPORTS DAY PROGRAMME & DOCUMENTARY PHOTO */}
+      {/* 8. SPORTS DAY ANIMATED SCROLL-LINKED LANES */}
       <section className="vk-band vk-ground-paper">
-        <div className="container-site grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-7">
-            <p className="vk-kicker">The big day</p>
-            <h2 className="font-display text-3xl font-medium text-navy md:text-4xl">
-              Sports Day, lane by lane
-            </h2>
-            <p className="mt-3 text-base text-foreground">
-              Our yearly celebration of races, games and team spirit across every house.
+        <div className="container-site">
+          <div className="vk-head">
+            <div>
+              <p className="vk-kicker">The big day</p>
+              <h2>Sports Day, lane by lane</h2>
+            </div>
+            <p className="vk-lede">
+              Our yearly celebration of races, games and team spirit. Scroll and watch the runners
+              move down the lanes.
             </p>
-            <ol className="mt-6 divide-y divide-border rounded-xl border border-border bg-card">
-              {[
-                ["01", "Opening", "March past", "Houses parade with flags, the torch is lit and the sports oath is taken."],
-                ["02", "Track", "Races & relays", "Sprints, hurdles and relays for every age group, from tiny-tot races upwards."],
-                ["03", "Field", "Jumps & throws", "Long jump, high jump and throws for older students."],
-                ["04", "Display", "Yoga, drill & dance", "Whole-class displays showcasing months of practice."],
-                ["05", "Finale", "Prize-giving", "Medals, house trophy and recognition for every participant."],
-              ].map(([n, k, title, desc]) => (
-                <li key={n} className="grid gap-2 px-5 py-4 sm:grid-cols-[44px_140px_1fr] sm:items-baseline">
-                  <span className="font-mono text-xs tabular-nums text-muted-foreground">{n}</span>
-                  <div>
-                    <span className="block text-xs text-muted-foreground">{k}</span>
-                    <b className="font-display text-base font-medium text-navy">{title}</b>
-                  </div>
-                  <p className="text-sm text-foreground">{desc}</p>
-                </li>
-              ))}
-            </ol>
           </div>
 
-          <div className="space-y-5 lg:col-span-5">
-            <figure>
-              <div className="overflow-hidden rounded-xl border border-border bg-card">
-                <img
-                  src={khel4}
-                  alt="Students passing a relay baton during athletics training at HKS"
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover object-top"
-                />
-              </div>
-              <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-xs text-muted-foreground">
-                <span>Track relays and house athletics on campus</span>
-                <span className="shrink-0 font-mono tabular-nums">Plate 02</span>
-              </figcaption>
-            </figure>
+          <div ref={lanesRef} className="vk-lanes">
+            {SPORTS_DAY_LANES.map((lane) => {
+              const pct = Math.min(94, Math.round(laneProgress * lane.speed * 94));
+              return (
+                <div key={lane.title} className="vk-lane-row">
+                  <div>
+                    <small className="block text-xs font-semibold text-white/80">{lane.tag}</small>
+                    <b className="font-display text-xl font-medium text-white">{lane.title}</b>
+                  </div>
+                  <p className="text-sm text-white/90">{lane.desc}</p>
+                  <i
+                    className="vk-runner"
+                    aria-hidden="true"
+                    style={{ left: `calc(12px + ${pct}% * 0.92)` }}
+                  />
+                </div>
+              );
+            })}
+          </div>
 
-            <div className="rounded-xl border border-border bg-card p-5">
-              <p className="text-xs font-medium text-muted-foreground">Beyond the school day</p>
-              <h3 className="mt-1 font-display text-xl font-medium text-navy">
-                After-school coaching &amp; holiday camps
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <article className="rounded-2xl border border-border bg-card p-6">
+              <span className="rounded-md bg-[#fff3e3] px-2.5 py-1 text-xs font-medium text-[#c4631a]">
+                Optional batches
+              </span>
+              <h3 className="mt-3 font-display text-2xl font-medium text-navy">
+                After-school coaching
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-foreground">
-                Optional batch-wise coaching (Cricket, Football, Basketball, Badminton, Skating,
-                Swimming) and summer/winter multi-sport camps run outside regular hours.
+              <p className="mt-2 text-sm text-foreground">
+                Batch-wise coaching by age and skill level, with regular practice and match play.
               </p>
-            </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["Cricket", "Football", "Basketball", "Badminton", "Skating", "Swimming"].map((s) => (
+                  <span key={s} className="rounded-lg border border-border bg-background px-3 py-1 text-xs font-medium text-navy">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </article>
+            <article className="rounded-2xl bg-ink p-6 text-white">
+              <span className="rounded-md bg-white/10 px-2.5 py-1 text-xs font-medium text-gold">
+                Holiday programmes
+              </span>
+              <h3 className="mt-3 font-display text-2xl font-medium text-white">
+                Summer and winter camps
+              </h3>
+              <p className="mt-2 text-sm text-[#c5c8ea]">
+                Holiday camps that keep children active and learning a new sport during school breaks.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["Multi-sport", "Athletics", "Skating", "Yoga", "Martial arts"].map((s) => (
+                  <span key={s} className="rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </article>
           </div>
         </div>
       </section>

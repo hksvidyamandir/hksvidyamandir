@@ -2,6 +2,8 @@
 @source "../src";
 @import "tw-animate-css";
 @import "./styles/vidya.css";
+@import "./styles/academics.css";
+@import "./styles/cocurricular.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -1785,4 +1787,158 @@ h3 em,
 }
 .final-dot {
   animation: none !important;
+}
+
+/* =========================================================================
+   Site-Wide Mobile Responsiveness Layer (320px to 1024px)
+   Zero horizontal overflow, clean grid stacking, touch-friendly controls.
+   ========================================================================= */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+main {
+  overflow-x: clip;
+}
+
+@media (max-width: 767px) {
+  /* Hero Film: stack bottom CTAs cleanly without crowding */
+  .home-hero-content {
+    min-height: 540px !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+  .home-film-caption .home-hero-script {
+    font-size: clamp(28px, 8.5vw, 38px) !important;
+    line-height: 1.15 !important;
+  }
+  .home-hero-bottom {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .home-visit,
+  .home-hero-bottom .home-action {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .home-slide-controls {
+    justify-content: center !important;
+    margin-left: 0 !important;
+  }
+
+  /* Quick Links band: 2x2 grid on phones instead of squished 4 columns */
+  .qk-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .hks-home .qk-tile {
+    min-height: 148px !important;
+    padding: 12px 6px 18px !important;
+    gap: 14px !important;
+  }
+  .qk-title {
+    font-size: 18px !important;
+  }
+
+  /* Events & Celebration panel: clean padding & readable heading scale */
+  .evc-panel {
+    padding: 22px 16px !important;
+    gap: 22px !important;
+  }
+  .evc-panel::before {
+    display: none !important;
+  }
+  .evc-copy h3 {
+    font-size: clamp(24px, 7vw, 32px) !important;
+    margin-top: 14px !important;
+  }
+  .evc-copy p {
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+  }
+  .evc-event-tabs {
+    scrollbar-width: none;
+  }
+  .evc-event-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Pillars & Curriculum showcase: clean vertical stacking on mobile */
+  .curr-track {
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 12px !important;
+  }
+  .curr-card {
+    flex: none !important;
+    min-height: 88px !important;
+    border-radius: 14px !important;
+  }
+  .curr-card.is-active {
+    min-height: 300px !important;
+  }
+  .curr-card:not(.is-active) h3 {
+    writing-mode: horizontal-tb !important;
+    rotate: 0deg !important;
+    font-size: 18px !important;
+    margin: 0 !important;
+  }
+  .curr-nav {
+    display: none !important;
+  }
+
+  /* Experience stories carousel: give cards room on narrow screens */
+  .experience-carousel {
+    padding: 12px 36px 0 !important;
+  }
+  .experience-quote {
+    min-height: 220px !important;
+    padding: 18px 16px 24px !important;
+  }
+
+  /* Testimonials header & controls */
+  .tst-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  /* Beyond classroom tabs */
+  .bey-tabs {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  .bey-tab {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 10px 10px !important;
+    font-size: 13px !important;
+  }
+
+  /* Offers cards grid */
+  .val-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .val-card {
+    padding: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .evc-tabs {
+    height: 48px !important;
+  }
+  .evc-folders {
+    padding-top: 48px !important;
+  }
+  .evc-tab {
+    height: 48px !important;
+    font-size: 12px !important;
+    gap: 6px !important;
+  }
 }
